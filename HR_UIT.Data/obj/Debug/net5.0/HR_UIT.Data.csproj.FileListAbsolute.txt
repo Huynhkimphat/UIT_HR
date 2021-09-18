@@ -1,0 +1,12 @@
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\obj\Debug\net5.0\HR_UIT.Data.csproj.AssemblyReference.cache
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\obj\Debug\net5.0\HR_UIT.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\obj\Debug\net5.0\HR_UIT.Data.AssemblyInfoInputs.cache
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\obj\Debug\net5.0\HR_UIT.Data.AssemblyInfo.cs
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\obj\Debug\net5.0\HR_UIT.Data.csproj.CoreCompileInputs.cache
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\bin\Debug\net5.0\HR_UIT.Data.deps.json
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\bin\Debug\net5.0\HR_UIT.Data.dll
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\bin\Debug\net5.0\ref\HR_UIT.Data.dll
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\bin\Debug\net5.0\HR_UIT.Data.pdb
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\obj\Debug\net5.0\HR_UIT.Data.dll
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\obj\Debug\net5.0\ref\HR_UIT.Data.dll
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Data\obj\Debug\net5.0\HR_UIT.Data.pdb

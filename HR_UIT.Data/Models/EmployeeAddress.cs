@@ -17,8 +17,8 @@ namespace HR_UIT.Data.Models
 
         [MaxLength(100)] public string Country { get; set; }
         
-        public DateTime CreateOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public DateTime UpdateOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
     }
 }

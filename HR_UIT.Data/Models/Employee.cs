@@ -21,9 +21,9 @@ namespace HR_UIT.Data.Models
         
         public EmployeeType PrimaryRole { get; set; }
 
-        public DateTime CreateOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public DateTime UpdateOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
         
         public bool IsAchieved { get; set; }
     }

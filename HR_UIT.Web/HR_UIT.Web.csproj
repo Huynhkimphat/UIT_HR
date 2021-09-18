@@ -28,4 +28,8 @@
     <ProjectReference Include="..\HR_UIT.Test\HR_UIT.Test.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers" />
+  </ItemGroup>
+
 </Project>

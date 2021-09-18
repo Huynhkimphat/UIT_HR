@@ -144,3 +144,10 @@ D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\HR_UIT.Test.dll
 D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\HR_UIT.Data.pdb
 D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\HR_UIT.Services.pdb
 D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\HR_UIT.Test.pdb
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\CODE\IS220\Project\HR_UIT\HR_UIT.Web\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll

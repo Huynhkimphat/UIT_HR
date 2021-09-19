@@ -7,7 +7,7 @@ namespace HR_UIT.Data.Models
     {
         public int Id { get; set; }
 
-        public SalaryDetails PrimarySalaryDetails { get; set; }
+        public SalaryDetail PrimarySalaryDetail { get; set; }
 
         public int Month { get; set; }
 

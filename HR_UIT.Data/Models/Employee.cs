@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace HR_UIT.Data.Models
@@ -19,19 +20,17 @@ namespace HR_UIT.Data.Models
         
         public EmployeeAddress PrimaryAddress { get;set;}
         
-        public EmployeeType PrimaryRole { get; set; }
-
         public EmployeeAccount PrimaryAccount { get; set; }
 
-        public EmployeeAttendance PrimaryAttendance { get; set; }
+        public List<EmployeeAttendance> EmployeeAttendances { get; set; }
 
-        public EmployeeDayOff_Letter PrimaryDayOff_Letter { get; set; }
+        public EmployeeDayOff PrimaryDayOff { get; set; }
 
-        public EmployeeDayoff PrimaryDayOff { get; set; }
+        public List<EmployeeDayOff_Letter> PrimaryDayOff_Letters { get; set; }
 
-        public EmployeeSalary PrimarySalary { get; set; }
+        public List<EmployeeSalary> PrimarySalaries { get; set; }
 
-        public Holiday_Create EmployeeHoliday_Create { get; set;}
+        public List<Holiday_Create> EmployeeHoliday_Creates { get; set;}
 
         public DateTime CreatedOn { get; set; }
 

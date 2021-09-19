@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HR_UIT.Data.Models
 {
-    public class SalaryDetails
+    public class SalaryDetail
     {
         public int Id { get; set; }
 

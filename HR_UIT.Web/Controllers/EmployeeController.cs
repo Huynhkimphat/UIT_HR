@@ -33,7 +33,7 @@ namespace HR_UIT.Web.Controllers
                     DateOfBirth = employee.DateOfBirth,
                     PhoneNumber = employee.PhoneNumber,
                     IdentityCard = employee.IdentityCard,
-                    PrimaryAddress = EmployeeMapper.MapCustomerAddress(employee.PrimaryAddress),
+                    // PrimaryAddress = EmployeeMapper.MapCustomerAddress(employee.PrimaryAddress),
                     CreateOn = employee.CreatedOn,
                     UpdateOn = employee.UpdatedOn,
                     IsArchived=employee.IsArchived,

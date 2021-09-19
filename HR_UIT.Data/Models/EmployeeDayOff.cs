@@ -1,12 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HR_UIT.Data.Models
 {
-    public class EmployeeType
+    public class EmployeeDayOff
     {
-        public int Id {get;set;}
-        
-        public string Name { get; set; }
+        public int Id { get; set; }
+
+        public int DayOffAmmount { get; set; }
         
         public DateTime CreatedOn { get; set; }
 

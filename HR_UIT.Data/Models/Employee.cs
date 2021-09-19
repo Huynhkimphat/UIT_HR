@@ -21,10 +21,22 @@ namespace HR_UIT.Data.Models
         
         public EmployeeType PrimaryRole { get; set; }
 
-        public DateTime CreateOn { get; set; }
+        public EmployeeAccount PrimaryAccount { get; set; }
 
-        public DateTime UpdateOn { get; set; }
+        public EmployeeAttendance PrimaryAttendance { get; set; }
+
+        public EmployeeDayOff_Letter PrimaryDayOff_Letter { get; set; }
+
+        public EmployeeDayoff PrimaryDayOff { get; set; }
+
+        public EmployeeSalary PrimarySalary { get; set; }
+
+        public Holiday_Create EmployeeHoliday_Create { get; set;}
+
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime UpdatedOn { get; set; }
         
-        public bool IsAchieved { get; set; }
+        public bool IsArchived { get; set; }
     }
 }

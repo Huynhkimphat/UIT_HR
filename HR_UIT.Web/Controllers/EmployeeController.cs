@@ -43,6 +43,8 @@ namespace HR_UIT.Web.Controllers
             return Ok(employeeModels);
         }
         
+        
+        
         [HttpPatch("/api/employee/delete/{employeeId}")]
         public ActionResult DeleteEmployee(int employeeId)
         {

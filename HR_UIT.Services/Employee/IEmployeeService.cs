@@ -6,6 +6,8 @@ namespace HR_UIT.Services
     {
         List<Data.Models.Employee> GetAllEmployees();
         
+        List<Data.Models.Employee> GetAllEmployeesVisible();
+        
         ServiceResponse<Data.Models.Employee>
             CreateEmployee(
                 Data.Models.Employee employee

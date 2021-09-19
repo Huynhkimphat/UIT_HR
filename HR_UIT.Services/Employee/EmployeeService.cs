@@ -25,12 +25,24 @@ namespace HR_UIT.Services
             return _db
                 .Employees
                 .Include(employee => employee.PrimaryAddress)
+                // .Include(employee => employee.PrimaryAccount)
+                // .Include(employee => employee.PrimaryDayOff)
+                .OrderBy(employee => employee.Id)
+                .ToList();
+        }
+
+        public List<Employee> GetAllEmployeesVisible()
+        {
+            return _db
+                .Employees
+                .Include(employee => employee.PrimaryAddress)
                 .Where(employee => !employee.IsArchived)
                 // .Include(employee => employee.PrimaryAccount)
                 // .Include(employee => employee.PrimaryDayOff)
                 .OrderBy(employee => employee.Id)
                 .ToList();
         }
+
 
         public ServiceResponse<Employee> CreateEmployee(Employee employee)
         {

@@ -7,7 +7,7 @@ namespace HR_UIT.Data.Models
     {
         public int Id { get; set; }
 
-        public int EmployeeId { get; set; }
+        public SalaryDetails PrimarySalaryDetails { get; set; }
 
         public int Month { get; set; }
 
@@ -21,6 +21,6 @@ namespace HR_UIT.Data.Models
 
         public DateTime UpdatedOn { get; set; }
         
-        public bool IsAchieved { get; set; }
+        public bool IsArchived { get; set; }
     }
 }

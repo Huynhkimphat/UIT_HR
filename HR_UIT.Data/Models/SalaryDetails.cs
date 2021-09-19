@@ -7,8 +7,6 @@ namespace HR_UIT.Data.Models
     {
         public int Id { get; set; }
 
-        public int SalaryId { get; set; }
-
         public int EstimatedSalary { get; set; }
 
         public int EstimatedDayWorking { get; set; }
@@ -27,6 +25,6 @@ namespace HR_UIT.Data.Models
 
         public DateTime UpdatedOn { get; set; }
         
-        public bool IsAchieved { get; set; }
+        public bool IsArchived { get; set; }
     }
 }

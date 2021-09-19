@@ -7,9 +7,9 @@ namespace HR_UIT.Data.Models
     {
         public int Id { get; set; }
 
-        public int EmployeeId { get; set; }
+        public DateTime FromDate { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime ToDate { get; set; }
 
         public bool IsProgressing { get; set; }
 
@@ -19,6 +19,6 @@ namespace HR_UIT.Data.Models
 
         public DateTime UpdatedOn { get; set; }
         
-        public bool IsAchieved { get; set; }
+        public bool IsArchived { get; set; }
     }
 }

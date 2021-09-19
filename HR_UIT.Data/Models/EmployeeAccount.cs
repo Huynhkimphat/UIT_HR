@@ -7,8 +7,6 @@ namespace HR_UIT.Data.Models
     {
         public int Id { get; set; }
 
-        public int EmployeeId { get; set; }
-
         public string Email { get; set; }
         
         public string Password { get; set; }
@@ -17,6 +15,6 @@ namespace HR_UIT.Data.Models
 
         public DateTime UpdatedOn { get; set; }
         
-        public bool IsAchieved { get; set; }
+        public bool IsArchived { get; set; }
     }
 }

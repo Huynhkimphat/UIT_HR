@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HR_UIT.Data;
+using HR_UIT.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -48,7 +49,7 @@ namespace HR_UIT.Web
                             .GetConnectionString("hr.uit.dev"));
                 });
 
-            // services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
 
             services.AddSwaggerGen(c =>
             {

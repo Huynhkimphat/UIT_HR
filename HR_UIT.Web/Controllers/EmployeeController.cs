@@ -42,5 +42,13 @@ namespace HR_UIT.Web.Controllers
                 .ToList();
             return Ok(employeeModels);
         }
+        
+        [HttpPatch("/api/employee/delete/{employeeId}")]
+        public ActionResult DeleteEmployee(int employeeId)
+        {
+            _logger.LogInformation($"Deleting Employee {employeeId} Complete... ");
+            var response = _employeeService.DeleteEmployee(employeeId);
+            return Ok(response);
+        }
     }
 }

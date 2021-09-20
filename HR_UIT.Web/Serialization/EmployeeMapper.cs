@@ -11,7 +11,7 @@ namespace HR_UIT.Web.Serialization
         /// <param name="address"></param>
         /// <returns></returns>
         public static EmployeeAddressModel
-            MapCustomerAddress(EmployeeAddress address)
+            MapEmployeeAddress(EmployeeAddress address)
         {
             return new EmployeeAddressModel
             {
@@ -32,7 +32,7 @@ namespace HR_UIT.Web.Serialization
         /// <param name="address"></param>
         /// <returns></returns>
         private static EmployeeAddress
-            MapCustomerAddress(EmployeeAddressModel address)
+            MapEmployeeAddress(EmployeeAddressModel address)
         {
             return new EmployeeAddress
             {

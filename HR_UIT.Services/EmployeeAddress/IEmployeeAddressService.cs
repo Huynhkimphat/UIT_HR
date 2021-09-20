@@ -4,13 +4,15 @@ namespace HR_UIT.Services.EmployeeAddress
 {
     public interface IEmployeeAddressService
     {
-        List<Data.Models.EmployeeAddress> GetEmployeeAddress(int id);
+        List<Data.Models.EmployeeAddress> GetEmployeeAddresses();
         
         ServiceResponse<Data.Models.EmployeeAddress>
             CreateEmployeeAddress(
                 Data.Models.EmployeeAddress employeeAddress
             );
         
-        Data.Models.Employee GetEmployeeById(int id);
+        Data.Models.EmployeeAddress GetEmployeeAddressById(int id);
+        
+        ServiceResponse<Data.Models.EmployeeAddress> UpdateEmployeeAddress(Data.Models.EmployeeAddress employeeAddress);
     }
 }

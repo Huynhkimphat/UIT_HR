@@ -15,7 +15,7 @@ namespace HR_UIT.Services.EmployeeAccount
             _db = dbContext;
         }
 
-        public List<Data.Models.EmployeeAccount> GetAllAccount()
+        public List<Data.Models.EmployeeAccount> GetAllAccounts()
         {
             return _db
                 .EmployeeAccounts

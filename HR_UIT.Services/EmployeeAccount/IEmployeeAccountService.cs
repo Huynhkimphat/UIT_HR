@@ -2,10 +2,9 @@
 
 namespace HR_UIT.Services.EmployeeAccount
 {
-    public interface IEmployeeAccount
+    public interface IEmployeeAccountService
     {
-        // List<Data.Models.EmployeeAccount> GetAllAccount();
-        //
+        List<Data.Models.EmployeeAccount> GetAllAccount();
         // List<Data.Models.EmployeeAccount> GetAllEmployeesVisible();
         
         Data.Models.EmployeeAccount GetEmployeeAccountById(int id);
@@ -13,12 +12,12 @@ namespace HR_UIT.Services.EmployeeAccount
         
         ServiceResponse<Data.Models.EmployeeAccount>
             CreateEmployeeAccount(
-                Data.Models.Employee employee
+                Data.Models.EmployeeAccount employeeAccount
             );
 
-        ServiceResponse<Data.Models.Employee>
+        ServiceResponse<Data.Models.EmployeeAccount>
             ChangeEmployeeAccountPassword(
-                int id
+                int id,string newPassword
             );
         
         ServiceResponse<bool> DeleteEmployeeAccount(int id);

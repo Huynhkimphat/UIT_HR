@@ -4,8 +4,9 @@ using HR_UIT.Data;
 using HR_UIT.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using HR_UIT.Services.Employee;
 
-namespace HR_UIT.Services
+namespace HR_UIT.Services.Employee
 {
     public class EmployeeService : IEmployeeService
     {
@@ -20,7 +21,7 @@ namespace HR_UIT.Services
         /// Return a list of Employees from database 
         /// </summary>
         /// <returns></returns>
-        public List<Employee> GetAllEmployees()
+        public List<Data.Models.Employee> GetAllEmployees()
         {
             return _db
                 .Employees
@@ -31,7 +32,7 @@ namespace HR_UIT.Services
                 .ToList();
         }
 
-        public List<Employee> GetAllEmployeesVisible()
+        public List<Data.Models.Employee> GetAllEmployeesVisible()
         {
             return _db
                 .Employees
@@ -44,7 +45,7 @@ namespace HR_UIT.Services
         }
 
 
-        public ServiceResponse<Employee> CreateEmployee(Employee employee)
+        public ServiceResponse<Data.Models.Employee> CreateEmployee(Data.Models.Employee employee)
         {
             var now = DateTime.UtcNow;
             try
@@ -71,6 +72,34 @@ namespace HR_UIT.Services
             }
         }
 
+        public ServiceResponse<Data.Models.Employee> UpdateEmployee(Data.Models.Employee employee)
+        {
+            var now = DateTime.UtcNow;
+            try
+            {
+                _db.Employees.Update(employee);
+                _db.SaveChanges();
+                return new ServiceResponse<Data.Models.Employee>
+                {
+                    Data = employee,
+                    Time = now,
+                    Message = $"Employee {employee.Id}  Updated!",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<Data.Models.Employee>
+                {
+                    Data = null,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+
+        }
+
         public ServiceResponse<bool> DeleteEmployee(int id)
         {
             var now = DateTime.UtcNow;
@@ -93,7 +122,7 @@ namespace HR_UIT.Services
                 {
                     Data = true,
                     Time = now,
-                    Message = "Customer Archived",
+                    Message = "Employee Archived",
                     IsSuccess = true
                 };
             }
@@ -109,9 +138,9 @@ namespace HR_UIT.Services
             }
         }
 
-        public Employee GetEmployeeById(int id)
+        public Data.Models.Employee GetEmployeeById(int id)
         {
-            throw new System.NotImplementedException();
+            return _db.Employees.Find(id);
         }
     }
 }

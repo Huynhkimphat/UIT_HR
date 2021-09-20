@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using HR_UIT.Services;
+using HR_UIT.Services.Employee;
 using HR_UIT.Web.Serialization;
 using HR_UIT.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -72,6 +72,14 @@ namespace HR_UIT.Web.Controllers
         {
             _logger.LogInformation($"Deleting Employee {employeeId} Complete... ");
             var response = _employeeService.DeleteEmployee(employeeId);
+            return Ok(response);
+        }
+
+        [HttpGet("/api/employee/{employeeId}")]
+        public ActionResult GetEmployeeById(int employeeId)
+        {
+            _logger.LogInformation($"Getting information of Employee {employeeId} Complete... ");
+            var response = _employeeService.GetEmployeeById(employeeId);
             return Ok(response);
         }
     }

@@ -11,7 +11,6 @@ namespace HR_UIT.Services.EmployeeAddress
                 Data.Models.EmployeeAddress employeeAddress
             );
         
-        
         Data.Models.Employee GetEmployeeById(int id);
     }
 }

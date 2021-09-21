@@ -31,7 +31,11 @@ namespace HR_UIT.Services.Employee
                 .OrderBy(employee => employee.Id)
                 .ToList();
         }
-
+        
+        /// <summary>
+        /// Return a List of Employees from database which still available
+        /// </summary>
+        /// <returns></returns>
         public List<Data.Models.Employee> GetAllEmployeesVisible()
         {
             return _db
@@ -43,8 +47,12 @@ namespace HR_UIT.Services.Employee
                 .OrderBy(employee => employee.Id)
                 .ToList();
         }
-
-
+        
+        /// <summary>
+        /// Create new Employee
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.Employee> CreateEmployee(Data.Models.Employee employee)
         {
             var now = DateTime.UtcNow;
@@ -71,7 +79,12 @@ namespace HR_UIT.Services.Employee
                 };
             }
         }
-
+        
+        /// <summary>
+        /// Update Employee 
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.Employee> UpdateEmployee(Data.Models.Employee employee)
         {
             var now = DateTime.UtcNow;
@@ -99,7 +112,12 @@ namespace HR_UIT.Services.Employee
             }
 
         }
-
+        
+        /// <summary>
+        /// Delete an Employee with given Id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ServiceResponse<bool> DeleteEmployee(int id)
         {
             var now = DateTime.UtcNow;

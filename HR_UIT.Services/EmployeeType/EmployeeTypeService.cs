@@ -7,12 +7,16 @@ namespace HR_UIT.Services.EmployeeType
     public class EmployeeTypeService:IEmployeeTypeService
     {
         private readonly HrUitDbContext _db;
-
+        
         public EmployeeTypeService(HrUitDbContext dbContext)
         {
             _db = dbContext;
         }
         
+        /// <summary>
+        /// Return a list of EmployeeType
+        /// </summary>
+        /// <returns></returns>
         public List<Data.Models.EmployeeType> GetAlEmployeeTypes()
         {
             return _db.EmployeeTypes
@@ -20,11 +24,21 @@ namespace HR_UIT.Services.EmployeeType
                 .ToList();
         }
 
+        /// <summary>
+        /// Get Type By a Given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Data.Models.EmployeeType GetTypeById(int id)
         {
             return _db.EmployeeTypes.Find(id);
         }
 
+        /// <summary>
+        /// Create New EmployeeType
+        /// </summary>
+        /// <param name="employeeType"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.EmployeeType> 
             CreateEmployeeType(
                 Data.Models.EmployeeType employeeType
@@ -55,6 +69,12 @@ namespace HR_UIT.Services.EmployeeType
             }
         }
         
+        /// <summary>
+        /// Update EmployeeType's Name By Given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.EmployeeType> 
             UpdateEmployeeTypeName(
                 int id, string typeName
@@ -98,6 +118,11 @@ namespace HR_UIT.Services.EmployeeType
             }
         }
         
+        /// <summary>
+        /// Delete EmployeeType By Given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ServiceResponse<bool> DeleteEmployeeType(int id)
         {
             var now =DateTime.UtcNow;

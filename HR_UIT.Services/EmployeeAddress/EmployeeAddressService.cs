@@ -14,6 +14,10 @@ namespace HR_UIT.Services.EmployeeAddress
             _db = dbContext;
         }
         
+        /// <summary>
+        /// Get a List of EmployeeAddress from database
+        /// </summary>
+        /// <returns></returns>
         public List<Data.Models.EmployeeAddress> GetEmployeeAddresses()
         {
             return _db.EmployeeAddresses
@@ -21,6 +25,12 @@ namespace HR_UIT.Services.EmployeeAddress
                 .ToList();
         }
 
+        
+        /// <summary>
+        /// Create new employeeAddress
+        /// </summary>
+        /// <param name="employeeAddress"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.EmployeeAddress> 
             CreateEmployeeAddress(Data.Models.EmployeeAddress employeeAddress)
         {
@@ -50,11 +60,23 @@ namespace HR_UIT.Services.EmployeeAddress
                 
         }
 
+        
+        /// <summary>
+        /// Get EmployeeAddress By Given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Data.Models.EmployeeAddress GetEmployeeAddressById(int id)
         {
             return _db.EmployeeAddresses.Find(id);
 
         }
+        
+        /// <summary>
+        /// Update An EmployeeAddress 
+        /// </summary>
+        /// <param name="employeeAddress"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.EmployeeAddress> UpdateEmployeeAddress(Data.Models.EmployeeAddress employeeAddress)
         {
             var now = DateTime.UtcNow;

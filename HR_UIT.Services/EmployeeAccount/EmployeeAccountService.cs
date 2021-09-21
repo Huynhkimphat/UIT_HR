@@ -15,6 +15,10 @@ namespace HR_UIT.Services.EmployeeAccount
             _db = dbContext;
         }
 
+        /// <summary>
+        /// Get a List of Accounts from database
+        /// </summary>
+        /// <returns></returns>
         public List<Data.Models.EmployeeAccount> GetAllAccounts()
         {
             return _db
@@ -22,12 +26,22 @@ namespace HR_UIT.Services.EmployeeAccount
                 .OrderBy(employeeAccount => employeeAccount.Id)
                 .ToList();
         }
-
+        
+        /// <summary>
+        /// Get an Account from database with the given Id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Data.Models.EmployeeAccount GetEmployeeAccountById(int id)
         {
             return _db.EmployeeAccounts.Find(id);
         }
 
+        /// <summary>
+        /// Create new EmployeeAccount
+        /// </summary>
+        /// <param name="employeeAccount"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.EmployeeAccount> CreateEmployeeAccount(Data.Models.EmployeeAccount employeeAccount)
         {
             var now = DateTime.UtcNow;
@@ -54,7 +68,13 @@ namespace HR_UIT.Services.EmployeeAccount
                 };
             }
         }
-
+        
+        /// <summary>
+        /// Change Account Password with given AccountId 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.EmployeeAccount> ChangeEmployeeAccountPassword(int id,string newPassword)
         {
             var now = DateTime.UtcNow;
@@ -93,7 +113,12 @@ namespace HR_UIT.Services.EmployeeAccount
                 };
             }
         }
-
+        
+        /// <summary>
+        /// Delete an Account with the given AccountId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ServiceResponse<bool> DeleteEmployeeAccount(int id)
         {
             var now = DateTime.UtcNow;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using HR_UIT.Data.Models;
 
 namespace HR_UIT.Web.ViewModels
 {
@@ -32,9 +31,9 @@ namespace HR_UIT.Web.ViewModels
         //
         // public List<Holiday_Create> EmployeeHoliday_Creates { get; set;}
 
-        public DateTime CreateOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public DateTime UpdateOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
 
         public bool IsArchived { get; set; }
     }

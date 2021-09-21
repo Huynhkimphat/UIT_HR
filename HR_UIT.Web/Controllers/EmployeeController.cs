@@ -34,8 +34,8 @@ namespace HR_UIT.Web.Controllers
                     PhoneNumber = employee.PhoneNumber,
                     IdentityCard = employee.IdentityCard,
                     PrimaryAddress = EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress),
-                    CreateOn = employee.CreatedOn,
-                    UpdateOn = employee.UpdatedOn,
+                    CreatedOn = employee.CreatedOn,
+                    UpdatedOn = employee.UpdatedOn,
                     IsArchived=employee.IsArchived,
                 })
                 .OrderByDescending(employee => employee.Id)
@@ -58,8 +58,8 @@ namespace HR_UIT.Web.Controllers
                     PhoneNumber = employee.PhoneNumber,
                     IdentityCard = employee.IdentityCard,
                     PrimaryAddress = EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress),
-                    CreateOn = employee.CreatedOn,
-                    UpdateOn = employee.UpdatedOn,
+                    CreatedOn = employee.CreatedOn,
+                    UpdatedOn = employee.UpdatedOn,
                     IsArchived=employee.IsArchived,
                 })
                 .OrderByDescending(employee => employee.Id)

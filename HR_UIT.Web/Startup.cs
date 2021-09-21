@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HR_UIT.Data;
 using HR_UIT.Services.Employee;
+using HR_UIT.Services.EmployeeAddress;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -50,6 +51,7 @@ namespace HR_UIT.Web
                 });
 
             services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IEmployeeAddressService, EmployeeAddressService>();
 
             services.AddSwaggerGen(c =>
             {

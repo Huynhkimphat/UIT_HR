@@ -42,7 +42,7 @@ namespace HR_UIT.Web.Serialization
                 CreatedOn = employee.CreatedOn,
                 UpdatedOn = employee.UpdatedOn,
                 IsArchived = employee.IsArchived
-            }
+            };
         }
     }
 }

@@ -133,7 +133,7 @@ namespace HR_UIT.Services.EmployeeType
                 {
                     Data = false,
                     Time = now,
-                    Message = "EmployeeType To Update Not Found",
+                    Message = "EmployeeType To Archive Not Found",
                     IsSuccess = false
                 };
             }
@@ -146,7 +146,7 @@ namespace HR_UIT.Services.EmployeeType
                 {
                     Data = true,
                     Time = now,
-                    Message = "EmployeeType To Update Completed",
+                    Message = "EmployeeType To Archive Completed",
                     IsSuccess = true
                 };
             }

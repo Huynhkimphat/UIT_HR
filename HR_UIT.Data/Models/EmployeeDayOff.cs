@@ -7,7 +7,7 @@ namespace HR_UIT.Data.Models
     {
         public int Id { get; set; }
 
-        public int DayOffAmmount { get; set; }
+        public int DayOffAmount { get; set; }
         
         public DateTime CreatedOn { get; set; }
 

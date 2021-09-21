@@ -23,7 +23,7 @@ namespace HR_UIT.Data
         
         public virtual DbSet<EmployeeDayOff> EmployeeDayOffs { get; set; }
         
-        public virtual DbSet<EmployeeDayOff_Letter> EmployeeDayOffLetters { get; set; }
+        public virtual DbSet<EmployeeDayOffLetter> EmployeeDayOffLetters { get; set; }
         
         public virtual DbSet<EmployeeSalary> EmployeeSalaries { get; set; }
         

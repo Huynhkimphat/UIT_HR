@@ -31,7 +31,7 @@ namespace HR_UIT.Web.Serialization
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
-        private static EmployeeAddress
+        public static EmployeeAddress
             MapEmployeeAddress(EmployeeAddressModel address)
         {
             return new EmployeeAddress

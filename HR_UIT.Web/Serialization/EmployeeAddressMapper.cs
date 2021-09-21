@@ -3,7 +3,7 @@ using HR_UIT.Web.ViewModels;
 
 namespace HR_UIT.Web.Serialization
 {
-    public class EmployeeMapper
+    public class EmployeeAddressMapper
     {
         /// <summary>
         ///     Maps a EmployeeAddress data model to a EmployeeAddressModel view model

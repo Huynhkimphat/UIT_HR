@@ -158,7 +158,7 @@ namespace HR_UIT.Services.Employee
 
         public Data.Models.Employee GetEmployeeById(int id)
         {
-            return _db.Employees.Find(id);
+            return _db.Employees.Include(employee => employee.PrimaryAddress).FirstOrDefault(e => e.Id == id);
         }
     }
 }

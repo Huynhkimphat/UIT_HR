@@ -1,0 +1,19 @@
+﻿using System;
+
+namespace HR_UIT.Web.ViewModels
+{
+    public class EmployeeAccountModel
+    {
+        public int Id { get; set; }
+
+        public string Email { get; set; }
+        
+        public string Password { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime UpdatedOn { get; set; }
+        
+        public bool IsArchived { get; set; }
+    }
+}

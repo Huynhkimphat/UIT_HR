@@ -77,7 +77,41 @@ namespace HR_UIT.Services.EmployeeType
         /// <exception cref="NotImplementedException"></exception>
         public ServiceResponse<bool> RecoverEmployeeType(int id)
         {
-            throw new NotImplementedException();
+            var now =DateTime.UtcNow;
+            var employeeType = _db.EmployeeTypes.Find(id);
+            if (employeeType==null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "EmployeeType To Recover Not Found",
+                    IsSuccess = false
+                };
+            }
+            try
+            {
+                employeeType.IsArchived = false ;
+                _db.Update(employeeType);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "EmployeeType To Recover Completed",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
         }
 
         /// <summary>

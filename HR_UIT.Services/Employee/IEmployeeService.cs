@@ -18,7 +18,7 @@ namespace HR_UIT.Services.Employee
 
         ServiceResponse<Data.Models.Employee>
             UpdateEmployee(
-                Data.Models.Employee employee
+                Data.Models.Employee employee,int employeeId
             );
         
         ServiceResponse<bool> DeleteEmployee(int id);

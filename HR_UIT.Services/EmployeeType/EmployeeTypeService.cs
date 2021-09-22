@@ -68,7 +68,18 @@ namespace HR_UIT.Services.EmployeeType
                 };
             }
         }
-        
+
+        /// <summary>
+        /// Recover EmployeeType
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public ServiceResponse<bool> RecoverEmployeeType(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Update EmployeeType's Name By Given Id
         /// </summary>

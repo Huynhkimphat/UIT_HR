@@ -81,6 +81,16 @@ namespace HR_UIT.Services.Employee
         }
         
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Data.Models.Employee GetEmployeeById(int id)
+        {
+            return _db.Employees.Include(employee => employee.PrimaryAddress).FirstOrDefault(e => e.Id == id);
+        }
+        
+        /// <summary>
         /// Update Employee 
         /// </summary>
         /// <param name="employee"></param>
@@ -155,10 +165,51 @@ namespace HR_UIT.Services.Employee
                 };
             }
         }
-
-        public Data.Models.Employee GetEmployeeById(int id)
+        
+        /// <summary>
+        /// Recover An Employee
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public ServiceResponse<bool> RecoverEmployee(int id)
         {
-            return _db.Employees.Include(employee => employee.PrimaryAddress).FirstOrDefault(e => e.Id == id);
+            var now = DateTime.UtcNow;
+            var employee = _db.Employees.Find(id);
+            if (employee == null)
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Employee to recover not found",
+                    IsSuccess = false
+                };
+            try
+            {
+                employee.UpdatedOn = now;
+                employee.IsArchived = false;
+                _db.Employees.Update(employee);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Employee Recovered",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
         }
+
+
     }
 }

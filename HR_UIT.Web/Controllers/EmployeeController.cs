@@ -25,19 +25,7 @@ namespace HR_UIT.Web.Controllers
             _logger.LogInformation("Getting employees");
             var employees = _employeeService.GetAllEmployees();
             var employeeModels = employees
-                .Select(employee => new EmployeeModel
-                {
-                    Id = employee.Id,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    DateOfBirth = employee.DateOfBirth,
-                    PhoneNumber = employee.PhoneNumber,
-                    IdentityCard = employee.IdentityCard,
-                    PrimaryAddress = EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress),
-                    CreatedOn = employee.CreatedOn,
-                    UpdatedOn = employee.UpdatedOn,
-                    IsArchived=employee.IsArchived,
-                })
+                .Select(EmployeeMapper.MapEmployee)
                 .OrderByDescending(employee => employee.Id)
                 .ToList();
             return Ok(employeeModels);

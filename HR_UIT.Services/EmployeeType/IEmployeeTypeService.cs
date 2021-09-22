@@ -14,6 +14,8 @@ namespace HR_UIT.Services.EmployeeType
                 );
 
         ServiceResponse<bool> DeleteEmployeeType(int id);
+        
+        ServiceResponse<bool> RecoverEmployeeType(int id);
 
         ServiceResponse<Data.Models.EmployeeType>
             UpdateEmployeeTypeName(

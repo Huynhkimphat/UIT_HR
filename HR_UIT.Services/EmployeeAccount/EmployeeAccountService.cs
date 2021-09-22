@@ -156,5 +156,48 @@ namespace HR_UIT.Services.EmployeeAccount
                 };
             }
         }
+
+        /// <summary>
+        /// Recover Employee Account
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ServiceResponse<bool> RecoverEmployeeAccount(int id)
+        {
+            var now = DateTime.UtcNow;
+            var employeeAccount = _db.EmployeeAccounts.Find(id);
+            if (employeeAccount == null)
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "EmployeeAccount to recover not found",
+                    IsSuccess = false
+                };
+            try
+            {
+                employeeAccount.UpdatedOn = now;
+                employeeAccount.IsArchived = false;
+                _db.EmployeeAccounts.Update(employeeAccount);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "EmployeeAccount Recovered",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
     }
 }

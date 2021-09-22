@@ -23,6 +23,9 @@ namespace HR_UIT.Services.Employee
         
         ServiceResponse<bool> DeleteEmployee(int id);
         
+        ServiceResponse<bool> RecoverEmployee(int id);
+
+        
         
     }
 }

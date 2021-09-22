@@ -91,15 +91,32 @@ namespace HR_UIT.Services.Employee
         }
         
         /// <summary>
-        /// Update Employee 
+        /// Update Employee
         /// </summary>
-        /// <param name="employee"></param>
+        /// <param name="newEmployee"></param>
+        /// <param name="employeeId"></param>
         /// <returns></returns>
-        public ServiceResponse<Data.Models.Employee> UpdateEmployee(Data.Models.Employee employee)
+        public ServiceResponse<Data.Models.Employee> UpdateEmployee(Data.Models.Employee newEmployee,int employeeId)
         {
             var now = DateTime.UtcNow;
+            var employee = _db.Employees.Find(employeeId);
+            if (employee == null)
+                return new ServiceResponse<Data.Models.Employee>
+                {
+                    Data = null,
+                    Time = now,
+                    Message = "Employee to Update Not Found",
+                    IsSuccess = false
+                };
             try
             {
+                employee.FirstName = newEmployee.FirstName;
+                employee.LastName = newEmployee.LastName;
+                employee.DateOfBirth = newEmployee.DateOfBirth;
+                employee.PhoneNumber = newEmployee.PhoneNumber;
+                employee.IdentityCard = newEmployee.IdentityCard;
+                employee.UpdatedOn =newEmployee.UpdatedOn;
+                employee.IsArchived = newEmployee.IsArchived;
                 _db.Employees.Update(employee);
                 _db.SaveChanges();
                 return new ServiceResponse<Data.Models.Employee>

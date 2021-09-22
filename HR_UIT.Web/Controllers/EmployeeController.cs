@@ -43,14 +43,22 @@ namespace HR_UIT.Web.Controllers
             return Ok(employeeModels);
         }
         
-        [HttpPatch("/api/employee/delete/{employeeId}")]
-        public ActionResult DeleteEmployee(int employeeId)
+        [HttpPost("/api/employee")]
+        public ActionResult CreateNewEmployee([FromBody] EmployeeModel employee)
         {
-            _logger.LogInformation($"Deleting Employee {employeeId} Complete... ");
-            var response = _employeeService.DeleteEmployee(employeeId);
+            _logger.LogInformation("Creating New Employee");
+            var response = _employeeService.CreateEmployee(EmployeeMapper.MapEmployee(employee));
             return Ok(response);
         }
-
+        
+        [HttpPut("/api/employee/update/{employeeId}")]
+        public ActionResult UpdateEmployee([FromBody] EmployeeModel employee,int employeeId)
+        {
+            _logger.LogInformation($"Update Employee {employeeId}");
+            var response = _employeeService.UpdateEmployee(EmployeeMapper.MapEmployee(employee),employeeId);
+            return Ok(response);
+        }
+        
         [HttpGet("/api/employee/{employeeId}")]
         public ActionResult GetEmployeeById(int employeeId)
         {
@@ -58,5 +66,24 @@ namespace HR_UIT.Web.Controllers
             var response = _employeeService.GetEmployeeById(employeeId);
             return Ok(response);
         }
+        
+        
+        [HttpPatch("/api/employee/delete/{employeeId}")]
+        public ActionResult DeleteEmployee(int employeeId)
+        {
+            _logger.LogInformation($"Deleting Employee {employeeId} Complete... ");
+            var response = _employeeService.DeleteEmployee(employeeId);
+            return Ok(response);
+        }
+        
+        [HttpPatch("/api/employee/recover/{employeeId}")]
+        public ActionResult RecoverEmployee(int employeeId)
+        {
+            _logger.LogInformation($"Recovering Employee {employeeId} Complete... ");
+            var response = _employeeService.RecoverEmployee(employeeId);
+            return Ok(response);
+        }
+
+
     }
 }

@@ -20,7 +20,7 @@ namespace HR_UIT.Services.EmployeeDayOffService
 
         ServiceResponse<bool> DeleteEmployeeDayOff(int id);
 
-        ServiceResponse<Data.Models.EmployeeDayOff> RecoverEmployeeDayOff(int id);
+        ServiceResponse<bool> RecoverEmployeeDayOff(int id);
 
     }
 }

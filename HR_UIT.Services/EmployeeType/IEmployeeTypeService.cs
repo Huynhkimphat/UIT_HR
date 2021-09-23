@@ -22,5 +22,9 @@ namespace HR_UIT.Services.EmployeeType
                 int id, string typeName
             );
 
+        ServiceResponse<Data.Models.EmployeeType>
+            UpdateEmployeeTypeEmployees(
+                int typeId, int employeeId
+            );
     }
 }

@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HR_UIT.Services.EmployeeType
 {
-    public class EmployeeTypeService:IEmployeeTypeService
+    public class EmployeeTypeService : IEmployeeTypeService
     {
         private readonly HrUitDbContext _db;
-        
+
         public EmployeeTypeService(HrUitDbContext dbContext)
         {
             _db = dbContext;
         }
-        
+
         /// <summary>
         /// Return a list of EmployeeType
         /// </summary>
@@ -22,7 +22,8 @@ namespace HR_UIT.Services.EmployeeType
         public List<Data.Models.EmployeeType> GetAllEmployeeTypes()
         {
             return _db.EmployeeTypes
-                .Include(employeeType =>employeeType.Employees)
+                .Include(employeeType => employeeType.Employees)
+                .ThenInclude(employee => employee.PrimaryAddress)
                 .OrderBy(employeeType => employeeType.Id)
                 .ToList();
         }
@@ -34,7 +35,10 @@ namespace HR_UIT.Services.EmployeeType
         /// <returns></returns>
         public Data.Models.EmployeeType GetTypeById(int id)
         {
-            return _db.EmployeeTypes.Include(employeeType =>employeeType.Employees).FirstOrDefault(type=>type.Id == id);
+            return _db.EmployeeTypes
+                .Include(employeeType => employeeType.Employees)
+                .ThenInclude(employee => employee.PrimaryAddress)
+                .FirstOrDefault(type => type.Id == id);
         }
 
         /// <summary>
@@ -42,12 +46,13 @@ namespace HR_UIT.Services.EmployeeType
         /// </summary>
         /// <param name="employeeType"></param>
         /// <returns></returns>
-        public ServiceResponse<Data.Models.EmployeeType> 
+        public ServiceResponse<Data.Models.EmployeeType>
             CreateEmployeeType(
                 Data.Models.EmployeeType employeeType
-                )
+            )
         {
-            var now =DateTime.Now;
+            var now = DateTime.Now;
+            employeeType.Employees = null;
             try
             {
                 _db.EmployeeTypes.Add(employeeType);
@@ -80,9 +85,9 @@ namespace HR_UIT.Services.EmployeeType
         /// <exception cref="NotImplementedException"></exception>
         public ServiceResponse<bool> RecoverEmployeeType(int id)
         {
-            var now =DateTime.UtcNow;
+            var now = DateTime.UtcNow;
             var employeeType = _db.EmployeeTypes.Find(id);
-            if (employeeType==null)
+            if (employeeType == null)
             {
                 return new ServiceResponse<bool>
                 {
@@ -92,9 +97,10 @@ namespace HR_UIT.Services.EmployeeType
                     IsSuccess = false
                 };
             }
+
             try
             {
-                employeeType.IsArchived = false ;
+                employeeType.IsArchived = false;
                 _db.Update(employeeType);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
@@ -123,14 +129,14 @@ namespace HR_UIT.Services.EmployeeType
         /// <param name="id"></param>
         /// <param name="typeName"></param>
         /// <returns></returns>
-        public ServiceResponse<Data.Models.EmployeeType> 
+        public ServiceResponse<Data.Models.EmployeeType>
             UpdateEmployeeTypeName(
                 int id, string typeName
-                )
+            )
         {
             var now = DateTime.UtcNow;
-            var employeeType=_db.EmployeeTypes.Find(id);
-            if (employeeType==null)
+            var employeeType = _db.EmployeeTypes.Find(id);
+            if (employeeType == null)
             {
                 return new ServiceResponse<Data.Models.EmployeeType>
                 {
@@ -166,7 +172,58 @@ namespace HR_UIT.Services.EmployeeType
                 };
             }
         }
-        
+
+        /// <summary>
+        /// Add Employee To Type With Given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public ServiceResponse<Data.Models.EmployeeType> UpdateEmployeeTypeEmployees(int typeId, int employeeId)
+        {
+            var now = DateTime.UtcNow;
+            var currentType = _db.EmployeeTypes.Find(typeId);
+            var currentEmployee = _db.Employees
+                .Include(employee => employee.PrimaryAddress)
+                .FirstOrDefault(employee => employee.Id == employeeId);;
+            if (currentType == null || currentEmployee == null)
+            {
+                return new ServiceResponse<Data.Models.EmployeeType>
+                {
+                    Data = null,
+                    Time = now,
+                    Message = "EmployeeType To Update or Employee To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                currentType.Employees ??= new List<Data.Models.Employee>();
+                currentType.Employees.Add(currentEmployee);
+                _db.Update(currentType);
+                _db.SaveChanges();
+                return new ServiceResponse<Data.Models.EmployeeType>
+                {
+                    Data = currentType,
+                    Time = now,
+                    Message = "EmployeeType To Update Completed",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<Data.Models.EmployeeType>
+                {
+                    Data = null,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+
         /// <summary>
         /// Delete EmployeeType By Given Id
         /// </summary>
@@ -174,9 +231,9 @@ namespace HR_UIT.Services.EmployeeType
         /// <returns></returns>
         public ServiceResponse<bool> DeleteEmployeeType(int id)
         {
-            var now =DateTime.UtcNow;
+            var now = DateTime.UtcNow;
             var employeeType = _db.EmployeeTypes.Find(id);
-            if (employeeType==null)
+            if (employeeType == null)
             {
                 return new ServiceResponse<bool>
                 {
@@ -186,9 +243,10 @@ namespace HR_UIT.Services.EmployeeType
                     IsSuccess = false
                 };
             }
+
             try
             {
-                employeeType.IsArchived = true ;
+                employeeType.IsArchived = true;
                 _db.Update(employeeType);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
@@ -210,7 +268,5 @@ namespace HR_UIT.Services.EmployeeType
                 };
             }
         }
-
-
     }
 }

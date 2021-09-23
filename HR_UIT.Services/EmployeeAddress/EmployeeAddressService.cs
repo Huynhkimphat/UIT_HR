@@ -77,11 +77,28 @@ namespace HR_UIT.Services.EmployeeAddress
         /// </summary>
         /// <param name="employeeAddress"></param>
         /// <returns></returns>
-        public ServiceResponse<Data.Models.EmployeeAddress> UpdateEmployeeAddress(Data.Models.EmployeeAddress employeeAddress)
+        public ServiceResponse<Data.Models.EmployeeAddress> UpdateEmployeeAddress(Data.Models.EmployeeAddress employeeAddress,int id)
         {
             var now = DateTime.UtcNow;
+            var currentEmployeeAddress = _db.EmployeeAddresses.Find(id);
+            if (employeeAddress == null)
+            {
+                return new ServiceResponse<Data.Models.EmployeeAddress>
+                {
+                    Data =null,
+                    Time =now,
+                    Message="EmployeeAddress to Update Not Found",
+                    IsSuccess = false
+                };
+            }
             try
             {
+                currentEmployeeAddress.AddressLine = employeeAddress.AddressLine;
+                currentEmployeeAddress.Ward=employeeAddress.Ward;
+                currentEmployeeAddress.District=employeeAddress.District;
+                currentEmployeeAddress.City=employeeAddress.City;
+                currentEmployeeAddress.Country=employeeAddress.Country;
+                currentEmployeeAddress.UpdatedOn=employeeAddress.UpdatedOn;
                 _db.EmployeeAddresses.Update(employeeAddress);
                 _db.SaveChanges();
                 return new ServiceResponse<Data.Models.EmployeeAddress>

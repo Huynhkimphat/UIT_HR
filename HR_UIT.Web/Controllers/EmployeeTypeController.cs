@@ -100,5 +100,13 @@ namespace HR_UIT.Web.Controllers
             var response = _employeeTypeService.RecoverEmployeeType(id);
             return Ok(response);
         }
+
+        [HttpPatch("/api/employee/type/{typeId}/add/{employeeId}")]
+        public ActionResult UpdateRoleOfEmplloye(int typeId, int employeeId)
+        {
+            _logger.LogInformation($"Update Employee {employeeId} with Type {typeId}");
+            var response = _employeeTypeService.UpdateEmployeeTypeEmployees(typeId, employeeId);
+            return Ok(response);
+        }
     }
 }

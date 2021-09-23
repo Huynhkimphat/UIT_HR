@@ -1,4 +1,5 @@
-﻿using HR_UIT.Data.Models;
+﻿using System.Collections.Generic;
+using HR_UIT.Data.Models;
 using HR_UIT.Web.ViewModels;
 
 namespace HR_UIT.Web.Serialization
@@ -21,7 +22,9 @@ namespace HR_UIT.Web.Serialization
                 DateOfBirth = employee.DateOfBirth,
                 PhoneNumber = employee.PhoneNumber,
                 IdentityCard = employee.IdentityCard,
-                PrimaryAddress = EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress),
+                PrimaryAddress = (employee.PrimaryAddress is not null) 
+                    ? EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress)
+                    : new EmployeeAddressModel {},
                 CreatedOn = employee.CreatedOn,
                 UpdatedOn = employee.UpdatedOn,
                 IsArchived = employee.IsArchived

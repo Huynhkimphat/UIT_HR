@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using HR_UIT.Data.Models;
 using HR_UIT.Web.ViewModels;
 
 namespace HR_UIT.Web.Serialization
 {
-    public class EmployeeTypeMapper
+    public static class EmployeeTypeMapper
     {
         /// <summary>
         ///     Maps EmployeeType Data Model to EmployeeType View Model
@@ -21,10 +22,10 @@ namespace HR_UIT.Web.Serialization
                 CreatedOn = type.CreatedOn,
                 UpdatedOn = type.UpdatedOn,
                 IsArchived = type.IsArchived,
-                Employees = type.Employees
+                Employees = (type.Employees is not null) ? type.Employees
                     .Select(EmployeeMapper.MapEmployee)
                     .OrderByDescending(employee => employee.Id)
-                    .ToList(),
+                    .ToList() : new List<EmployeeModel> {}
             };
         }
 
@@ -37,10 +38,10 @@ namespace HR_UIT.Web.Serialization
                 CreatedOn = type.CreatedOn,
                 UpdatedOn = type.UpdatedOn,
                 IsArchived = type.IsArchived,
-                Employees = type.Employees
-                    .Select(EmployeeMapper.MapEmployee)
-                    .OrderByDescending(employee => employee.Id)
-                    .ToList(),
+                // Employees = type.Employees
+                //     .Select(EmployeeMapper.MapEmployee)
+                //     .OrderByDescending(employee => employee.Id)
+                //     .ToList(),
             };
         }
     }

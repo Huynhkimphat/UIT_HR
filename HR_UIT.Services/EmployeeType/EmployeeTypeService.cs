@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using HR_UIT.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace HR_UIT.Services.EmployeeType
 {
     public class EmployeeTypeService:IEmployeeTypeService
@@ -20,6 +22,7 @@ namespace HR_UIT.Services.EmployeeType
         public List<Data.Models.EmployeeType> GetAllEmployeeTypes()
         {
             return _db.EmployeeTypes
+                .Include(employeeType =>employeeType.Employees)
                 .OrderBy(employeeType => employeeType.Id)
                 .ToList();
         }
@@ -31,7 +34,7 @@ namespace HR_UIT.Services.EmployeeType
         /// <returns></returns>
         public Data.Models.EmployeeType GetTypeById(int id)
         {
-            return _db.EmployeeTypes.Find(id);
+            return _db.EmployeeTypes.Include(employeeType =>employeeType.Employees).FirstOrDefault(type=>type.Id == id);
         }
 
         /// <summary>
@@ -141,6 +144,7 @@ namespace HR_UIT.Services.EmployeeType
             try
             {
                 employeeType.Name = typeName;
+                employeeType.UpdatedOn = now;
                 _db.Update(employeeType);
                 _db.SaveChanges();
                 return new ServiceResponse<Data.Models.EmployeeType>

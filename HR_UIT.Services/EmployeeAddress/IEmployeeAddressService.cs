@@ -13,6 +13,6 @@ namespace HR_UIT.Services.EmployeeAddress
         
         Data.Models.EmployeeAddress GetEmployeeAddressById(int id);
         
-        ServiceResponse<Data.Models.EmployeeAddress> UpdateEmployeeAddress(Data.Models.EmployeeAddress employeeAddress);
+        ServiceResponse<Data.Models.EmployeeAddress> UpdateEmployeeAddress(Data.Models.EmployeeAddress employeeAddress,int id);
     }
 }

@@ -39,7 +39,7 @@ namespace HR_UIT.Services.Holiday
             return _db
                 .Holidays
                 .Include(holiday => holiday.PrimaryHoliday_Create.FromDate)
-                .Where(e => e.PrimaryHoliday_Create.FromDate == month)
+                .Where(e => e.PrimaryHoliday_Create.FromDate.Month == month.Month)
                 .ToList();
         }
         

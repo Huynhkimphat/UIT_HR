@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using HR_UIT.Data;
+using HR_UIT.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace HR_UIT.Services.Holiday
@@ -14,26 +16,38 @@ namespace HR_UIT.Services.Holiday
         {
             _db = dbContext;
         }
-
+        
+        /// <summary>
+        /// Return a list of Holidays
+        /// </summary>
+        /// <returns></returns>
         public List<Data.Models.Holiday> GetAllHolidays()
         {
             return _db //HrUitDbContext
                 .Holidays
-                .Include(holiday => holiday.PrimaryHoliday_Create)
                 .OrderBy(holiday => holiday.Id)
                 .ToList();
         }
-
-        public List<Data.Models.Holiday> GetAllHolidaysVisible()
+        
+        /// <summary>
+        /// Return a list of Holiday get by month
+        /// </summary>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public List<Data.Models.Holiday> GetHolidaysByMonth(DateTime month)
         {
-            return _db //HrUitDbContext
+            return _db
                 .Holidays
-                .Include(holiday => holiday.PrimaryHoliday_Create)
-                .Where(holiday => !holiday.IsArchived)
-                .OrderBy(holiday => holiday.Id)
+                .Include(holiday => holiday.PrimaryHoliday_Create.FromDate)
+                .Where(e => e.PrimaryHoliday_Create.FromDate == month)
                 .ToList();
         }
-
+        
+        /// <summary>
+        /// Create new Holiday
+        /// </summary>
+        /// <param name="holiday"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.Holiday> CreateHoliday(Data.Models.Holiday holiday)
         {
             var now = DateTime.UtcNow;
@@ -61,7 +75,13 @@ namespace HR_UIT.Services.Holiday
             }
         }
 
-        public ServiceResponse<Data.Models.Holiday> UpdateHoliday(Data.Models.Holiday holiday)
+        /// <summary>
+        /// Update Name of Holiday
+        /// </summary>
+        /// <param name="holiday"></param>
+        /// <returns></returns>
+        
+        public ServiceResponse<Data.Models.Holiday> UpdateNameOfHoliday(Data.Models.Holiday holiday)
         {
             var now = DateTime.UtcNow;
             try
@@ -72,7 +92,7 @@ namespace HR_UIT.Services.Holiday
                 {
                     Data = holiday,
                     Time = now,
-                    Message = $"Holiday {holiday.Id} updated!",
+                    Message = $"Name of Holiday {holiday.Id} updated!",
                     IsSuccess = true
                 };
             }
@@ -88,9 +108,102 @@ namespace HR_UIT.Services.Holiday
             }
         }
 
+        /// <summary>
+        /// Get Holiday by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+            
         public Data.Models.Holiday GetHolidayById(int id)
         {
-            return _db.Holidays.Include(holiday => holiday.Id).FirstOrDefault(e => e.Id == id);
+            return _db.Holidays.Find(id);
+        }
+
+        /// <summary>
+        /// Delete a Holiday
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ServiceResponse<bool> DeleteHoliday(int id)
+        {
+            var now = DateTime.UtcNow;
+            var holiday = _db.Holidays.Find(id);
+            if (holiday == null)
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Holiday to archive not found.",
+                    IsSuccess = false
+                };
+            try
+            {
+                holiday.UpdatedOn = now;
+                holiday.IsArchived = true;
+                _db.Holidays.Update(holiday);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Holiday archived.",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+        
+        /// <summary>
+        /// Recover a Holiday
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        
+        public ServiceResponse<bool> RecoverHoliday(int id)
+        {
+            var now = DateTime.UtcNow;
+            var holiday = _db.Holidays.Find(id);
+            if (holiday == null)
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Holiday to recover not found",
+                    IsSuccess = false
+                };
+            try
+            {
+                holiday.UpdatedOn = now;
+                holiday.IsArchived = false;
+                _db.Holidays.Update(holiday);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Holiday Recovered",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
         }
     }
     

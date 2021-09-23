@@ -17,7 +17,7 @@ namespace HR_UIT.Services.EmployeeType
         /// Return a list of EmployeeType
         /// </summary>
         /// <returns></returns>
-        public List<Data.Models.EmployeeType> GetAlEmployeeTypes()
+        public List<Data.Models.EmployeeType> GetAllEmployeeTypes()
         {
             return _db.EmployeeTypes
                 .OrderBy(employeeType => employeeType.Id)

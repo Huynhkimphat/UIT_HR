@@ -4,7 +4,7 @@ namespace HR_UIT.Services.EmployeeType
 {
     public interface IEmployeeTypeService
     {
-        List<Data.Models.EmployeeType> GetAlEmployeeTypes();
+        List<Data.Models.EmployeeType> GetAllEmployeeTypes();
 
         Data.Models.EmployeeType GetTypeById(int id);
         

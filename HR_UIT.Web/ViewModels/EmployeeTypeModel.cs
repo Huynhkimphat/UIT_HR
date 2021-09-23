@@ -14,7 +14,7 @@ namespace HR_UIT.Web.ViewModels
         public DateTime UpdatedOn { get; set; }
         
         public bool IsArchived { get; set; }
-        
+
         public List<EmployeeModel> Employees { get; set; }
     }
 }

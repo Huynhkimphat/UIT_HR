@@ -64,6 +64,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 newEmployeeDayOffLetter.DayOffCounting = employeeDayOffLetter.DayOffCounting;
                 newEmployeeDayOffLetter.UpdatedOn =employeeDayOffLetter.UpdatedOn;
                 newEmployeeDayOffLetter.IsArchived = employeeDayOffLetter.IsArchived;
+                newEmployeeDayOffLetter.IsApproved = employeeDayOffLetter.IsApproved;
                 _db.EmployeeDayOffLetters.Update(newEmployeeDayOffLetter);
                 _db.SaveChanges();
                 return new ServiceResponse<Data.Models.EmployeeDayOffLetter>

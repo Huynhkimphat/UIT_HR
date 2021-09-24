@@ -11,7 +11,7 @@ namespace HR_UIT.Services.EmployeeDayOffService
 
         ServiceResponse<Data.Models.EmployeeDayOff>
             UpdateEmployeeDayOff(
-                Data.Models.EmployeeDayOff employeeDayOff
+                Data.Models.EmployeeDayOff employeeDayOff, int employeeDayOffId
             );
 
         List<Data.Models.EmployeeDayOff> GetAllEmployeeDayOff();

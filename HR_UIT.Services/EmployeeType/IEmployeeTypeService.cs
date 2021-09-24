@@ -26,5 +26,13 @@ namespace HR_UIT.Services.EmployeeType
             UpdateEmployeeTypeEmployees(
                 int typeId, int employeeId
             );
+        
+        ServiceResponse<bool>
+            RemoveEmployeeTypeEmployees(
+                int employeeId
+            );
+
+        ServiceResponse<bool>
+            IsEmployeeHasRole(int employeeId);
     }
 }

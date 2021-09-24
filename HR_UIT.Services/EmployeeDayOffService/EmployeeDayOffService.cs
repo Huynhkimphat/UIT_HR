@@ -141,7 +141,7 @@ namespace HR_UIT.Services.EmployeeDayOffService
                 {
                     Data = true,
                     Time = now,
-                    Message = "EmployeeDayOff archive",
+                    Message = "EmployeeDayOff archived",
                     IsSuccess = true
                     
                 };
@@ -185,7 +185,7 @@ namespace HR_UIT.Services.EmployeeDayOffService
                 {
                     Data = true,
                     Time = now,
-                    Message = "EmployeeDayOff recover",
+                    Message = "EmployeeDayOff recovered",
                     IsSuccess = true
                     
                 };

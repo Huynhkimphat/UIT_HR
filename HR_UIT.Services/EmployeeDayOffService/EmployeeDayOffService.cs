@@ -53,7 +53,7 @@ namespace HR_UIT.Services.EmployeeDayOffService
         /// <param name="employeeDayOff"></param>
         /// <returns></returns>
          public ServiceResponse<Data.Models.EmployeeDayOff>
-            UpdateEmployeeDayOffLetter(Data.Models.EmployeeDayOff employeeDayOff, int employeeDayOffId)
+            UpdateEmployeeDayOff(Data.Models.EmployeeDayOff employeeDayOff, int employeeDayOffId)
         {
             var now = DateTime.UtcNow;
             var newEmployeeDayOff = _db.EmployeeDayOffs.Find(employeeDayOffId);

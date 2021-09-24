@@ -52,19 +52,32 @@ namespace HR_UIT.Services.EmployeeDayOffService
         /// </summary>
         /// <param name="employeeDayOff"></param>
         /// <returns></returns>
-        public ServiceResponse<Data.Models.EmployeeDayOff>
-            UpdateEmployeeDayOff(Data.Models.EmployeeDayOff employeeDayOff)
+         public ServiceResponse<Data.Models.EmployeeDayOff>
+            UpdateEmployeeDayOffLetter(Data.Models.EmployeeDayOff employeeDayOff, int employeeDayOffId)
         {
             var now = DateTime.UtcNow;
+            var newEmployeeDayOff = _db.EmployeeDayOffs.Find(employeeDayOffId);
+            if (newEmployeeDayOff == null)
+                return new ServiceResponse<Data.Models.EmployeeDayOff>
+                {
+                    Data = null,
+                    Time = now,
+                    Message = "EmployeeDayOff to Update Not Found",
+                    IsSuccess = false
+                };
             try
             {
-                _db.EmployeeDayOffs.Update(employeeDayOff);
+                newEmployeeDayOff.DayOffAmount = employeeDayOff.DayOffAmount;
+                newEmployeeDayOff.CreatedOn = employeeDayOff.CreatedOn;
+                newEmployeeDayOff.UpdatedOn =employeeDayOff.UpdatedOn;
+                newEmployeeDayOff.IsArchived = employeeDayOff.IsArchived;
+                _db.EmployeeDayOffs.Update(newEmployeeDayOff);
                 _db.SaveChanges();
                 return new ServiceResponse<Data.Models.EmployeeDayOff>
                 {
-                    Data = employeeDayOff,
+                    Data = newEmployeeDayOff,
                     Time = now,
-                    Message = $"Update EmployeeDayOff {employeeDayOff.Id}",
+                    Message = $"EmployeeDayOff {newEmployeeDayOff.Id}  Updated!",
                     IsSuccess = true
                 };
             }

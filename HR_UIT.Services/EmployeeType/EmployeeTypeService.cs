@@ -186,7 +186,8 @@ namespace HR_UIT.Services.EmployeeType
             var currentType = _db.EmployeeTypes.Find(typeId);
             var currentEmployee = _db.Employees
                 .Include(employee => employee.PrimaryAddress)
-                .FirstOrDefault(employee => employee.Id == employeeId);;
+                .FirstOrDefault(employee => employee.Id == employeeId);
+            ;
             if (currentType == null || currentEmployee == null)
             {
                 return new ServiceResponse<Data.Models.EmployeeType>
@@ -217,6 +218,132 @@ namespace HR_UIT.Services.EmployeeType
                 return new ServiceResponse<Data.Models.EmployeeType>
                 {
                     Data = null,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+
+
+        /// <summary>
+        /// Remove Employee Out Of Type
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public ServiceResponse<bool> RemoveEmployeeTypeEmployees(int employeeId)
+        {
+            var now = DateTime.UtcNow;
+            var currentTypes = _db.EmployeeTypes
+                .Include(employeeType => employeeType.Employees)
+                .ThenInclude(employee => employee.PrimaryAddress)
+                .OrderBy(employeeType => employeeType.Id)
+                .ToList();
+            var currentEmployee = _db.Employees
+                .Include(employee => employee.PrimaryAddress)
+                .FirstOrDefault(employee => employee.Id == employeeId);
+            ;
+            if (currentEmployee == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Employee To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                foreach (var currentType in currentTypes.Where(currentType => currentType.Employees is not null))
+                {
+                    currentType.Employees.RemoveAll(employee => employee.Id == currentEmployee.Id);
+                    _db.Update(currentType);
+                }
+
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "EmployeeType To Update Completed",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+
+        /// <summary>
+        /// Return Whether Employee Has Role Or Not
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public ServiceResponse<bool> IsEmployeeHasRole(int employeeId)
+        {
+            var now = DateTime.UtcNow;
+            var currentTypes = _db.EmployeeTypes
+                .Include(employeeType => employeeType.Employees)
+                .ThenInclude(employee => employee.PrimaryAddress)
+                .OrderBy(employeeType => employeeType.Id)
+                .ToList();
+            var currentEmployee = _db.Employees
+                .Include(employee => employee.PrimaryAddress)
+                .FirstOrDefault(employee => employee.Id == employeeId);
+            ;
+            if (currentEmployee == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Employee To Check Role Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                var isEmployeeHasRole = false;
+                foreach (var currentType in currentTypes.Where(currentType => currentType.Employees is not null))
+                {
+                    isEmployeeHasRole = currentType.Employees.Any(employee => employee.Id == employeeId);;
+                }
+
+                if (isEmployeeHasRole)
+                {
+                    return  new ServiceResponse<bool>
+                    {
+                        Data = true,
+                        Time = now,
+                        Message = $"Employee {employeeId} is exist role",
+                        IsSuccess = true
+                    };
+                }
+                return  new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = $"Employee {employeeId} is not exist role",
+                    IsSuccess = true
+                };
+         
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
                     Time = now,
                     Message = e.StackTrace,
                     IsSuccess = false

@@ -102,10 +102,26 @@ namespace HR_UIT.Web.Controllers
         }
 
         [HttpPatch("/api/employee/type/{typeId}/add/{employeeId}")]
-        public ActionResult UpdateRoleOfEmplloye(int typeId, int employeeId)
+        public ActionResult UpdateRoleOfEmployee(int typeId, int employeeId)
         {
             _logger.LogInformation($"Update Employee {employeeId} with Type {typeId}");
             var response = _employeeTypeService.UpdateEmployeeTypeEmployees(typeId, employeeId);
+            return Ok(response);
+        }
+        
+        [HttpPatch("/api/employee/type/remove/{employeeId}")]
+        public ActionResult RemoveRoleOfEmployee(int employeeId)
+        {
+            _logger.LogInformation($"Remove Employee {employeeId}'s Role");
+            var response = _employeeTypeService.RemoveEmployeeTypeEmployees(employeeId);
+            return Ok(response);
+        }
+                
+        [HttpGet("/api/employee/type/{employeeId}")]
+        public ActionResult CheckEmployeeHaseRole(int employeeId)
+        {
+            _logger.LogInformation($"Is Employee {employeeId}'s Role");
+            var response = _employeeTypeService.IsEmployeeHasRole(employeeId);
             return Ok(response);
         }
     }

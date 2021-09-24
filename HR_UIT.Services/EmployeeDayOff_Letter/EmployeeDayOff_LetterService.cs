@@ -46,8 +46,8 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
             UpdateEmployeeDayOffLetter(Data.Models.EmployeeDayOffLetter employeeDayOffLetter, int employeeDayOffLetterId)
         {
             var now = DateTime.UtcNow;
-            var employee = _db.EmployeeDayOffLetters.Find(employeeDayOffLetterId);
-            if (employee == null)
+            var newEmployeeDayOffLetter = _db.EmployeeDayOffLetters.Find(employeeDayOffLetterId);
+            if (newEmployeeDayOffLetter == null)
                 return new ServiceResponse<Data.Models.EmployeeDayOffLetter>
                 {
                     Data = null,
@@ -57,20 +57,20 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 };
             try
             {
-                employee.FromDateTime = employeeDayOffLetter.FromDateTime;
-                employee.ToDateTime = employeeDayOffLetter.ToDateTime;
-                employee.Reason = employeeDayOffLetter.Reason;
-                employee.CreatedOn = employeeDayOffLetter.CreatedOn;
-                employee.DayOffCounting = employeeDayOffLetter.DayOffCounting;
-                employee.UpdatedOn =employeeDayOffLetter.UpdatedOn;
-                employee.IsArchived = employeeDayOffLetter.IsArchived;
-                _db.EmployeeDayOffLetters.Update(employee);
+                newEmployeeDayOffLetter.FromDateTime = employeeDayOffLetter.FromDateTime;
+                newEmployeeDayOffLetter.ToDateTime = employeeDayOffLetter.ToDateTime;
+                newEmployeeDayOffLetter.Reason = employeeDayOffLetter.Reason;
+                newEmployeeDayOffLetter.CreatedOn = employeeDayOffLetter.CreatedOn;
+                newEmployeeDayOffLetter.DayOffCounting = employeeDayOffLetter.DayOffCounting;
+                newEmployeeDayOffLetter.UpdatedOn =employeeDayOffLetter.UpdatedOn;
+                newEmployeeDayOffLetter.IsArchived = employeeDayOffLetter.IsArchived;
+                _db.EmployeeDayOffLetters.Update(newEmployeeDayOffLetter);
                 _db.SaveChanges();
                 return new ServiceResponse<Data.Models.EmployeeDayOffLetter>
                 {
-                    Data = employee,
+                    Data = newEmployeeDayOffLetter,
                     Time = now,
-                    Message = $"EmployeeDayOffLetter {employee.Id}  Updated!",
+                    Message = $"EmployeeDayOffLetter {newEmployeeDayOffLetter.Id}  Updated!",
                     IsSuccess = true
                 };
             }
@@ -108,7 +108,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 {
                     Data = true,
                     Time = now,
-                    Message = "EmployeeDayOffLetter archive",
+                    Message = "EmployeeDayOffLetter archived",
                     IsSuccess = true
                     
                 };
@@ -147,7 +147,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 {
                     Data = true,
                     Time = now,
-                    Message = "EmployeeDayOffLetter recover",
+                    Message = "EmployeeDayOffLetter recovered",
                     IsSuccess = true
                     
                 };
@@ -177,6 +177,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 .Where(e => e.FromDateTime.Day == day.Day 
                             && e.FromDateTime.Month == day.Month
                             && e.FromDateTime.Year == day.Year)
+                .OrderBy(employeeDayOffLetter => employeeDayOffLetter.Id)
                 .ToList();
         }
 
@@ -185,6 +186,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
             return _db.EmployeeDayOffLetters
                 .Where(e => e.FromDateTime.Month == month.Month
                             && e.FromDateTime.Year == month.Year)
+                .OrderBy(employeeDayOffLetter => employeeDayOffLetter.Id)
                 .ToList();
         }
         
@@ -192,6 +194,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
         {
             return _db.EmployeeDayOffLetters
                 .Where(e => e.FromDateTime.Year == year.Year)
+                .OrderBy(employeeDayOffLetter => employeeDayOffLetter.Id)
                 .ToList();
         }
         
@@ -210,13 +213,14 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
             try
             {
                 employeeDayOffLetter.IsApproved = true;
+                employeeDayOffLetter.UpdatedOn = now;
                 _db.EmployeeDayOffLetters.Update(employeeDayOffLetter);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
                 {
                     Data = true,
                     Time = now,
-                    Message = "EmployeeDayOffLetter approve",
+                    Message = "EmployeeDayOffLetter approved",
                     IsSuccess = true
                     
                 };

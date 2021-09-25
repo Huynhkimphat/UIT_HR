@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using HR_UIT.Data.Models;
 using HR_UIT.Web.ViewModels;
 
@@ -27,7 +28,12 @@ namespace HR_UIT.Web.Serialization
                     : new EmployeeAddressModel {},
                 CreatedOn = employee.CreatedOn,
                 UpdatedOn = employee.UpdatedOn,
-                IsArchived = employee.IsArchived
+                IsArchived = employee.IsArchived,
+                EmployeeHolidayCreates = (employee.EmployeeHoliday_Creates is not null) ? employee.EmployeeHoliday_Creates
+                    .Select(HolidayCreateMapper.MapHolidayCreate)
+                    .OrderByDescending(holidayCreate => holidayCreate.Id)
+                    .ToList() : new List<HolidayCreateModel>{}
+                
             };
         }
 

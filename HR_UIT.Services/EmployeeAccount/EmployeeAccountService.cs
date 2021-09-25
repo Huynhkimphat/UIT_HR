@@ -199,5 +199,17 @@ namespace HR_UIT.Services.EmployeeAccount
                 };
             }
         }
+
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public ServiceResponse<Data.Models.EmployeeAccount> Login(string username, string password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

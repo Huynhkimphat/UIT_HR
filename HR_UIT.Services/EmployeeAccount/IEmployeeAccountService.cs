@@ -24,5 +24,7 @@ namespace HR_UIT.Services.EmployeeAccount
         ServiceResponse<bool> DeleteEmployeeAccount(int id);
         
         ServiceResponse<bool> RecoverEmployeeAccount(int id);
+
+        ServiceResponse<Data.Models.EmployeeAccount> Login(string username, string password);
     }
 }

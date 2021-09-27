@@ -61,7 +61,6 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 newEmployeeDayOffLetter.FromDateTime = employeeDayOffLetter.FromDateTime;
                 newEmployeeDayOffLetter.ToDateTime = employeeDayOffLetter.ToDateTime;
                 newEmployeeDayOffLetter.Reason = employeeDayOffLetter.Reason;
-                newEmployeeDayOffLetter.CreatedOn = employeeDayOffLetter.CreatedOn;
                 newEmployeeDayOffLetter.DayOffCounting = employeeDayOffLetter.DayOffCounting;
                 newEmployeeDayOffLetter.UpdatedOn = employeeDayOffLetter.UpdatedOn;
                 newEmployeeDayOffLetter.IsArchived = employeeDayOffLetter.IsArchived;

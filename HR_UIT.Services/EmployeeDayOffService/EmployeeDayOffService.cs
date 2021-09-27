@@ -68,7 +68,6 @@ namespace HR_UIT.Services.EmployeeDayOffService
             try
             {
                 newEmployeeDayOff.DayOffAmount = employeeDayOff.DayOffAmount;
-                newEmployeeDayOff.CreatedOn = employeeDayOff.CreatedOn;
                 newEmployeeDayOff.UpdatedOn =employeeDayOff.UpdatedOn;
                 newEmployeeDayOff.IsArchived = employeeDayOff.IsArchived;
                 _db.EmployeeDayOffs.Update(newEmployeeDayOff);

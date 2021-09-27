@@ -8,7 +8,7 @@ namespace HR_UIT.Web.Serialization
     public static class EmployeeTypeMapper
     {
         /// <summary>
-        ///     Maps EmployeeType Data Model to EmployeeType View Model
+        ///     Maps an EmployeeType Data Model to an EmployeeType View Model
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -22,13 +22,20 @@ namespace HR_UIT.Web.Serialization
                 CreatedOn = type.CreatedOn,
                 UpdatedOn = type.UpdatedOn,
                 IsArchived = type.IsArchived,
-                Employees = (type.Employees is not null) ? type.Employees
-                    .Select(EmployeeMapper.MapEmployee)
-                    .OrderByDescending(employee => employee.Id)
-                    .ToList() : new List<EmployeeModel> {}
+                Employees = (type.Employees is not null)
+                    ? type.Employees
+                        .Select(EmployeeMapper.MapEmployee)
+                        .OrderByDescending(employee => employee.Id)
+                        .ToList()
+                    : new List<EmployeeModel> { }
             };
         }
 
+        /// <summary>
+        ///     Maps an EmployeeType View Model To an EmployeeType Data Model
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static EmployeeType
             MapEmployeeType(EmployeeTypeModel type)
         {

@@ -30,19 +30,19 @@ namespace HR_UIT.Web.Controllers
                 .ToList();
             return Ok(employeeModels);
         }
-        
+
         [HttpGet("/api/employee")]
         public ActionResult GetAllAvailableEmployees()
         {
             _logger.LogInformation("Getting employees visible (isArchived = false)");
-            var employees = _employeeService.GetAllEmployeesVisible(); 
+            var employees = _employeeService.GetAllEmployeesVisible();
             var employeeModels = employees
                 .Select(EmployeeMapper.MapEmployee)
                 .OrderByDescending(employee => employee.Id)
                 .ToList();
             return Ok(employeeModels);
         }
-        
+
         [HttpPost("/api/employee")]
         public ActionResult CreateNewEmployee([FromBody] EmployeeModel employee)
         {
@@ -50,15 +50,15 @@ namespace HR_UIT.Web.Controllers
             var response = _employeeService.CreateEmployee(EmployeeMapper.MapEmployee(employee));
             return Ok(response);
         }
-        
+
         [HttpPut("/api/employee/update/{employeeId}")]
-        public ActionResult UpdateEmployee([FromBody] EmployeeModel employee,int employeeId)
+        public ActionResult UpdateEmployee([FromBody] EmployeeModel employee, int employeeId)
         {
             _logger.LogInformation($"Update Employee {employeeId}");
-            var response = _employeeService.UpdateEmployee(EmployeeMapper.MapEmployee(employee),employeeId);
+            var response = _employeeService.UpdateEmployee(EmployeeMapper.MapEmployee(employee), employeeId);
             return Ok(response);
         }
-        
+
         [HttpGet("/api/employee/{employeeId}")]
         public ActionResult GetEmployeeById(int employeeId)
         {
@@ -66,8 +66,8 @@ namespace HR_UIT.Web.Controllers
             var response = _employeeService.GetEmployeeById(employeeId);
             return Ok(response);
         }
-        
-        
+
+
         [HttpPatch("/api/employee/delete/{employeeId}")]
         public ActionResult DeleteEmployee(int employeeId)
         {
@@ -75,7 +75,7 @@ namespace HR_UIT.Web.Controllers
             var response = _employeeService.DeleteEmployee(employeeId);
             return Ok(response);
         }
-        
+
         [HttpPatch("/api/employee/recover/{employeeId}")]
         public ActionResult RecoverEmployee(int employeeId)
         {
@@ -83,7 +83,5 @@ namespace HR_UIT.Web.Controllers
             var response = _employeeService.RecoverEmployee(employeeId);
             return Ok(response);
         }
-
-
     }
 }

@@ -2,13 +2,17 @@
 
 namespace HR_UIT.Web.ViewModels
 {
-    public class EmployeeAccountModel
+    public class EmployeeAttendanceModel
     {
         public int Id { get; set; }
 
-        public string Email { get; set; }
+        public DateTime FromDate { get; set; }
 
-        public string Password { get; set; }
+        public DateTime ToDate { get; set; }
+
+        public bool IsProgressing { get; set; }
+
+        public TimeSpan Period { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

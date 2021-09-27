@@ -6,7 +6,7 @@ namespace HR_UIT.Web.Serialization
     public static class EmployeeDayOffMapper
     {
         /// <summary>
-        /// Maps a EmployeeDayOff Data Model to EmployeeDayOff View Model
+        /// Maps an EmployeeDayOff Data Model To an EmployeeDayOff View Model
         /// </summary>
         /// <param name="dayOff"></param>
         /// <returns></returns>
@@ -22,9 +22,9 @@ namespace HR_UIT.Web.Serialization
                 IsArchived = dayOff.IsArchived
             };
         }
-        
+
         /// <summary>
-        /// Maps a EmployeeDayOff View Model to EmployeeDayOff Data Model
+        /// Maps an EmployeeDayOff View Model To an EmployeeDayOff Data Model
         /// </summary>
         /// <param name="dayOff"></param>
         /// <returns></returns>

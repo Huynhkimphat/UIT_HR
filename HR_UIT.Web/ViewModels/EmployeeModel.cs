@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+
 namespace HR_UIT.Web.ViewModels
 {
     public class EmployeeModel
@@ -29,7 +30,7 @@ namespace HR_UIT.Web.ViewModels
         //
         // public List<EmployeeSalary> PrimarySalaries { get; set; }
         //
-        public List<HolidayCreateModel> EmployeeHolidayCreates { get; set;}
+        // public List<HolidayCreateModel> EmployeeHolidayCreates { get; set;}
 
         public DateTime CreatedOn { get; set; }
 

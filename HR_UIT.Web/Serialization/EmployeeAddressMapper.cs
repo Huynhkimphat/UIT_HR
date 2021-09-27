@@ -6,7 +6,7 @@ namespace HR_UIT.Web.Serialization
     public static class EmployeeAddressMapper
     {
         /// <summary>
-        ///     Maps a EmployeeAddress data model to a EmployeeAddressModel view model
+        ///     Maps an EmployeeAddress data model to an EmployeeAddressModel view model
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
@@ -27,7 +27,7 @@ namespace HR_UIT.Web.Serialization
         }
 
         /// <summary>
-        ///     Maps a EmployeeAddressModel view model to a EmployeeAddress data model
+        ///     Maps an EmployeeAddressModel view model to an EmployeeAddress data model
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>

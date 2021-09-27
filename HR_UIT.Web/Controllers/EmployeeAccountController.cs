@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace HR_UIT.Web.Controllers
 {
     [ApiController]
-    public class EmployeeAccountController: ControllerBase
+    public class EmployeeAccountController : ControllerBase
     {
         private readonly IEmployeeAccountService _employeeAccountService;
         private readonly ILogger<EmployeeAccountController> _logger;
@@ -16,7 +16,7 @@ namespace HR_UIT.Web.Controllers
         public EmployeeAccountController(ILogger<EmployeeAccountController> logger,
             IEmployeeAccountService employeeAccountService)
         {
-            _logger=logger;
+            _logger = logger;
             _employeeAccountService = employeeAccountService;
         }
 
@@ -49,7 +49,7 @@ namespace HR_UIT.Web.Controllers
             return Ok(
                 _employeeAccountService
                     .Login(email, password)
-                );
+            );
         }
     }
 }

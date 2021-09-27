@@ -43,10 +43,13 @@ namespace HR_UIT.Web.Controllers
         }
 
         [HttpGet("/api/login")]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(string email, string password)
         {
             _logger.LogInformation("Logging In");
-            return Ok();
+            return Ok(
+                _employeeAccountService
+                    .Login(email, password)
+                );
         }
     }
 }

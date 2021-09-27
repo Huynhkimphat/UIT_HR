@@ -25,6 +25,6 @@ namespace HR_UIT.Services.EmployeeAccount
         
         ServiceResponse<bool> RecoverEmployeeAccount(int id);
 
-        ServiceResponse<Data.Models.EmployeeAccount> Login(string username, string password);
+        ServiceResponse<string> Login(string email, string password);
     }
 }

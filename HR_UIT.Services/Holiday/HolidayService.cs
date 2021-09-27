@@ -95,6 +95,7 @@ namespace HR_UIT.Services.Holiday
                 };
             try
             {
+                holiday.UpdatedOn = now;
                 holiday.NameOfHoliday = name;
                 _db.Holidays.Update(holiday);
                 _db.SaveChanges();

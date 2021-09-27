@@ -15,7 +15,7 @@ namespace HR_UIT.Services.Holiday
 
         ServiceResponse<Data.Models.Holiday>
             UpdateNameOfHoliday(
-                Data.Models.Holiday holiday
+                string name, int id
             );
 
         ServiceResponse<bool> DeleteHoliday(int id);

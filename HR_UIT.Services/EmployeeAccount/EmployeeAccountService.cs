@@ -207,9 +207,29 @@ namespace HR_UIT.Services.EmployeeAccount
         /// <param name="password"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public ServiceResponse<Data.Models.EmployeeAccount> Login(string username, string password)
+        public ServiceResponse<string> Login(string email, string password)
         {
-            throw new NotImplementedException();
+            var now = DateTime.UtcNow;
+            var employeeAccount = _db.EmployeeAccounts
+                .FirstOrDefault(empAccount => empAccount.Email == email);
+            if (employeeAccount != null && employeeAccount.Password == password)
+            {
+                return new ServiceResponse<string>
+                {
+                    Data = "Succeed",
+                    Time = now,
+                    Message = "Login Successful",
+                    IsSuccess = true
+                };
+            }
+
+            return new ServiceResponse<string>
+            {
+                Data = "Failed",
+                Time = now,
+                Message = "Login failed",
+                IsSuccess = false
+            };
         }
     }
 }

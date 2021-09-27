@@ -96,7 +96,6 @@ namespace HR_UIT.Services.HolidayCreate
                 newHolidayOff.FromDate = holidayOff.FromDate;
                 newHolidayOff.ToDate = holidayOff.ToDate;
                 newHolidayOff.IsArchived = holidayOff.IsArchived;
-                newHolidayOff.CreatedOn = holidayOff.CreatedOn;
                 newHolidayOff.UpdatedOn = holidayOff.UpdatedOn;
                 _db.HolidayCreates.Update(newHolidayOff);
                 _db.SaveChanges();

@@ -81,11 +81,21 @@ namespace HR_UIT.Services.Holiday
         /// <param name="holiday"></param>
         /// <returns></returns>
         
-        public ServiceResponse<Data.Models.Holiday> UpdateNameOfHoliday(Data.Models.Holiday holiday)
+        public ServiceResponse<Data.Models.Holiday> UpdateNameOfHoliday(string name, int holidayId)
         {
             var now = DateTime.UtcNow;
+            var holiday = _db.Holidays.Find(holidayId);
+            if (holiday == null)
+                return new ServiceResponse<Data.Models.Holiday>
+                {
+                    Data = null,
+                    Time = now,
+                    Message = "Holiday to Update Not Found",
+                    IsSuccess = false
+                };
             try
             {
+                holiday.NameOfHoliday = name;
                 _db.Holidays.Update(holiday);
                 _db.SaveChanges();
                 return new ServiceResponse<Data.Models.Holiday>

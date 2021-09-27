@@ -92,6 +92,7 @@ namespace HR_UIT.Services.EmployeeAccount
             try
             {
                 employeeAccount.Password = newPassword;
+                employeeAccount.UpdatedOn = now;
                 _db.Update(employeeAccount);
                 _db.SaveChanges();
                 return new ServiceResponse<Data.Models.EmployeeAccount>

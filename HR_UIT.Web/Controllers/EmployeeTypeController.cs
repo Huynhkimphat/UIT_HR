@@ -13,12 +13,13 @@ namespace HR_UIT.Web.Controllers
     {
         private readonly IEmployeeTypeService _employeeTypeService;
         private readonly ILogger<EmployeeTypeController> _logger;
+
         public EmployeeTypeController(ILogger<EmployeeTypeController> logger, IEmployeeTypeService employeeTypeService)
         {
             _logger = logger;
             _employeeTypeService = employeeTypeService;
         }
-        
+
         /// <summary>
         /// Get All Employee Types
         /// </summary>
@@ -34,7 +35,7 @@ namespace HR_UIT.Web.Controllers
                 .ToList();
             return Ok(employeeTypeModels);
         }
-        
+
         /// <summary>
         /// Get Employee Type By Given Id
         /// </summary>
@@ -47,7 +48,7 @@ namespace HR_UIT.Web.Controllers
             var employeeType = _employeeTypeService.GetTypeById(id);
             return Ok(employeeType);
         }
-        
+
         /// <summary>
         /// Create New Employee Type
         /// </summary>
@@ -57,10 +58,10 @@ namespace HR_UIT.Web.Controllers
         public ActionResult CreateNewEmployeeType(EmployeeTypeModel employeeType)
         {
             _logger.LogInformation("Creating new employeeType");
-            var response=_employeeTypeService.CreateEmployeeType(EmployeeTypeMapper.MapEmployeeType(employeeType));
+            var response = _employeeTypeService.CreateEmployeeType(EmployeeTypeMapper.MapEmployeeType(employeeType));
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Update Employee Type Name By Id
         /// </summary>
@@ -68,13 +69,13 @@ namespace HR_UIT.Web.Controllers
         /// <param name="typeName"></param>
         /// <returns></returns>
         [HttpPatch("/api/employee/type/{id}")]
-        public ActionResult UpdateEmployeeType(int id,[FromBody]string typeName)
+        public ActionResult UpdateEmployeeType(int id, [FromBody] string typeName)
         {
             _logger.LogInformation($"Update employeeType {id}");
-            var response=_employeeTypeService.UpdateEmployeeTypeName(id,typeName);
+            var response = _employeeTypeService.UpdateEmployeeTypeName(id, typeName);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Delete Employee Type By Id
         /// </summary>
@@ -87,7 +88,7 @@ namespace HR_UIT.Web.Controllers
             var response = _employeeTypeService.DeleteEmployeeType(id);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Recover Employee Type By Id
         /// </summary>
@@ -108,7 +109,7 @@ namespace HR_UIT.Web.Controllers
             var response = _employeeTypeService.UpdateEmployeeTypeEmployees(typeId, employeeId);
             return Ok(response);
         }
-        
+
         [HttpPatch("/api/employee/type/remove/{employeeId}")]
         public ActionResult RemoveRoleOfEmployee(int employeeId)
         {
@@ -116,7 +117,7 @@ namespace HR_UIT.Web.Controllers
             var response = _employeeTypeService.RemoveEmployeeTypeEmployees(employeeId);
             return Ok(response);
         }
-                
+
         [HttpGet("/api/employee/type/{employeeId}")]
         public ActionResult CheckEmployeeHaseRole(int employeeId)
         {

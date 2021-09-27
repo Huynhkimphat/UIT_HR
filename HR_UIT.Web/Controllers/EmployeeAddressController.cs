@@ -8,22 +8,23 @@ using Microsoft.Extensions.Logging;
 namespace HR_UIT.Web.Controllers
 {
     [ApiController]
-    public class EmployeeAddressController :ControllerBase
+    public class EmployeeAddressController : ControllerBase
     {
         private readonly IEmployeeAddressService _employeeAddressService;
         private readonly ILogger<EmployeeAddressController> _logger;
-        
-        public EmployeeAddressController(ILogger<EmployeeAddressController> logger, IEmployeeAddressService employeeAddressService)
+
+        public EmployeeAddressController(ILogger<EmployeeAddressController> logger,
+            IEmployeeAddressService employeeAddressService)
         {
             _logger = logger;
             _employeeAddressService = employeeAddressService;
         }
-        
+
         [HttpGet("/api/employee/addresses")]
         public ActionResult GetAllEmployeeAddresses()
         {
             _logger.LogInformation("Getting all employeesAddresses");
-            var employeesAddresses = _employeeAddressService.GetEmployeeAddresses(); 
+            var employeesAddresses = _employeeAddressService.GetEmployeeAddresses();
             var employeeModels = employeesAddresses
                 .Select(employeeAddress => new EmployeeAddressModel
                 {
@@ -53,15 +54,19 @@ namespace HR_UIT.Web.Controllers
         public ActionResult CreateAddress([FromBody] EmployeeAddressModel employeeAddress)
         {
             _logger.LogInformation("Creating new employeeAddress");
-            var response = _employeeAddressService.CreateEmployeeAddress(EmployeeAddressMapper.MapEmployeeAddress(employeeAddress));
+            var response =
+                _employeeAddressService.CreateEmployeeAddress(
+                    EmployeeAddressMapper.MapEmployeeAddress(employeeAddress));
             return Ok(response);
         }
-        
+
         [HttpPut("/api/employee/address/update")]
-        public ActionResult UpdateEmployeeAddress([FromBody] EmployeeAddressModel employeeAddress,int id)
+        public ActionResult UpdateEmployeeAddress([FromBody] EmployeeAddressModel employeeAddress, int id)
         {
             _logger.LogInformation($"Updating new employeeAddress {id}");
-            var response = _employeeAddressService.UpdateEmployeeAddress(EmployeeAddressMapper.MapEmployeeAddress(employeeAddress),id);
+            var response =
+                _employeeAddressService.UpdateEmployeeAddress(EmployeeAddressMapper.MapEmployeeAddress(employeeAddress),
+                    id);
             return Ok(response);
         }
     }

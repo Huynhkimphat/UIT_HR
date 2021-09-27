@@ -3,10 +3,10 @@ using HR_UIT.Web.ViewModels;
 
 namespace HR_UIT.Web.Serialization
 {
-    public class EmployeeAccountMapper
+    public static class EmployeeAccountMapper
     {
         /// <summary>
-        ///     Maps a EmployeeAccount Data Model to EmployeeAccount View Model
+        ///     Maps an EmployeeAccount Data Model to an EmployeeAccount View Model
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
@@ -23,10 +23,10 @@ namespace HR_UIT.Web.Serialization
                 IsArchived = account.IsArchived,
             };
         }
-        
-        
+
+
         /// <summary>
-        ///     Maps a EmployeeAccount View Model to EmployeeAccount Data Model
+        ///     Maps an EmployeeAccount View Model to an EmployeeAccount Data Model
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>

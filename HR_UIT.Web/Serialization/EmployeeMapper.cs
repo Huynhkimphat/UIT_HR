@@ -8,7 +8,7 @@ namespace HR_UIT.Web.Serialization
     public static class EmployeeMapper
     {
         /// <summary>
-        /// Maps a Employee data model to Employee View Model
+        /// Maps an Employee data model to an Employee View Model
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
@@ -23,20 +23,28 @@ namespace HR_UIT.Web.Serialization
                 DateOfBirth = employee.DateOfBirth,
                 PhoneNumber = employee.PhoneNumber,
                 IdentityCard = employee.IdentityCard,
-                PrimaryAddress = (employee.PrimaryAddress is not null) 
+                PrimaryAddress = (employee.PrimaryAddress is not null)
                     ? EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress)
-                    : new EmployeeAddressModel {},
+                    : new EmployeeAddressModel { },
                 CreatedOn = employee.CreatedOn,
                 UpdatedOn = employee.UpdatedOn,
                 IsArchived = employee.IsArchived,
-                EmployeeHolidayCreates = (employee.EmployeeHoliday_Creates is not null) ? employee.EmployeeHoliday_Creates
-                    .Select(HolidayCreateMapper.MapHolidayCreate)
-                    .OrderByDescending(holidayCreate => holidayCreate.Id)
-                    .ToList() : new List<HolidayCreateModel>{}
-                
+                // EmployeeHolidayCreates = (employee.EmployeeHoliday_Creates is not null) 
+                //     ? 
+                //     employee.EmployeeHoliday_Creates
+                //     .Select(HolidayCreateMapper.MapHolidayCreate)
+                //     .OrderByDescending(holidayCreate => holidayCreate.Id)
+                //     .ToList() 
+                //     :
+                //     new List<HolidayCreateModel>{}
             };
         }
 
+        /// <summary>
+        ///     Maps an Employee View Model To an Employee Data Model
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public static Employee
             MapEmployee(EmployeeModel employee)
         {

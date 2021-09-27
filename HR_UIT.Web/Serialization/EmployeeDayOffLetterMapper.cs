@@ -3,10 +3,10 @@ using HR_UIT.Web.ViewModels;
 
 namespace HR_UIT.Web.Serialization
 {
-    public class EmployeeDayOffLetterMapper
+    public static class EmployeeDayOffLetterMapper
     {
         /// <summary>
-        /// Maps a EmployeeDayOffLetter Data Model to EmployeeDayOffLetter View Model
+        /// Maps an EmployeeDayOffLetter Data Model to an EmployeeDayOffLetter View Model
         /// </summary>
         /// <param name="dayOffLetter"></param>
         /// <returns></returns>
@@ -26,9 +26,9 @@ namespace HR_UIT.Web.Serialization
                 DayOffCounting = dayOffLetter.DayOffCounting
             };
         }
-        
+
         /// <summary>
-        /// Maps a EmployeeDayOffLetter View Model to EmployeeDayOffLetter Data Model
+        /// Maps an EmployeeDayOffLetter View Model to an EmployeeDayOffLetter Data Model
         /// </summary>
         /// <param name="dayOffLetter"></param>
         /// <returns></returns>

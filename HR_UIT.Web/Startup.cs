@@ -42,7 +42,7 @@ namespace HR_UIT.Web
                     NamingStrategy = new CamelCaseNamingStrategy()
                 };
             });
-            
+
             services
                 .AddDbContext<HrUitDbContext>(opts =>
                 {
@@ -58,7 +58,7 @@ namespace HR_UIT.Web
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HR_UIT.Web", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "HR_UIT.Web", Version = "v1"});
             });
         }
 
@@ -75,7 +75,7 @@ namespace HR_UIT.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            
+
             app.UseCors(builder =>
                 builder
                     .WithOrigins("http://localhost:8080", "http://localhost:8081", "http://localhost:8082")
@@ -86,10 +86,7 @@ namespace HR_UIT.Web
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

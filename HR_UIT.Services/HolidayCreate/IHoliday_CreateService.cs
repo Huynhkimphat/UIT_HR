@@ -15,7 +15,7 @@ namespace HR_UIT.Services.HolidayCreate
 
         ServiceResponse<Data.Models.Holiday_Create>
             UpdateHolidayOff(
-                Data.Models.Holiday_Create holidayOff
+                Data.Models.Holiday_Create holidayOff, int holidayOffId
             );
 
         ServiceResponse<bool> DeleteHolidayOff(int id);

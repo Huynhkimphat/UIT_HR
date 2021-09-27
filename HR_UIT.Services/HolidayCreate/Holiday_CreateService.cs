@@ -79,18 +79,32 @@ namespace HR_UIT.Services.HolidayCreate
         /// <param name="holidayOff"></param>
         /// <returns></returns>
         
-        public ServiceResponse<Data.Models.Holiday_Create> UpdateHolidayOff(Data.Models.Holiday_Create holidayOff)
+        public ServiceResponse<Data.Models.Holiday_Create> UpdateHolidayOff(Data.Models.Holiday_Create holidayOff, int holidayOffId)
         {
             var now = DateTime.UtcNow;
+            var newHolidayOff = _db.HolidayCreates.Find(holidayOffId);
+            if (newHolidayOff == null)
+                return new ServiceResponse<Data.Models.Holiday_Create>
+                {
+                    Data = null,
+                    Time = now,
+                    Message = "Holiday Off to Update Not Found",
+                    IsSuccess = false
+                };
             try
             {
-                _db.HolidayCreates.Update(holidayOff);
+                newHolidayOff.FromDate = holidayOff.FromDate;
+                newHolidayOff.ToDate = holidayOff.ToDate;
+                newHolidayOff.IsArchived = holidayOff.IsArchived;
+                newHolidayOff.CreatedOn = holidayOff.CreatedOn;
+                newHolidayOff.UpdatedOn = holidayOff.UpdatedOn;
+                _db.HolidayCreates.Update(newHolidayOff);
                 _db.SaveChanges();
                 return new ServiceResponse<Data.Models.Holiday_Create>
                 {
-                    Data = holidayOff,
+                    Data = newHolidayOff,
                     Time = now,
-                    Message = $"Holiday Off {holidayOff.Id} updated!",
+                    Message = $"Holiday Off {newHolidayOff.Id} updated!",
                     IsSuccess = true
                 };
             }

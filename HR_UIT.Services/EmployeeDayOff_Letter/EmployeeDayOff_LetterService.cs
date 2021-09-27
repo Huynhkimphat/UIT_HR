@@ -43,7 +43,8 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
         }
 
         public ServiceResponse<Data.Models.EmployeeDayOffLetter>
-            UpdateEmployeeDayOffLetter(Data.Models.EmployeeDayOffLetter employeeDayOffLetter, int employeeDayOffLetterId)
+            UpdateEmployeeDayOffLetter(Data.Models.EmployeeDayOffLetter employeeDayOffLetter,
+                int employeeDayOffLetterId)
         {
             var now = DateTime.UtcNow;
             var newEmployeeDayOffLetter = _db.EmployeeDayOffLetters.Find(employeeDayOffLetterId);
@@ -62,7 +63,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 newEmployeeDayOffLetter.Reason = employeeDayOffLetter.Reason;
                 newEmployeeDayOffLetter.CreatedOn = employeeDayOffLetter.CreatedOn;
                 newEmployeeDayOffLetter.DayOffCounting = employeeDayOffLetter.DayOffCounting;
-                newEmployeeDayOffLetter.UpdatedOn =employeeDayOffLetter.UpdatedOn;
+                newEmployeeDayOffLetter.UpdatedOn = employeeDayOffLetter.UpdatedOn;
                 newEmployeeDayOffLetter.IsArchived = employeeDayOffLetter.IsArchived;
                 newEmployeeDayOffLetter.IsApproved = employeeDayOffLetter.IsApproved;
                 _db.EmployeeDayOffLetters.Update(newEmployeeDayOffLetter);
@@ -111,7 +112,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                     Time = now,
                     Message = "EmployeeDayOffLetter archived",
                     IsSuccess = true
-                    
+
                 };
             }
             catch (Exception e)
@@ -150,7 +151,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                     Time = now,
                     Message = "EmployeeDayOffLetter recovered",
                     IsSuccess = true
-                    
+
                 };
             }
             catch (Exception e)
@@ -175,7 +176,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
         public List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByDay(DateTime day)
         {
             return _db.EmployeeDayOffLetters
-                .Where(e => e.FromDateTime.Day == day.Day 
+                .Where(e => e.FromDateTime.Day == day.Day
                             && e.FromDateTime.Month == day.Month
                             && e.FromDateTime.Year == day.Year)
                 .OrderBy(employeeDayOffLetter => employeeDayOffLetter.Id)
@@ -190,7 +191,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 .OrderBy(employeeDayOffLetter => employeeDayOffLetter.Id)
                 .ToList();
         }
-        
+
         public List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByYear(DateTime year)
         {
             return _db.EmployeeDayOffLetters
@@ -198,7 +199,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 .OrderBy(employeeDayOffLetter => employeeDayOffLetter.Id)
                 .ToList();
         }
-        
+
         public ServiceResponse<bool> ApproveEmployeeDayOffLetter(int id)
         {
             var now = DateTime.UtcNow;
@@ -223,7 +224,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                     Time = now,
                     Message = "EmployeeDayOffLetter approved",
                     IsSuccess = true
-                    
+
                 };
             }
             catch (Exception e)
@@ -239,3 +240,4 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
         }
     }
 }
+            

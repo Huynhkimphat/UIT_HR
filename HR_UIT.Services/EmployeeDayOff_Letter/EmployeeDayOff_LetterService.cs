@@ -5,7 +5,7 @@ using HR_UIT.Data;
 
 namespace HR_UIT.Services.EmployeeDayOff_Letter
 {
-    public abstract class EmployeeDayOffLetterService
+    public class EmployeeDayOffLetterService : IEmployeeDayOffLetterService
     {
         private readonly HrUitDbContext _db;
 

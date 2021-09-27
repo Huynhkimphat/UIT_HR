@@ -5,7 +5,7 @@ using HR_UIT.Data;
 namespace HR_UIT.Services.EmployeeDayOffService
 {
 
-    public class EmployeeDayOffService
+    public class EmployeeDayOffService : IEmployeeDayOffService
     {
         private readonly HrUitDbContext _db;
 
@@ -119,7 +119,7 @@ namespace HR_UIT.Services.EmployeeDayOffService
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ServiceResponse<bool> DeleteEmployee(int id)
+        public ServiceResponse<bool> DeleteEmployeeDayOff(int id)
         {
             var now = DateTime.UtcNow;
             var employeeDayOff = _db.EmployeeDayOffs.Find(id);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HR_UIT.Services.HolidayCreate
 {
-    public interface IHoliday_CreateService
+    public interface IHolidayCreateService
     {
         List<Data.Models.Holiday_Create> GetAllHolidaysOff();
         List<Data.Models.Holiday_Create> GetAllHolidaysOffByMonth(DateTime month);

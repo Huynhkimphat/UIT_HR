@@ -2,7 +2,7 @@
 
 namespace HR_UIT.Services.EmployeeDayOffService
 {
-    public interface IEmployeeDayOffServices
+    public interface IEmployeeDayOffService
     {
         ServiceResponse<Data.Models.EmployeeDayOff>
             CreateNewEmployeeDayOff(

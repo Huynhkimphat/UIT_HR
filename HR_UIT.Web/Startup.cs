@@ -5,8 +5,13 @@ using System.Threading.Tasks;
 using HR_UIT.Data;
 using HR_UIT.Data.Models;
 using HR_UIT.Services.Employee;
+using HR_UIT.Services.EmployeeAccount;
 using HR_UIT.Services.EmployeeAddress;
+using HR_UIT.Services.EmployeeDayOff_Letter;
+using HR_UIT.Services.EmployeeDayOffService;
 using HR_UIT.Services.EmployeeType;
+using HR_UIT.Services.Holiday;
+using HR_UIT.Services.HolidayCreate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -55,6 +60,11 @@ namespace HR_UIT.Web
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IEmployeeAddressService, EmployeeAddressService>();
             services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
+            services.AddTransient<IEmployeeAccountService, EmployeeAccountService>();
+            services.AddTransient<IEmployeeDayOffService, EmployeeDayOffService>();
+            services.AddTransient<IEmployeeDayOffLetterService, EmployeeDayOffLetterService>();
+            services.AddTransient<IHolidayService, HolidayService>();
+            services.AddTransient<IHolidayCreateService, HolidayCreateService>();
 
             services.AddSwaggerGen(c =>
             {

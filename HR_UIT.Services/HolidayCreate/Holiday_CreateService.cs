@@ -6,11 +6,11 @@ using HR_UIT.Data.Models;
 
 namespace HR_UIT.Services.HolidayCreate
 {
-    public class Holiday_CreateService : IHoliday_CreateService
+    public class HolidayCreateService : IHolidayCreateService
     {
         private readonly HrUitDbContext _db;
 
-        public Holiday_CreateService(HrUitDbContext dbContext)
+        public HolidayCreateService(HrUitDbContext dbContext)
         {
             _db = dbContext;
         }

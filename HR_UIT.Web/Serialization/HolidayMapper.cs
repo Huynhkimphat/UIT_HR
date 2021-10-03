@@ -21,7 +21,7 @@ namespace HR_UIT.Web.Serialization
                 NameOfHoliday = holiday.NameOfHoliday,
                 CreatedOn = holiday.CreatedOn,
                 UpdateOn = holiday.UpdatedOn,
-                PrimaryHoliday_Create = (holiday.PrimaryHoliday_Create is not null)
+                PrimaryHoliday_Create = (holiday.PrimaryHoliday_Create != null)
                     ? HolidayCreateMapper.MapHolidayCreate(holiday.PrimaryHoliday_Create)
                     : new HolidayCreateModel { },
                 IsArchived = holiday.IsArchived

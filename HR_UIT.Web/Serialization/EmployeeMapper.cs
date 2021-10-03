@@ -23,7 +23,7 @@ namespace HR_UIT.Web.Serialization
                 DateOfBirth = employee.DateOfBirth,
                 PhoneNumber = employee.PhoneNumber,
                 IdentityCard = employee.IdentityCard,
-                PrimaryAddress = (employee.PrimaryAddress is not null)
+                PrimaryAddress = (employee.PrimaryAddress != null)
                     ? EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress)
                     : new EmployeeAddressModel { },
                 CreatedOn = employee.CreatedOn,

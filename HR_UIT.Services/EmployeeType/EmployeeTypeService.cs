@@ -256,7 +256,7 @@ namespace HR_UIT.Services.EmployeeType
 
             try
             {
-                foreach (var currentType in currentTypes.Where(currentType => currentType.Employees is not null))
+                foreach (var currentType in currentTypes.Where(currentType => currentType.Employees != null))
                 {
                     currentType.Employees.RemoveAll(employee => employee.Id == currentEmployee.Id);
                     _db.Update(currentType);
@@ -315,7 +315,7 @@ namespace HR_UIT.Services.EmployeeType
             try
             {
                 var isEmployeeHasRole = false;
-                foreach (var currentType in currentTypes.Where(currentType => currentType.Employees is not null))
+                foreach (var currentType in currentTypes.Where(currentType => currentType.Employees != null))
                 {
                     isEmployeeHasRole = currentType.Employees.Any(employee => employee.Id == employeeId);;
                 }

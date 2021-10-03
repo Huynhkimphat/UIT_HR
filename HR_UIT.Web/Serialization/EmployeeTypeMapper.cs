@@ -22,7 +22,7 @@ namespace HR_UIT.Web.Serialization
                 CreatedOn = type.CreatedOn,
                 UpdatedOn = type.UpdatedOn,
                 IsArchived = type.IsArchived,
-                Employees = (type.Employees is not null)
+                Employees = (type.Employees != null)
                     ? type.Employees
                         .Select(EmployeeMapper.MapEmployee)
                         .OrderByDescending(employee => employee.Id)

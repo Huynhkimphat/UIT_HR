@@ -23,7 +23,7 @@ namespace HR_UIT.Web.Serialization
                 IsArchived = salary.IsArchived,
                 IsChecked = salary.IsChecked,
                 IsReceived = salary.IsReceived,
-                PrimarySalaryDetail = (salary.PrimarySalaryDetail is not null)
+                PrimarySalaryDetail = (salary.PrimarySalaryDetail != null)
                     ? SalaryDetailMapper.MapSalaryDetail(salary.PrimarySalaryDetail)
                     : new SalaryDetailModel { },
             };

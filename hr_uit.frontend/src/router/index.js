@@ -13,6 +13,11 @@ const routes = [
     },
   },
   {
+    path: '/admin/dashboard',
+    name: 'adminDashboard',
+    component: () => import('@/views/admin/dashboard/Dashboard.vue'),
+  },
+  {
     path: '/',
     redirect: 'dashboard',
   },

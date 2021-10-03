@@ -28,7 +28,7 @@
 
           <!-- Right Content -->
           <a
-            href="https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free"
+            href="https://github.com/Huynhkimphat/UIT_HR"
             target="_blank"
             rel="nofollow"
           >
@@ -37,15 +37,6 @@
             </v-icon>
           </a>
           <theme-switcher></theme-switcher>
-          <v-btn
-            icon
-            small
-            class="ms-3"
-          >
-            <v-icon>
-              {{ icons.mdiBellOutline }}
-            </v-icon>
-          </v-btn>
           <app-bar-user-menu></app-bar-user-menu>
         </div>
       </div>
@@ -72,23 +63,23 @@
               href="https://themeselection.com"
               class="text-decoration-none"
               target="_blank"
-            >ThemeSelection</a></span>
+            >DEV UIT</a></span>
           <span class="d-sm-inline d-none">
             <a
-              href="https://themeselection.com/products/category/download-free-admin-templates/"
+              href="https://github.com/Huynhkimphat"
               target="_blank"
               class="me-6 text--secondary text-decoration-none"
-            >Freebies</a>
+            >Huynh Kim Phat</a>
             <a
-              href="https://themeselection.com/blog/"
+              href="https://github.com/DyHon"
               target="_blank"
               class="me-6 text--secondary text-decoration-none"
-            >Blog</a>
+            >Le Duy Hoang</a>
             <a
-              href="https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free/blob/main/LICENSE"
+              href="https://github.com/thainta"
               target="_blank"
-              class="text--secondary text-decoration-none"
-            >MIT Licence</a>
+              class="me-6 text--secondary text-decoration-none"
+            >Nguyen Thua An Thai</a>
           </span>
         </div>
       </div>

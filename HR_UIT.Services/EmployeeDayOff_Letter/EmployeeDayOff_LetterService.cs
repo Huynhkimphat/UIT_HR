@@ -191,12 +191,22 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 .ToList();
         }
 
-        public List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByYear(DateTime year)
+        public List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByWeek(DateTime week)
         {
-            return _db.EmployeeDayOffLetters
-                .Where(e => e.FromDateTime.Year == year.Year)
-                .OrderBy(employeeDayOffLetter => employeeDayOffLetter.Id)
-                .ToList();
+            var startOfWeek = week;
+            while (startOfWeek.DayOfWeek != DayOfWeek.Monday)
+                startOfWeek = startOfWeek.AddDays(-1);
+            var endOfWeek = startOfWeek.AddDays(7);
+
+            List<Data.Models.EmployeeDayOffLetter> dayOffLetter = new List<Data.Models.EmployeeDayOffLetter>();
+            
+            while (startOfWeek <= endOfWeek)
+            {
+                dayOffLetter.AddRange(GetAllEmployeeDayOffLetterByDay(startOfWeek));
+                startOfWeek = startOfWeek.AddDays(1);
+            }
+
+            return dayOffLetter;
         }
 
         public ServiceResponse<bool> ApproveEmployeeDayOffLetter(int id)

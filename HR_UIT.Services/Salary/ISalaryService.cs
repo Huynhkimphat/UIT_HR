@@ -20,6 +20,9 @@ namespace HR_UIT.Services.Salary
             ReceiveSalary(
                 int salaryId
             );
+
+        ServiceResponse<bool>
+            DeleteSalary(int id);
         Data.Models.EmployeeSalary GetEmployeeSalaryById(int id);
         Data.Models.EmployeeSalary GetEmployeeSalaryByYearMonth(int year, int month);
     }

@@ -134,7 +134,43 @@ namespace HR_UIT.Services.Salary
             }
 
         }
-        
+        public ServiceResponse<bool> DeleteSalary(int id)
+        {
+            var now = DateTime.UtcNow;
+            var salary = _db.EmployeeSalaries.Find(id);
+            if (salary == null)
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Salary to archive not found",
+                    IsSuccess = false
+                };
+            try
+            {
+                salary.UpdatedOn = now;
+                salary.IsArchived = true;
+                _db.EmployeeSalaries.Update(salary);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Salary Archived",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
         public ServiceResponse<Data.Models.EmployeeSalary> ReceiveSalary(int salaryId)
         {
             var now = DateTime.UtcNow;

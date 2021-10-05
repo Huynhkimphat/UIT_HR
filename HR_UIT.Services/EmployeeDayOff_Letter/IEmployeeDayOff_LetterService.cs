@@ -25,7 +25,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
         
         List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByMonth(DateTime month);
         
-        List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByYear(DateTime year);
+        List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByWeek(DateTime week);
 
         ServiceResponse<bool> ApproveEmployeeDayOffLetter(int id);
     }

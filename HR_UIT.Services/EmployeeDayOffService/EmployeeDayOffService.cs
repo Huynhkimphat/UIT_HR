@@ -51,6 +51,7 @@ namespace HR_UIT.Services.EmployeeDayOffService
         /// Update an EmployeeDayOff
         /// </summary>
         /// <param name="employeeDayOff"></param>
+        /// <param name="employeeDayOffId"></param>
         /// <returns></returns>
          public ServiceResponse<Data.Models.EmployeeDayOff>
             UpdateEmployeeDayOff(Data.Models.EmployeeDayOff employeeDayOff, int employeeDayOffId)

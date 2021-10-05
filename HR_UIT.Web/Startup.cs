@@ -115,8 +115,6 @@ namespace HR_UIT.Web
             {
                 cfg.AddPolicy("Admin", policy => policy.RequireClaim("type", "Admin"));
                 cfg.AddPolicy("Staff", policy => policy.RequireClaim("type", "Staff"));
-                cfg.AddPolicy("ClearanceLevel1", policy => policy.RequireClaim("ClearanceLevel", "1", "2"));
-                cfg.AddPolicy("ClearanceLevel2", policy => policy.RequireClaim("ClearanceLevel", "2"));
             });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

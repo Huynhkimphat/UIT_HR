@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using HR_UIT.Services;
 using HR_UIT.Services.EmployeeAccount;
 using HR_UIT.Web.Serialization;
 using HR_UIT.Web.ViewModels;
@@ -52,12 +53,21 @@ namespace HR_UIT.Web.Controllers
         public ActionResult Login(string email, string password)
         {
             _logger.LogInformation("Logging In");
-            if (true)
+
+            var isLogin = _employeeAccountService.Login(email, password);
+            
+            if (isLogin.IsSuccess == true)
             {
-                var Claims = new List<Claim>
+                bool isAdmin = false;
+                var Claims = new List<Claim>();
+                if (isAdmin)
                 {
-                    new Claim("type", "Admin")
-                };
+                    Claims.Add(new Claim("type", "Admin"));
+                }
+                else
+                {
+                    Claims.Add(new Claim("type", "Staff"));
+                }
                 
                 var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SXkSqsKyNUyvGbnHs7ke2NCq8zQzNLW7mPmHbnZZ"));
 
@@ -73,10 +83,7 @@ namespace HR_UIT.Web.Controllers
             }
             else
             {
-                return Ok(
-                        _employeeAccountService
-                        .Login(email, password)
-                );
+                return Ok(isLogin);
             }
             
         }

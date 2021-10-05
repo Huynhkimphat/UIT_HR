@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
 using HR_UIT.Data;
 using HR_UIT.Data.Models;
 using HR_UIT.Services.Employee;
@@ -16,6 +17,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +25,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HR_UIT.Web
 {
@@ -69,9 +72,51 @@ namespace HR_UIT.Web
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "HR_UIT.Web", Version = "v1"});
+                
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference{ Type = ReferenceType.SecurityScheme, Id = "Bearer"}
+                        },
+                      new string[] {}
+                    }
+                });
+            });
+
+            var TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidIssuer = "https://hr-uit.com",
+                ValidAudience = "https://hr-uit.com",
+                IssuerSigningKey =
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SXkSqsKyNUyvGbnHs7ke2NCq8zQzNLW7mPmHbnZZ")),
+                ClockSkew = TimeSpan.Zero
+            };
+
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.TokenValidationParameters = TokenValidationParameters;
+                });
+
+            services.AddAuthorization(cfg =>
+            {
+                cfg.AddPolicy("Admin", policy => policy.RequireClaim("type", "Admin"));
+                cfg.AddPolicy("Staff", policy => policy.RequireClaim("type", "Staff"));
             });
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

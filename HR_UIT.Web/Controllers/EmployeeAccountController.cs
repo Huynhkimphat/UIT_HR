@@ -1,9 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using HR_UIT.Services;
 using HR_UIT.Services.EmployeeAccount;
 using HR_UIT.Web.Serialization;
 using HR_UIT.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HR_UIT.Web.Controllers
 {
@@ -46,10 +53,39 @@ namespace HR_UIT.Web.Controllers
         public ActionResult Login(string email, string password)
         {
             _logger.LogInformation("Logging In");
-            return Ok(
-                _employeeAccountService
-                    .Login(email, password)
-            );
+
+            var isLogin = _employeeAccountService.Login(email, password);
+            
+            if (isLogin.IsSuccess == true)
+            {
+                bool isAdmin = false;
+                var Claims = new List<Claim>();
+                if (isAdmin)
+                {
+                    Claims.Add(new Claim("type", "Admin"));
+                }
+                else
+                {
+                    Claims.Add(new Claim("type", "Staff"));
+                }
+                
+                var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SXkSqsKyNUyvGbnHs7ke2NCq8zQzNLW7mPmHbnZZ"));
+
+                var Token = new JwtSecurityToken(
+                    "https://hr-uit.com",
+                    "https://hr-uit.com",
+                    Claims,
+                    expires: DateTime.Now.AddDays(30.0),
+                    signingCredentials: new SigningCredentials(Key, SecurityAlgorithms.HmacSha256)
+                );
+                
+                return new OkObjectResult(new JwtSecurityTokenHandler().WriteToken(Token));
+            }
+            else
+            {
+                return Ok(isLogin);
+            }
+            
         }
     }
 }

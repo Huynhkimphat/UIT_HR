@@ -240,46 +240,61 @@ namespace HR_UIT.Services.EmployeeAttendance
         }
         
         /// <summary>
-        /// Count Employee Attendance by given Month
+        /// Count Employee Attendance Period by given Month
         /// </summary>
         /// <param name="month"></param>
         /// <returns></returns>
-        public ServiceResponse<int> CountAttendanceByMonth(DateTime month)
+        public ServiceResponse<TimeSpan> CountAttendanceByMonth(DateTime month)
         {
             var now = DateTime.UtcNow;
-            int count = _db.EmployeeAttendances
-                .Count(e => e.FromDate.Month == month.Month
-                            && e.FromDate.Year == month.Year);
+            List<Data.Models.EmployeeAttendance> Attendance = _db.EmployeeAttendances
+                .Where(e => e.FromDate.Month == month.Month
+                            && e.FromDate.Year == month.Year).ToList();
+
+            TimeSpan count = new TimeSpan();
+            
+            foreach (var i in Attendance)
+            {
+                count = count.Add(i.Period);
+            }
             CultureInfo cul = CultureInfo.CreateSpecificCulture("en-US");
             
-            return new ServiceResponse<int>
+            return new ServiceResponse<TimeSpan>
             {
                 Data = count,
                 Time = now,
-                Message = $"{count} Attendances in {month.ToString("MMMM dd, yyyy", cul)}",
+                Message = $"{count} Periods in {month.ToString("MMMM dd, yyyy", cul)}",
                 IsSuccess = true
             };
         }
         
         /// <summary>
-        /// Count Employee Attendance by given day
+        /// Count Employee Attendance Period by given day
         /// </summary>
         /// <param name="day"></param>
         /// <returns></returns>
-        public ServiceResponse<int> CountAttendanceByDay(DateTime day)
+        public ServiceResponse<TimeSpan> CountAttendanceByDay(DateTime day)
         {
             var now = DateTime.UtcNow;
-            int count = _db.EmployeeAttendances
-                .Count(e => e.FromDate.Day == day.Month
+            
+            List<Data.Models.EmployeeAttendance> Attendance = _db.EmployeeAttendances
+                .Where(e => e.FromDate.Day == day.Day
                             && e.FromDate.Month == day.Month
-                            && e.FromDate.Year == day.Year);
+                            && e.FromDate.Year == day.Year).ToList();
+
+            TimeSpan count = new TimeSpan();
+            foreach (var i in Attendance)
+            {
+                count = count.Add(i.Period);
+            }
+            
             CultureInfo cul = CultureInfo.CreateSpecificCulture("en-US");
             
-            return new ServiceResponse<int>
+            return new ServiceResponse<TimeSpan>
             {
                 Data = count,
                 Time = now,
-                Message = $"{count} Attendances in {day.ToString("Y", cul)}",
+                Message = $"{count} Periods in {day.ToString("Y", cul)}",
                 IsSuccess = true
             };
         }

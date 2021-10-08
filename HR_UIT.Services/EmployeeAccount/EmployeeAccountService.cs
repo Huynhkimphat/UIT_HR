@@ -277,7 +277,7 @@ namespace HR_UIT.Services.EmployeeAccount
                     Data = false,
                     Time = now,
                     Message = $"Employee with email: {employeeEmail} is not an admin",
-                    IsSuccess = true
+                    IsSuccess = false
                 };
             }
             catch (Exception e)

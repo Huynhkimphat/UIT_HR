@@ -26,7 +26,7 @@ namespace HR_UIT.Services.Employee
             return _db
                 .Employees
                 .Include(employee => employee.PrimaryAddress)
-                // .Include(employee => employee.PrimaryAccount)
+                .Include(employee => employee.PrimaryAccount)
                 // .Include(employee => employee.PrimaryDayOff)
                 .OrderBy(employee => employee.Id)
                 .ToList();
@@ -42,7 +42,7 @@ namespace HR_UIT.Services.Employee
                 .Employees
                 .Include(employee => employee.PrimaryAddress)
                 .Where(employee => !employee.IsArchived)
-                // .Include(employee => employee.PrimaryAccount)
+                .Include(employee => employee.PrimaryAccount)
                 // .Include(employee => employee.PrimaryDayOff)
                 .OrderBy(employee => employee.Id)
                 .ToList();

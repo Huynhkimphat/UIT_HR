@@ -20,7 +20,7 @@ namespace HR_UIT.Web.ViewModels
 
         public EmployeeAddressModel PrimaryAddress { get; set; }
 
-        // public EmployeeAccount PrimaryAccount { get; set; }
+        public EmployeeAccountModel PrimaryAccount { get; set; }
         //
         // public List<EmployeeAttendance> EmployeeAttendances { get; set; }
         //

@@ -232,5 +232,65 @@ namespace HR_UIT.Services.EmployeeAccount
                 IsSuccess = false
             };
         }
+        /// <summary>
+        /// Check if user is an admin
+        /// </summary>
+        /// <param name="employeeEmail"></param>
+        /// <returns></returns>
+        public ServiceResponse<bool> IsAdmin(string employeeEmail)
+        {
+            var now = DateTime.UtcNow;
+            var adminList = _db.EmployeeTypes
+                .Include(employeeType => employeeType.Employees)
+                .ThenInclude(employee => employee.PrimaryAccount)
+                .Where(employeeType => employeeType.Id == 1)
+                .ToList();
+            if (adminList.Count == 0)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "No admin Created.",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                foreach (var admin in adminList)
+                {
+                    if (admin.Employees.Any(employee => employee.PrimaryAccount.Email == employeeEmail))
+                    {
+                        return new ServiceResponse<bool>
+                        {
+                            Data = true,
+                            Time = now,
+                            Message = $"Employee with email: {employeeEmail} is an admin.",
+                            IsSuccess = true
+                        };
+                    }
+                }
+
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = $"Employee with email: {employeeEmail} is not an admin",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+        
     }
 }

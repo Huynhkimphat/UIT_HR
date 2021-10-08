@@ -23,7 +23,9 @@ namespace HR_UIT.Services.EmployeeType
         {
             return _db.EmployeeTypes
                 .Include(employeeType => employeeType.Employees)
-                .ThenInclude(employee => employee.PrimaryAddress)
+                    .ThenInclude(employee => employee.PrimaryAddress)
+                .Include(employeeType => employeeType.Employees)
+                    .ThenInclude(employee => employee.PrimaryAccount)
                 .OrderBy(employeeType => employeeType.Id)
                 .ToList();
         }

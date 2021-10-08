@@ -26,6 +26,9 @@ namespace HR_UIT.Web.Serialization
                 PrimaryAddress = (employee.PrimaryAddress != null)
                     ? EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress)
                     : new EmployeeAddressModel { },
+                PrimaryAccount= (employee.PrimaryAccount != null)
+                    ? EmployeeAccountMapper.MapEmployeeAccount(employee.PrimaryAccount)
+                    : new EmployeeAccountModel { },
                 CreatedOn = employee.CreatedOn,
                 UpdatedOn = employee.UpdatedOn,
                 IsArchived = employee.IsArchived,
@@ -56,6 +59,7 @@ namespace HR_UIT.Web.Serialization
                 PhoneNumber = employee.PhoneNumber,
                 IdentityCard = employee.IdentityCard,
                 PrimaryAddress = EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress),
+                PrimaryAccount = EmployeeAccountMapper.MapEmployeeAccount(employee.PrimaryAccount),
                 CreatedOn = employee.CreatedOn,
                 UpdatedOn = employee.UpdatedOn,
                 IsArchived = employee.IsArchived

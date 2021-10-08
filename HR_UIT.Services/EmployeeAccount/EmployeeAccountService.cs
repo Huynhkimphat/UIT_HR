@@ -243,7 +243,7 @@ namespace HR_UIT.Services.EmployeeAccount
             var adminList = _db.EmployeeTypes
                 .Include(employeeType => employeeType.Employees)
                 .ThenInclude(employee => employee.PrimaryAccount)
-                .Where(employeeType => employeeType.Id == 1)
+                .Where(employeeType => employeeType.Name == "Admin")
                 .ToList();
             if (adminList.Count == 0)
             {

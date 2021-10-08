@@ -18,7 +18,11 @@ namespace HR_UIT.Web.Controllers
             _logger = logger;
             _employeeService = employeeService;
         }
-
+        
+        /// <summary>
+        /// Get all employee
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("/api/employee/all")]
         public ActionResult GetAllEmployee()
         {
@@ -59,6 +63,11 @@ namespace HR_UIT.Web.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Return Employee By Given Id
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         [HttpGet("/api/employee/{employeeId}")]
         public ActionResult GetEmployeeById(int employeeId)
         {

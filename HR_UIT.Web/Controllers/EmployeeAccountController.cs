@@ -10,6 +10,7 @@ using HR_UIT.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HR_UIT.Web.Controllers
 {
@@ -26,7 +27,12 @@ namespace HR_UIT.Web.Controllers
             _employeeAccountService = employeeAccountService;
         }
 
+        /// <summary>
+        /// Admin
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("/api/employee/account/all")]
+        [Authorize(Policy = "Admin")]
         public ActionResult GetAllEmployeeAccount()
         {
             _logger.LogInformation("Getting accounts");
@@ -39,6 +45,7 @@ namespace HR_UIT.Web.Controllers
         }
 
         [HttpPost("/api/employee/accout/new")]
+        [Authorize(Policy = "Admin")]
         public ActionResult CreateNewAccount([FromBody] EmployeeAccountModel employeeAccount)
         {
             _logger.LogInformation("Creating new accounts");

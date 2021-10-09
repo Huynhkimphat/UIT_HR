@@ -88,7 +88,7 @@ namespace HR_UIT.Web.Controllers
         /// <param name="employeeId"></param>
         /// <returns></returns>
         [HttpGet("/api/employee/{employeeId}")]
-        [Authorize(Policy = "Staff")]
+        [Authorize(Policy = "Both")]
         public ActionResult GetEmployeeById(int employeeId)
         {
             _logger.LogInformation($"Getting information of Employee {employeeId} Complete... ");

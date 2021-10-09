@@ -60,6 +60,7 @@ namespace HR_UIT.Web
             {
                 cfg.AddPolicy("Admin", policy => policy.RequireClaim("type", "Admin"));
                 cfg.AddPolicy("Staff", policy => policy.RequireClaim("type", "Staff"));
+                cfg.AddPolicy("Both", policy => policy.RequireClaim("type", "Admin", "Staff"));
             });
             
             services.AddCors();

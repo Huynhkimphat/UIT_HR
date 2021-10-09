@@ -190,7 +190,7 @@ namespace HR_UIT.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("DayOffAmmount")
+                    b.Property<int>("DayOffAmount")
                         .HasColumnType("integer");
 
                     b.Property<bool>("IsArchived")
@@ -204,7 +204,7 @@ namespace HR_UIT.Data.Migrations
                     b.ToTable("EmployeeDayOffs");
                 });
 
-            modelBuilder.Entity("HR_UIT.Data.Models.EmployeeDayOff_Letter", b =>
+            modelBuilder.Entity("HR_UIT.Data.Models.EmployeeDayOffLetter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -641,7 +641,7 @@ namespace HR_UIT.Data.Migrations
                         .HasForeignKey("EmployeeId");
                 });
 
-            modelBuilder.Entity("HR_UIT.Data.Models.EmployeeDayOff_Letter", b =>
+            modelBuilder.Entity("HR_UIT.Data.Models.EmployeeDayOffLetter", b =>
                 {
                     b.HasOne("HR_UIT.Data.Models.Employee", null)
                         .WithMany("PrimaryDayOff_Letters")

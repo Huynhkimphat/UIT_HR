@@ -43,8 +43,27 @@ namespace HR_UIT.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            var TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidIssuer = "https://hr-uit.com",
+                ValidAudience = "https://hr-uit.com",
+                IssuerSigningKey =
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SXkSqsKyNUyvGbnHs7ke2NCq8zQzNLW7mPmHbnZZ")),
+                ClockSkew = TimeSpan.Zero
+            };
 
+            services
+                .AddAuthentication(options => { options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; })
+                .AddJwtBearer(cfg => { cfg.TokenValidationParameters = TokenValidationParameters; });
+
+            services.AddAuthorization(cfg =>
+            {
+                cfg.AddPolicy("Admin", policy => policy.RequireClaim("type", "Admin"));
+                cfg.AddPolicy("Staff", policy => policy.RequireClaim("type", "Staff"));
+            });
+            
+            services.AddCors();
+            
             services.AddControllers().AddNewtonsoftJson(opts =>
             {
                 opts.SerializerSettings.ContractResolver = new DefaultContractResolver
@@ -74,7 +93,7 @@ namespace HR_UIT.Web
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "HR_UIT.Web", Version = "v1"});
-                
+
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -82,46 +101,23 @@ namespace HR_UIT.Web
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
-                
+
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    { new OpenApiSecurityScheme
+                    {
+                        new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference{ Type = ReferenceType.SecurityScheme, Id = "Bearer"}
+                            Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "Bearer"}
                         },
-                      new string[] {}
+                        new string[] { }
                     }
                 });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-
-            var TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidIssuer = "https://hr-uit.com",
-                ValidAudience = "https://hr-uit.com",
-                IssuerSigningKey =
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SXkSqsKyNUyvGbnHs7ke2NCq8zQzNLW7mPmHbnZZ")),
-                ClockSkew = TimeSpan.Zero
-            };
-
-            services
-                .AddAuthentication(options =>
-                {
-                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(cfg =>
-                {
-                    cfg.TokenValidationParameters = TokenValidationParameters;
-                });
-
-            services.AddAuthorization(cfg =>
-            {
-                cfg.AddPolicy("Admin", policy => policy.RequireClaim("type", "Admin"));
-                cfg.AddPolicy("Staff", policy => policy.RequireClaim("type", "Staff"));
-            });
         }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -136,6 +132,10 @@ namespace HR_UIT.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            
+            app.UseAuthorization();
+            
             app.UseCors(builder =>
                 builder
                     .WithOrigins("http://localhost:8080", "http://localhost:8081", "http://localhost:8082")
@@ -143,8 +143,6 @@ namespace HR_UIT.Web
                     .AllowAnyHeader()
                     .AllowCredentials()
             );
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

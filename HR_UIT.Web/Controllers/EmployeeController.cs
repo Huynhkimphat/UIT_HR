@@ -3,6 +3,7 @@ using HR_UIT.Services.Employee;
 using HR_UIT.Web.Serialization;
 using HR_UIT.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace HR_UIT.Web.Controllers
@@ -18,8 +19,13 @@ namespace HR_UIT.Web.Controllers
             _logger = logger;
             _employeeService = employeeService;
         }
-
+        
+        /// <summary>
+        /// Admin authorize
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("/api/employee/all")]
+        [Authorize(Policy = "Admin")]
         public ActionResult GetAllEmployee()
         {
             _logger.LogInformation("Getting employees");
@@ -30,8 +36,13 @@ namespace HR_UIT.Web.Controllers
                 .ToList();
             return Ok(employeeModels);
         }
-
+        
+        /// <summary>
+        /// Admin authorize
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("/api/employee")]
+        [Authorize(Policy = "Admin")]
         public ActionResult GetAllAvailableEmployees()
         {
             _logger.LogInformation("Getting employees visible (isArchived = false)");
@@ -42,24 +53,39 @@ namespace HR_UIT.Web.Controllers
                 .ToList();
             return Ok(employeeModels);
         }
-
+        
+        /// <summary>
+        /// Admin authorize
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("/api/employee")]
+        [Authorize(Policy = "Admin")]
         public ActionResult CreateNewEmployee([FromBody] EmployeeModel employee)
         {
             _logger.LogInformation("Creating New Employee");
             var response = _employeeService.CreateEmployee(EmployeeMapper.MapEmployee(employee));
             return Ok(response);
         }
-
+        
+        /// <summary>
+        /// Admin authorize
+        /// </summary>
+        /// <returns></returns>
         [HttpPut("/api/employee/update/{employeeId}")]
+        [Authorize(Policy = "Admin")]
         public ActionResult UpdateEmployee([FromBody] EmployeeModel employee, int employeeId)
         {
             _logger.LogInformation($"Update Employee {employeeId}");
             var response = _employeeService.UpdateEmployee(EmployeeMapper.MapEmployee(employee), employeeId);
             return Ok(response);
         }
-
+        
+        /// <summary>
+        /// Admin, Staff authorize
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("/api/employee/{employeeId}")]
+        [Authorize(Policy = "Admin, Staff")]
         public ActionResult GetEmployeeById(int employeeId)
         {
             _logger.LogInformation($"Getting information of Employee {employeeId} Complete... ");
@@ -67,16 +93,25 @@ namespace HR_UIT.Web.Controllers
             return Ok(response);
         }
 
-
+        /// <summary>
+        /// Admin authorize
+        /// </summary>
+        /// <returns></returns>
         [HttpPatch("/api/employee/delete/{employeeId}")]
+        [Authorize(Policy = "Admin")]
         public ActionResult DeleteEmployee(int employeeId)
         {
             _logger.LogInformation($"Deleting Employee {employeeId} Complete... ");
             var response = _employeeService.DeleteEmployee(employeeId);
             return Ok(response);
         }
-
+        
+        /// <summary>
+        /// Admin authorize
+        /// </summary>
+        /// <returns></returns>
         [HttpPatch("/api/employee/recover/{employeeId}")]
+        [Authorize(Policy = "Admin")]
         public ActionResult RecoverEmployee(int employeeId)
         {
             _logger.LogInformation($"Recovering Employee {employeeId} Complete... ");

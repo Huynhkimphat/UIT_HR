@@ -22,6 +22,7 @@ namespace HR_UIT.Web.Controllers
         
         /// <summary>
         /// Admin authorize
+        /// Get all employee
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/employee/all")]
@@ -82,7 +83,9 @@ namespace HR_UIT.Web.Controllers
         
         /// <summary>
         /// Admin, Staff authorize
+        /// Return Employee By Given Id
         /// </summary>
+        /// <param name="employeeId"></param>
         /// <returns></returns>
         [HttpGet("/api/employee/{employeeId}")]
         [Authorize(Policy = "Admin, Staff")]

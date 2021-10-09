@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
-using HR_UIT.Services;
+using System.Text;
 using HR_UIT.Services.EmployeeAccount;
 using HR_UIT.Web.Serialization;
 using HR_UIT.Web.ViewModels;
@@ -62,20 +61,16 @@ namespace HR_UIT.Web.Controllers
             _logger.LogInformation("Logging In");
 
             var isLogin = _employeeAccountService.Login(email, password);
-            
-            if (isLogin.IsSuccess == true)
+            var isAdmin = _employeeAccountService.IsAdmin(email);
+            if (isLogin.IsSuccess)
             {
-                bool isAdmin = false;
-                var Claims = new List<Claim>();
-                if (isAdmin)
+                var Claims = new List<Claim>
                 {
-                    Claims.Add(new Claim("type", "Admin"));
-                }
-                else
-                {
-                    Claims.Add(new Claim("type", "Staff"));
-                }
-                
+                    isAdmin.Data
+                        ? new Claim("type", "Admin")
+                        : new Claim("type", "Staff")
+                };
+
                 var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SXkSqsKyNUyvGbnHs7ke2NCq8zQzNLW7mPmHbnZZ"));
 
                 var Token = new JwtSecurityToken(
@@ -85,14 +80,11 @@ namespace HR_UIT.Web.Controllers
                     expires: DateTime.Now.AddDays(30.0),
                     signingCredentials: new SigningCredentials(Key, SecurityAlgorithms.HmacSha256)
                 );
-                
+
                 return new OkObjectResult(new JwtSecurityTokenHandler().WriteToken(Token));
             }
-            else
-            {
-                return Ok(isLogin);
-            }
-            
+
+            return Ok(isLogin);
         }
     }
 }

@@ -26,5 +26,7 @@ namespace HR_UIT.Services.EmployeeAccount
         ServiceResponse<bool> RecoverEmployeeAccount(int id);
 
         ServiceResponse<string> Login(string email, string password);
+
+        ServiceResponse<bool> IsAdmin(string employeeId);
     }
 }

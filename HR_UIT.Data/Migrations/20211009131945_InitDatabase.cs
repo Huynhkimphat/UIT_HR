@@ -2,7 +2,7 @@
 
 namespace HR_UIT.Data.Migrations
 {
-    public partial class InitDatabase1 : Migration
+    public partial class InitDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

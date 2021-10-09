@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HR_UIT.Data.Migrations
 {
     [DbContext(typeof(HrUitDbContext))]
-    [Migration("20210919110112_InitDatabase")]
+    [Migration("20211009131945_InitDatabase")]
     partial class InitDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace HR_UIT.Data.Migrations
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("EmployeeTypeId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
@@ -64,6 +67,8 @@ namespace HR_UIT.Data.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeTypeId");
 
                     b.HasIndex("PrimaryAccountId");
 
@@ -98,7 +103,7 @@ namespace HR_UIT.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmployeeAccount");
+                    b.ToTable("EmployeeAccounts");
                 });
 
             modelBuilder.Entity("HR_UIT.Data.Models.EmployeeAddress", b =>
@@ -136,7 +141,7 @@ namespace HR_UIT.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmployeeAddress");
+                    b.ToTable("EmployeeAddresses");
                 });
 
             modelBuilder.Entity("HR_UIT.Data.Models.EmployeeAttendance", b =>
@@ -174,7 +179,7 @@ namespace HR_UIT.Data.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("EmployeeAttendance");
+                    b.ToTable("EmployeeAttendances");
                 });
 
             modelBuilder.Entity("HR_UIT.Data.Models.EmployeeDayOff", b =>
@@ -187,7 +192,7 @@ namespace HR_UIT.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("DayOffAmmount")
+                    b.Property<int>("DayOffAmount")
                         .HasColumnType("integer");
 
                     b.Property<bool>("IsArchived")
@@ -198,10 +203,10 @@ namespace HR_UIT.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmployeeDayOff");
+                    b.ToTable("EmployeeDayOffs");
                 });
 
-            modelBuilder.Entity("HR_UIT.Data.Models.EmployeeDayOff_Letter", b =>
+            modelBuilder.Entity("HR_UIT.Data.Models.EmployeeDayOffLetter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -239,7 +244,7 @@ namespace HR_UIT.Data.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("EmployeeDayOff_Letter");
+                    b.ToTable("EmployeeDayOffLetters");
                 });
 
             modelBuilder.Entity("HR_UIT.Data.Models.EmployeeSalary", b =>
@@ -282,7 +287,60 @@ namespace HR_UIT.Data.Migrations
 
                     b.HasIndex("PrimarySalaryDetailId");
 
-                    b.ToTable("EmployeeSalary");
+                    b.ToTable("EmployeeSalaries");
+                });
+
+            modelBuilder.Entity("HR_UIT.Data.Models.EmployeeType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmployeeTypes");
+                });
+
+            modelBuilder.Entity("HR_UIT.Data.Models.Holiday", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("NameOfHoliday")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("PrimaryHoliday_CreateId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrimaryHoliday_CreateId");
+
+                    b.ToTable("Holidays");
                 });
 
             modelBuilder.Entity("HR_UIT.Data.Models.Holiday_Create", b =>
@@ -314,7 +372,7 @@ namespace HR_UIT.Data.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Holiday_Create");
+                    b.ToTable("HolidayCreates");
                 });
 
             modelBuilder.Entity("HR_UIT.Data.Models.SalaryDetail", b =>
@@ -356,7 +414,7 @@ namespace HR_UIT.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SalaryDetail");
+                    b.ToTable("SalaryDetails");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -555,6 +613,10 @@ namespace HR_UIT.Data.Migrations
 
             modelBuilder.Entity("HR_UIT.Data.Models.Employee", b =>
                 {
+                    b.HasOne("HR_UIT.Data.Models.EmployeeType", null)
+                        .WithMany("Employees")
+                        .HasForeignKey("EmployeeTypeId");
+
                     b.HasOne("HR_UIT.Data.Models.EmployeeAccount", "PrimaryAccount")
                         .WithMany()
                         .HasForeignKey("PrimaryAccountId");
@@ -581,7 +643,7 @@ namespace HR_UIT.Data.Migrations
                         .HasForeignKey("EmployeeId");
                 });
 
-            modelBuilder.Entity("HR_UIT.Data.Models.EmployeeDayOff_Letter", b =>
+            modelBuilder.Entity("HR_UIT.Data.Models.EmployeeDayOffLetter", b =>
                 {
                     b.HasOne("HR_UIT.Data.Models.Employee", null)
                         .WithMany("PrimaryDayOff_Letters")
@@ -599,6 +661,15 @@ namespace HR_UIT.Data.Migrations
                         .HasForeignKey("PrimarySalaryDetailId");
 
                     b.Navigation("PrimarySalaryDetail");
+                });
+
+            modelBuilder.Entity("HR_UIT.Data.Models.Holiday", b =>
+                {
+                    b.HasOne("HR_UIT.Data.Models.Holiday_Create", "PrimaryHoliday_Create")
+                        .WithMany()
+                        .HasForeignKey("PrimaryHoliday_CreateId");
+
+                    b.Navigation("PrimaryHoliday_Create");
                 });
 
             modelBuilder.Entity("HR_UIT.Data.Models.Holiday_Create", b =>
@@ -668,6 +739,11 @@ namespace HR_UIT.Data.Migrations
                     b.Navigation("PrimaryDayOff_Letters");
 
                     b.Navigation("PrimarySalaries");
+                });
+
+            modelBuilder.Entity("HR_UIT.Data.Models.EmployeeType", b =>
+                {
+                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

@@ -62,29 +62,26 @@ namespace HR_UIT.Web.Controllers
 
             var isLogin = _employeeAccountService.Login(email, password);
             var isAdmin = _employeeAccountService.IsAdmin(email);
-            if (isLogin.IsSuccess)
+            if (!isLogin.IsSuccess) return Ok(isLogin);
+            var Claims = new List<Claim>
             {
-                var Claims = new List<Claim>
-                {
-                    isAdmin.Data
-                        ? new Claim("type", "Admin")
-                        : new Claim("type", "Staff")
-                };
+                isAdmin.Data
+                    ? new Claim("type", "Admin")
+                    : new Claim("type", "Staff")
+            };
 
-                var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SXkSqsKyNUyvGbnHs7ke2NCq8zQzNLW7mPmHbnZZ"));
+            var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SXkSqsKyNUyvGbnHs7ke2NCq8zQzNLW7mPmHbnZZ"));
 
-                var Token = new JwtSecurityToken(
-                    "https://hr-uit.com",
-                    "https://hr-uit.com",
-                    Claims,
-                    expires: DateTime.Now.AddDays(30.0),
-                    signingCredentials: new SigningCredentials(Key, SecurityAlgorithms.HmacSha256)
-                );
+            var Token = new JwtSecurityToken(
+                "https://hr-uit.com",
+                "https://hr-uit.com",
+                Claims,
+                expires: DateTime.Now.AddDays(30.0),
+                signingCredentials: new SigningCredentials(Key, SecurityAlgorithms.HmacSha256)
+            );
 
-                return new OkObjectResult(new JwtSecurityTokenHandler().WriteToken(Token));
-            }
+            return new OkObjectResult(new JwtSecurityTokenHandler().WriteToken(Token));
 
-            return Ok(isLogin);
         }
     }
 }

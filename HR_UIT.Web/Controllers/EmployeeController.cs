@@ -60,7 +60,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("/api/employee")]
-        [Authorize(Policy = "Admin")]
+        // [Authorize(Policy = "Admin")]
         public ActionResult CreateNewEmployee([FromBody] EmployeeModel employee)
         {
             _logger.LogInformation("Creating New Employee");
@@ -88,7 +88,7 @@ namespace HR_UIT.Web.Controllers
         /// <param name="employeeId"></param>
         /// <returns></returns>
         [HttpGet("/api/employee/{employeeId}")]
-        [Authorize(Policy = "Admin, Staff")]
+        // [Authorize(Policy = "Staff")]
         public ActionResult GetEmployeeById(int employeeId)
         {
             _logger.LogInformation($"Getting information of Employee {employeeId} Complete... ");

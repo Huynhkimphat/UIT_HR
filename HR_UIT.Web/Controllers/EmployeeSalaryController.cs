@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HR_UIT.Web.Controllers
 {
+    [ApiController]
     public class EmployeeSalaryController : ControllerBase
     {
         private readonly ISalaryService _salaryService;

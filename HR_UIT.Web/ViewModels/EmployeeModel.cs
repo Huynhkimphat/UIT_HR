@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-
+using HR_UIT.Data.Models;
 namespace HR_UIT.Web.ViewModels
 {
     public class EmployeeModel
@@ -28,7 +28,7 @@ namespace HR_UIT.Web.ViewModels
         //
         // public List<EmployeeDayOff_Letter> PrimaryDayOff_Letters { get; set; }
         //
-        // public List<EmployeeSalary> PrimarySalaries { get; set; }
+        public List<EmployeeSalaryModel> PrimarySalaries { get; set; }
         //
         // public List<HolidayCreateModel> EmployeeHolidayCreates { get; set;}
 

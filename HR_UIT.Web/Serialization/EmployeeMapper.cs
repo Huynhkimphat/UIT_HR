@@ -29,6 +29,12 @@ namespace HR_UIT.Web.Serialization
                 PrimaryAccount= (employee.PrimaryAccount != null)
                     ? EmployeeAccountMapper.MapEmployeeAccount(employee.PrimaryAccount)
                     : new EmployeeAccountModel { },
+                PrimarySalaries = (employee.PrimarySalaries != null)
+                    ? employee.PrimarySalaries
+                        .Select(EmployeeSalaryMapper.MapEmployeeSalary)
+                        .OrderByDescending(salary => salary.Id)
+                        .ToList() 
+                    : new List<EmployeeSalaryModel>{ },
                 CreatedOn = employee.CreatedOn,
                 UpdatedOn = employee.UpdatedOn,
                 IsArchived = employee.IsArchived,
@@ -60,6 +66,11 @@ namespace HR_UIT.Web.Serialization
                 IdentityCard = employee.IdentityCard,
                 PrimaryAddress = EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress),
                 PrimaryAccount = EmployeeAccountMapper.MapEmployeeAccount(employee.PrimaryAccount),
+                PrimarySalaries = employee.PrimarySalaries
+                    .Select(EmployeeSalaryMapper.MapEmployeeSalary)
+                    .OrderByDescending(salary => salary.Id)
+                    .ToList(),
+                    
                 CreatedOn = employee.CreatedOn,
                 UpdatedOn = employee.UpdatedOn,
                 IsArchived = employee.IsArchived

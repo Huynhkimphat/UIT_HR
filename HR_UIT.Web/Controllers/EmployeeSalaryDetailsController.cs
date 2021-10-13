@@ -54,7 +54,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="salaryDetailId"></param>
         /// <returns></returns>
-        [HttpGet("/api/SalaryDetail/{salaryDetailId}")]
+        [HttpGet("/api/salaryDetail/{salaryDetailId}")]
         [Authorize(Policy = "Both")]
         public ActionResult GetSalaryDetailById(int salaryDetailId)
         {
@@ -69,7 +69,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="salaryDetailId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/SalaryDetail/delete/{salaryDetailId}")]
+        [HttpPatch("/api/salaryDetail/delete/{salaryDetailId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult DeleteSalaryDetail(int salaryDetailId)
         {

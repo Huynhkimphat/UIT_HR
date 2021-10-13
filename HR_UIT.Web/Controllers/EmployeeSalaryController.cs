@@ -62,7 +62,7 @@ namespace HR_UIT.Web.Controllers
         {
             _logger.LogInformation($"Getting information of Employee Salary Id {salaryId}");
             var response = _salaryService.GetEmployeeSalaryById(salaryId);
-            return Ok(response);
+            return Ok(EmployeeSalaryMapper.MapEmployeeSalary(response));
         }
         
         /// <summary>
@@ -77,7 +77,7 @@ namespace HR_UIT.Web.Controllers
         {
             _logger.LogInformation("Getting Employee Salary by Year and Month");
             var response = _salaryService.GetEmployeeSalaryByYearMonth(year, month);
-            return Ok(response);
+            return Ok(EmployeeSalaryMapper.MapEmployeeSalary(response));
         }
 
         /// <summary>

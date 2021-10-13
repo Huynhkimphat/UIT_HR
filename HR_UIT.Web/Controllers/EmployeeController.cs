@@ -91,7 +91,7 @@ namespace HR_UIT.Web.Controllers
         {
             _logger.LogInformation($"Getting information of Employee {employeeId} Complete... ");
             var response = _employeeService.GetEmployeeById(employeeId);
-            return Ok(response);
+            return Ok(EmployeeMapper.MapEmployee(response));
         }
 
         /// <summary>

@@ -49,7 +49,7 @@ namespace HR_UIT.Web.Controllers
         {
             _logger.LogInformation($"Getting employeeType {id}");
             var employeeType = _employeeTypeService.GetTypeById(id);
-            return Ok(employeeType);
+            return Ok(EmployeeTypeMapper.MapEmployeeType(employeeType));
         }
 
         /// <summary>

@@ -60,7 +60,7 @@ namespace HR_UIT.Web.Controllers
         {
             _logger.LogInformation($"Getting Salary Detail Id: {salaryDetailId}");
             var response = _salaryDetailService.GetSalaryDetailById(salaryDetailId);
-            return Ok(response);
+            return Ok(SalaryDetailMapper.MapSalaryDetail(response));
 
         }
 

@@ -32,17 +32,7 @@ namespace HR_UIT.Web.Controllers
             _logger.LogInformation("Getting all employeesAddresses");
             var employeesAddresses = _employeeAddressService.GetEmployeeAddresses();
             var employeeModels = employeesAddresses
-                .Select(employeeAddress => new EmployeeAddressModel
-                {
-                    Id = employeeAddress.Id,
-                    AddressLine = employeeAddress.AddressLine,
-                    Ward = employeeAddress.Ward,
-                    District = employeeAddress.District,
-                    City = employeeAddress.City,
-                    Country = employeeAddress.Country,
-                    CreatedOn = employeeAddress.CreatedOn,
-                    UpdatedOn = employeeAddress.UpdatedOn,
-                })
+                .Select(EmployeeAddressMapper.MapEmployeeAddress)
                 .OrderByDescending(employeeAddress => employeeAddress.Id)
                 .ToList();
             return Ok(employeeModels);
@@ -59,7 +49,7 @@ namespace HR_UIT.Web.Controllers
         {
             _logger.LogInformation($"Getting employeeAddress {id}");
             var response = _employeeAddressService.GetEmployeeAddressById(id);
-            return Ok(response);
+            return Ok(EmployeeAddressMapper.MapEmployeeAddress(response));
         }
 
         /// <summary>

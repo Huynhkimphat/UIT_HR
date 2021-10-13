@@ -45,11 +45,25 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
+        /// Get Employee Account By Given Id ----- Admin And Staff
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/api/employee/account/{id}")]
+        [Authorize(Policy = "Both")]
+        public ActionResult GetEmployeeAccountById(int id)
+        {
+            _logger.LogInformation($"Getting account {id}");
+            var employeeAccount = _employeeAccountService.GetEmployeeAccountById(id);
+            return Ok(EmployeeAccountMapper.MapEmployeeAccount(employeeAccount));
+        }
+        
+        /// <summary>
         /// Create New Account ----- Admin
         /// </summary>
         /// <param name="employeeAccount"></param>
         /// <returns></returns>
-        [HttpPost("/api/employee/accout/new")]
+        [HttpPost("/api/employee/account/new")]
         [Authorize(Policy = "Admin")]
         public ActionResult CreateNewAccount([FromBody] EmployeeAccountModel employeeAccount)
         {
@@ -60,6 +74,49 @@ namespace HR_UIT.Web.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Change Account Password ----- Admin And Staff
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/employee/account/{id}/change")]
+        [Authorize(Policy = "Both")]
+        public ActionResult ChangeAccountPassword(int id, [FromBody] string password)
+        {
+            _logger.LogInformation($"Change Account Password For {id}");
+            var response=_employeeAccountService.ChangeEmployeeAccountPassword(id, password);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Delete Employee Account ----- Admin And Staff
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/employee/account/{id}/delete")]
+        [Authorize(Policy = "Both")]
+        public ActionResult DeleteEmployeeAccount(int id)
+        {
+            _logger.LogInformation($"Delete Employee Account {id}");
+            var response=_employeeAccountService.DeleteEmployeeAccount(id);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Recover Employee Account ----- Admin And Staff
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/employee/account/{id}/recover")]
+        [Authorize(Policy = "Both")]
+        public ActionResult RecoverEmployeeAccount(int id)
+        {
+            _logger.LogInformation($"Recover Employee Account {id}");
+            var response=_employeeAccountService.RecoverEmployeeAccount(id);
+            return Ok(response);
+        }
+        
         /// <summary>
         /// Login ----- Admin And Staff
         /// </summary>

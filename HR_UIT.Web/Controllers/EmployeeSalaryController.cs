@@ -23,8 +23,7 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Admin authorize
-        /// Creating new employee salary
+        /// Creating New Employee Salary ----- Admin 
         /// </summary>
         /// <param name="salary"></param>
         /// <returns></returns>
@@ -38,13 +37,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Admin authorize
-        /// Update employee salary
+        /// Update employee salary ----- Admin
         /// </summary>
         /// <param name="salary"></param>
         /// <param name="salaryId"></param>
         /// <returns></returns>
-        [HttpPut("api/salary/update/{salaryId}")]
+        [HttpPut("/api/salary/update/{salaryId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult UpdateEmployeeSalary([FromBody] EmployeeSalaryModel salary, int salaryId)
         {
@@ -54,8 +52,7 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Admin, Staff authorize
-        /// return employee salary by Id
+        /// Get Employee Salary By Given Id ----- Admin And Staff
         /// </summary>
         /// <param name="salaryId"></param>
         /// <returns></returns>
@@ -63,19 +60,18 @@ namespace HR_UIT.Web.Controllers
         [Authorize(Policy = "Both")]
         public ActionResult GetEmployeeSalaryById(int salaryId)
         {
-            _logger.LogInformation($"Getting informatine of Employee Salary IdL {salaryId}");
+            _logger.LogInformation($"Getting information of Employee Salary Id {salaryId}");
             var response = _salaryService.GetEmployeeSalaryById(salaryId);
             return Ok(response);
         }
         
         /// <summary>
-        /// Admin, Staff authorize
-        /// return employee salary by year and month
+        /// Get Employee Salary By Year And Month ----- Admin And Staff
         /// </summary>
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <returns></returns>
-        [HttpGet("api/salary")]
+        [HttpGet("/api/salary/{year}/{month}")]
         [Authorize(Policy = "Both")]
         public ActionResult GetEmployeeSalaryByYearMonth(int year, int month)
         {
@@ -85,8 +81,7 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Admin authorize
-        /// Deleting employee salary
+        /// Deleting Employee Salary ----- Admin
         /// </summary>
         /// <param name="salaryId"></param>
         /// <returns></returns>
@@ -100,8 +95,7 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
-        /// Staff authorize
-        /// Check salary by employee
+        /// Check Salary By Employee ----- Staff 
         /// </summary>
         /// <param name="salaryId"></param>
         /// <returns></returns>
@@ -115,8 +109,7 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
-        /// Admin authorize
-        /// Check if salary received
+        /// Check if salary received ----- Admin
         /// </summary>
         /// <param name="salaryId"></param>
         /// <returns></returns>

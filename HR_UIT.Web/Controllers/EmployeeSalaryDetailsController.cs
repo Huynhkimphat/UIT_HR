@@ -22,8 +22,7 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Admin authorize
-        /// Create new employee salary detail
+        /// Create New Employee Salary Detail ----- Admin
         /// </summary>
         /// <param name="salaryDetail"></param>
         /// <returns></returns>
@@ -37,12 +36,11 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Admin authorize
-        /// Counting for final salary
+        /// Counting For Final Salary ----- Admin
         /// </summary>
         /// <param name="salaryDetailId"></param>
         /// <returns></returns>
-        [HttpPatch("api/salaryDetail/{salaryDetailId}")]
+        [HttpPatch("/api/salaryDetail/{salaryDetailId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult CountFinalSalary(int salaryDetailId)
         {
@@ -52,12 +50,11 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Admin, Staff Authorize
-        /// Getting Salary Detail By Id
+        /// Getting Salary Detail By Id ----- Admin And Staff
         /// </summary>
         /// <param name="salaryDetailId"></param>
         /// <returns></returns>
-        [HttpGet("api/SalaryDetail/{salaryDetailId}")]
+        [HttpGet("/api/SalaryDetail/{salaryDetailId}")]
         [Authorize(Policy = "Both")]
         public ActionResult GetSalaryDetailById(int salaryDetailId)
         {
@@ -68,12 +65,11 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Admin authorize
-        /// Delete Salary Detail
+        /// Delete Salary Detail ----- Admin
         /// </summary>
         /// <param name="salaryDetailId"></param>
         /// <returns></returns>
-        [HttpPatch("api/SalaryDetail/delete/{salaryDetailId}")]
+        [HttpPatch("/api/SalaryDetail/delete/{salaryDetailId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult DeleteSalaryDetail(int salaryDetailId)
         {

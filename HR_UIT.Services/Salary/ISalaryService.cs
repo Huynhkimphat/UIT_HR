@@ -13,16 +13,31 @@ namespace HR_UIT.Services.Salary
             );
 
         ServiceResponse<Data.Models.EmployeeSalary>
-            CheckSalary(
+            IsCheckedSalary(
                 int salaryId
             );
+
         ServiceResponse<Data.Models.EmployeeSalary>
-            ReceiveSalary(
+            IsUnCheckedSalary(
+                int salaryId
+            );
+
+        ServiceResponse<Data.Models.EmployeeSalary>
+            IsReceivedSalary(
+                int salaryId
+            );
+
+        ServiceResponse<Data.Models.EmployeeSalary>
+            IsUnReceivedSalary(
                 int salaryId
             );
 
         ServiceResponse<bool>
             DeleteSalary(int id);
+
+        ServiceResponse<bool>
+            RecoverSalary(int id);
+
         Data.Models.EmployeeSalary GetEmployeeSalaryById(int id);
         Data.Models.EmployeeSalary GetEmployeeSalaryByYearMonth(int year, int month);
     }

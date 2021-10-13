@@ -104,7 +104,7 @@ namespace HR_UIT.Web.Controllers
         public ActionResult CheckEmployeeSalary(int salaryId)
         {
             _logger.LogInformation($"Checking employee salary Id: {salaryId}");
-            var response = _salaryService.CheckSalary(salaryId);
+            var response = _salaryService.IsCheckedSalary(salaryId);
             return Ok(response);
         }
         
@@ -118,7 +118,7 @@ namespace HR_UIT.Web.Controllers
         public ActionResult ReceiveEmployeeSalary(int salaryId)
         {
             _logger.LogInformation($"Checking employee salary Id: {salaryId}");
-            var response = _salaryService.ReceiveSalary(salaryId);
+            var response = _salaryService.IsReceivedSalary(salaryId);
             return Ok(response);
         }
     }

@@ -28,7 +28,7 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Admin
+        /// Get All Employee Account ----- Admin
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/employee/account/all")]
@@ -44,6 +44,11 @@ namespace HR_UIT.Web.Controllers
             return Ok(employeeAccountModels);
         }
 
+        /// <summary>
+        /// Create New Account ----- Admin
+        /// </summary>
+        /// <param name="employeeAccount"></param>
+        /// <returns></returns>
         [HttpPost("/api/employee/accout/new")]
         [Authorize(Policy = "Admin")]
         public ActionResult CreateNewAccount([FromBody] EmployeeAccountModel employeeAccount)
@@ -55,7 +60,14 @@ namespace HR_UIT.Web.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Login ----- Admin And Staff
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpGet("/api/login")]
+        // [Authorize(Policy = "Both")]
         public ActionResult Login(string email, string password)
         {
             _logger.LogInformation("Logging In");

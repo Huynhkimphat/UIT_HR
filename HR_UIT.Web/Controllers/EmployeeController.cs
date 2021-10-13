@@ -21,8 +21,7 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
-        /// Admin authorize
-        /// Get all employee
+        /// Get All Employee ----- Admin
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/employee/all")]
@@ -39,7 +38,7 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
-        /// Admin authorize
+        /// Get All Available Employee ----- Admin
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/employee")]
@@ -56,7 +55,7 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
-        /// Admin authorize
+        /// Create New Employee ----- Admin
         /// </summary>
         /// <returns></returns>
         [HttpPost("/api/employee")]
@@ -69,7 +68,7 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
-        /// Admin authorize
+        /// Update Employee By Id ----- Admin
         /// </summary>
         /// <returns></returns>
         [HttpPut("/api/employee/update/{employeeId}")]
@@ -82,8 +81,7 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
-        /// Admin, Staff authorize
-        /// Return Employee By Given Id
+        /// Get Employee By Given Id ----- Admin And Staff  
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
@@ -97,7 +95,7 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Admin authorize
+        /// Delete Employee With Given Id ----- Admin 
         /// </summary>
         /// <returns></returns>
         [HttpPatch("/api/employee/delete/{employeeId}")]
@@ -110,7 +108,7 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
-        /// Admin authorize
+        /// Recover Employee With Given Id ----- Admin 
         /// </summary>
         /// <returns></returns>
         [HttpPatch("/api/employee/recover/{employeeId}")]

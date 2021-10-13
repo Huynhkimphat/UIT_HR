@@ -302,7 +302,6 @@ namespace HR_UIT.Services.EmployeeType
             var currentEmployee = _db.Employees
                 .Include(employee => employee.PrimaryAddress)
                 .FirstOrDefault(employee => employee.Id == employeeId);
-            ;
             if (currentEmployee == null)
             {
                 return new ServiceResponse<bool>
@@ -316,11 +315,11 @@ namespace HR_UIT.Services.EmployeeType
 
             try
             {
-                var isEmployeeHasRole = false;
-                foreach (var currentType in currentTypes.Where(currentType => currentType.Employees != null))
-                {
-                    isEmployeeHasRole = currentType.Employees.Any(employee => employee.Id == employeeId);;
-                }
+                var isEmployeeHasRole = currentTypes
+                    .Where(currentType => currentType.Employees != null)
+                    .Select(currentType => currentType.Employees
+                        .Any(employee => employee.Id == employeeId))
+                    .FirstOrDefault();
 
                 if (isEmployeeHasRole)
                 {

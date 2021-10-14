@@ -58,6 +58,7 @@ namespace HR_UIT.Services.Employee
         public ServiceResponse<Data.Models.Employee> CreateEmployee(Data.Models.Employee employee)
         {
             var now = DateTime.UtcNow;
+            employee.PrimarySalaries = null;
             try
             {
                 _db.Employees.Add(employee);

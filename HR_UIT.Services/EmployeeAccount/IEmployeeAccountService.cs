@@ -6,7 +6,7 @@ namespace HR_UIT.Services.EmployeeAccount
     {
         List<Data.Models.EmployeeAccount> GetAllAccounts();
         
-        // List<Data.Models.EmployeeAccount> GetAllEmployeesVisible();
+        List<Data.Models.EmployeeAccount> GetAllEmployeesVisible();
         
         Data.Models.EmployeeAccount GetEmployeeAccountById(int id);
 

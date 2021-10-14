@@ -26,7 +26,20 @@ namespace HR_UIT.Services.EmployeeAccount
                 .OrderBy(employeeAccount => employeeAccount.Id)
                 .ToList();
         }
-        
+
+        /// <summary>
+        /// Get All Employee Visible
+        /// </summary>
+        /// <returns></returns>
+        public List<Data.Models.EmployeeAccount> GetAllEmployeesVisible()
+        {
+            return _db
+                .EmployeeAccounts
+                .Where(employeeAccount => !employeeAccount.IsArchived)
+                .OrderBy(employeeAccount => employeeAccount.Id)
+                .ToList();
+        }
+
         /// <summary>
         /// Get an Account from database with the given Id 
         /// </summary>
@@ -42,7 +55,8 @@ namespace HR_UIT.Services.EmployeeAccount
         /// </summary>
         /// <param name="employeeAccount"></param>
         /// <returns></returns>
-        public ServiceResponse<Data.Models.EmployeeAccount> CreateEmployeeAccount(Data.Models.EmployeeAccount employeeAccount)
+        public ServiceResponse<Data.Models.EmployeeAccount> CreateEmployeeAccount(
+            Data.Models.EmployeeAccount employeeAccount)
         {
             var now = DateTime.UtcNow;
             try
@@ -68,14 +82,14 @@ namespace HR_UIT.Services.EmployeeAccount
                 };
             }
         }
-        
+
         /// <summary>
         /// Change Account Password with given AccountId 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="newPassword"></param>
         /// <returns></returns>
-        public ServiceResponse<Data.Models.EmployeeAccount> ChangeEmployeeAccountPassword(int id,string newPassword)
+        public ServiceResponse<Data.Models.EmployeeAccount> ChangeEmployeeAccountPassword(int id, string newPassword)
         {
             var now = DateTime.UtcNow;
             var employeeAccount = _db.EmployeeAccounts.Find(id);
@@ -89,6 +103,7 @@ namespace HR_UIT.Services.EmployeeAccount
                     IsSuccess = false
                 };
             }
+
             try
             {
                 employeeAccount.Password = newPassword;
@@ -114,7 +129,7 @@ namespace HR_UIT.Services.EmployeeAccount
                 };
             }
         }
-        
+
         /// <summary>
         /// Delete an Account with the given AccountId
         /// </summary>
@@ -232,6 +247,7 @@ namespace HR_UIT.Services.EmployeeAccount
                 IsSuccess = false
             };
         }
+
         /// <summary>
         /// Check if user is an admin
         /// </summary>
@@ -258,18 +274,15 @@ namespace HR_UIT.Services.EmployeeAccount
 
             try
             {
-                foreach (var admin in adminList)
+                if (adminList.Any(admin => admin.Employees.Any(employee => employee.PrimaryAccount.Email == employeeEmail)))
                 {
-                    if (admin.Employees.Any(employee => employee.PrimaryAccount.Email == employeeEmail))
+                    return new ServiceResponse<bool>
                     {
-                        return new ServiceResponse<bool>
-                        {
-                            Data = true,
-                            Time = now,
-                            Message = $"Employee with email: {employeeEmail} is an admin.",
-                            IsSuccess = true
-                        };
-                    }
+                        Data = true,
+                        Time = now,
+                        Message = $"Employee with email: {employeeEmail} is an admin.",
+                        IsSuccess = true
+                    };
                 }
 
                 return new ServiceResponse<bool>
@@ -291,6 +304,5 @@ namespace HR_UIT.Services.EmployeeAccount
                 };
             }
         }
-        
     }
 }

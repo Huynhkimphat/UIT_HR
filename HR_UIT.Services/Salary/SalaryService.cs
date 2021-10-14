@@ -96,6 +96,11 @@ namespace HR_UIT.Services.Salary
             }
         }
 
+        /// <summary>
+        /// Check Salary By Given Id
+        /// </summary>
+        /// <param name="salaryId"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.EmployeeSalary> IsCheckedSalary(int salaryId)
         {
             var now = DateTime.UtcNow;
@@ -134,6 +139,11 @@ namespace HR_UIT.Services.Salary
             }
         }
 
+        /// <summary>
+        /// UnCheck Salary By Given Id
+        /// </summary>
+        /// <param name="salaryId"></param>
+        /// <returns></returns>
         public ServiceResponse<EmployeeSalary> IsUnCheckedSalary(int salaryId)
         {
             var now = DateTime.UtcNow;
@@ -172,6 +182,11 @@ namespace HR_UIT.Services.Salary
             }
         }
 
+        /// <summary>
+        /// UnReceived Salary By Salary Id
+        /// </summary>
+        /// <param name="salaryId"></param>
+        /// <returns></returns>
         public ServiceResponse<EmployeeSalary> IsUnReceivedSalary(int salaryId)
         {
               var now = DateTime.UtcNow;
@@ -210,6 +225,11 @@ namespace HR_UIT.Services.Salary
                         }
         }
 
+        /// <summary>
+        /// Delete Salary By Given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ServiceResponse<bool> DeleteSalary(int id)
         {
             var now = DateTime.UtcNow;
@@ -248,6 +268,11 @@ namespace HR_UIT.Services.Salary
             }
         }
 
+        /// <summary>
+        /// Recover Salary By Given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ServiceResponse<bool> RecoverSalary(int id)
         {
             var now = DateTime.UtcNow;
@@ -286,6 +311,11 @@ namespace HR_UIT.Services.Salary
             }
         }
 
+        /// <summary>
+        /// Received Salary By Given Id
+        /// </summary>
+        /// <param name="salaryId"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.EmployeeSalary> IsReceivedSalary(int salaryId)
         {
             var now = DateTime.UtcNow;
@@ -324,6 +354,11 @@ namespace HR_UIT.Services.Salary
             }
         }
 
+        /// <summary>
+        /// Get Employee Salary By Given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Data.Models.EmployeeSalary GetEmployeeSalaryById(int id)
         {
             return _db
@@ -331,6 +366,12 @@ namespace HR_UIT.Services.Salary
                 .Find(id);
         }
 
+        /// <summary>
+        /// Get EmployeeSalary By Given Month and Year
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
         public Data.Models.EmployeeSalary GetEmployeeSalaryByYearMonth(int year, int month)
         {
             return _db

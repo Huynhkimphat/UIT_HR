@@ -14,6 +14,11 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
             _db = dbContext;
         }
 
+        /// <summary>
+        /// Create New Employee DayOff Letter
+        /// </summary>
+        /// <param name="employeeDayOffLetter"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.EmployeeDayOffLetter>
             CreateNewEmployeeDayOffLetter(Data.Models.EmployeeDayOffLetter employeeDayOffLetter)
         {
@@ -41,7 +46,13 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 };
             }
         }
-
+    
+        /// <summary>
+        /// Update Employee DayOff Letter With Given Id
+        /// </summary>
+        /// <param name="employeeDayOffLetter"></param>
+        /// <param name="employeeDayOffLetterId"></param>
+        /// <returns></returns>
         public ServiceResponse<Data.Models.EmployeeDayOffLetter>
             UpdateEmployeeDayOffLetter(Data.Models.EmployeeDayOffLetter employeeDayOffLetter,
                 int employeeDayOffLetterId)
@@ -87,6 +98,11 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
             }
         }
 
+        /// <summary>
+        /// Delete Employee DayOff With Given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ServiceResponse<bool> DeleteEmployeeDayOffLetter(int id)
         {
             var now = DateTime.UtcNow;
@@ -126,6 +142,11 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
             }
         }
 
+        /// <summary>
+        /// Recover Employee DayOff Letter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ServiceResponse<bool> RecoverEmployeeDayOffLetter(int id)
         {
             var now = DateTime.UtcNow;
@@ -165,13 +186,22 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
             }
         }
 
+        /// <summary>
+        /// Get All Employee DayOff Letter
+        /// </summary>
+        /// <returns></returns>
         public List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetter()
         {
             return _db.EmployeeDayOffLetters
                 .OrderBy(employeeDayOffLetter => employeeDayOffLetter.Id)
                 .ToList();
         }
-
+        
+        /// <summary>
+        /// Get All Employee DayOff Letter By Given Day
+        /// </summary>
+        /// <param name="day"></param>
+        /// <returns></returns>
         public List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByDay(DateTime day)
         {
             return _db.EmployeeDayOffLetters
@@ -182,6 +212,11 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 .ToList();
         }
 
+        /// <summary>
+        /// Get All Employee DayOff Letter By Given Month
+        /// </summary>
+        /// <param name="month"></param>
+        /// <returns></returns>
         public List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByMonth(DateTime month)
         {
             return _db.EmployeeDayOffLetters
@@ -191,6 +226,11 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 .ToList();
         }
 
+        /// <summary>
+        /// Get All Employee DayOff Letter By Week
+        /// </summary>
+        /// <param name="week"></param>
+        /// <returns></returns>
         public List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByWeek(DateTime week)
         {
             var startOfWeek = week;
@@ -198,7 +238,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 startOfWeek = startOfWeek.AddDays(-1);
             var endOfWeek = startOfWeek.AddDays(7);
 
-            List<Data.Models.EmployeeDayOffLetter> dayOffLetter = new List<Data.Models.EmployeeDayOffLetter>();
+            var dayOffLetter = new List<Data.Models.EmployeeDayOffLetter>();
             
             while (startOfWeek <= endOfWeek)
             {
@@ -209,6 +249,11 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
             return dayOffLetter;
         }
 
+        /// <summary>
+        /// Approve Employee DayOff Letter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ServiceResponse<bool> ApproveEmployeeDayOffLetter(int id)
         {
             var now = DateTime.UtcNow;

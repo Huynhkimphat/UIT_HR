@@ -32,7 +32,7 @@ namespace HR_UIT.Services.Employee
                 .OrderBy(employee => employee.Id)
                 .ToList();
         }
-        
+
         /// <summary>
         /// Return a List of Employees from database which still available
         /// </summary>
@@ -49,7 +49,7 @@ namespace HR_UIT.Services.Employee
                 .OrderBy(employee => employee.Id)
                 .ToList();
         }
-        
+
         /// <summary>
         /// Create new Employee
         /// </summary>
@@ -82,7 +82,7 @@ namespace HR_UIT.Services.Employee
                 };
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -90,16 +90,19 @@ namespace HR_UIT.Services.Employee
         /// <returns></returns>
         public Data.Models.Employee GetEmployeeById(int id)
         {
-            return _db.Employees.Include(employee => employee.PrimaryAddress).FirstOrDefault(e => e.Id == id);
+            return _db
+                .Employees
+                .Include(employee => employee.PrimaryAddress)
+                .FirstOrDefault(e => e.Id == id);
         }
-        
+
         /// <summary>
         /// Update Employee
         /// </summary>
         /// <param name="newEmployee"></param>
         /// <param name="employeeId"></param>
         /// <returns></returns>
-        public ServiceResponse<Data.Models.Employee> UpdateEmployee(Data.Models.Employee newEmployee,int employeeId)
+        public ServiceResponse<Data.Models.Employee> UpdateEmployee(Data.Models.Employee newEmployee, int employeeId)
         {
             var now = DateTime.UtcNow;
             var employee = _db.Employees.Find(employeeId);
@@ -118,7 +121,7 @@ namespace HR_UIT.Services.Employee
                 employee.DateOfBirth = newEmployee.DateOfBirth;
                 employee.PhoneNumber = newEmployee.PhoneNumber;
                 employee.IdentityCard = newEmployee.IdentityCard;
-                employee.UpdatedOn =newEmployee.UpdatedOn;
+                employee.UpdatedOn = newEmployee.UpdatedOn;
                 employee.IsArchived = newEmployee.IsArchived;
                 _db.Employees.Update(employee);
                 _db.SaveChanges();
@@ -140,9 +143,8 @@ namespace HR_UIT.Services.Employee
                     IsSuccess = false
                 };
             }
-
         }
-        
+
         /// <summary>
         /// Delete an Employee with given Id 
         /// </summary>
@@ -185,7 +187,7 @@ namespace HR_UIT.Services.Employee
                 };
             }
         }
-        
+
         /// <summary>
         /// Recover An Employee
         /// </summary>
@@ -229,7 +231,5 @@ namespace HR_UIT.Services.Employee
                 };
             }
         }
-
-
     }
 }

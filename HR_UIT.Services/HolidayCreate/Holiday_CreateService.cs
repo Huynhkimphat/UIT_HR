@@ -124,7 +124,6 @@ namespace HR_UIT.Services.HolidayCreate
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        
         public ServiceResponse<bool> DeleteHolidayOff(int id)
         {
             var now = DateTime.UtcNow;
@@ -168,7 +167,6 @@ namespace HR_UIT.Services.HolidayCreate
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        
         public ServiceResponse<bool> RecoverHolidayOff(int id)
         {
             var now = DateTime.UtcNow;

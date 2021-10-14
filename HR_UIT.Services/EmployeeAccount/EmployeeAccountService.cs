@@ -274,7 +274,8 @@ namespace HR_UIT.Services.EmployeeAccount
 
             try
             {
-                if (adminList.Any(admin => admin.Employees.Any(employee => employee.PrimaryAccount.Email == employeeEmail)))
+                if (adminList.Any(admin =>
+                    admin.Employees.Any(employee => employee.PrimaryAccount.Email == employeeEmail)))
                 {
                     return new ServiceResponse<bool>
                     {

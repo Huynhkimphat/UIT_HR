@@ -124,7 +124,7 @@ namespace HR_UIT.Services.EmployeeAttendance
                 startOfWeek = startOfWeek.AddDays(-1);
             var endOfWeek = startOfWeek.AddDays(7);
 
-            List<Data.Models.EmployeeAttendance> attendances = new List<Data.Models.EmployeeAttendance>();
+            var attendances = new List<Data.Models.EmployeeAttendance>();
             
             while (startOfWeek <= endOfWeek)
             {
@@ -247,17 +247,14 @@ namespace HR_UIT.Services.EmployeeAttendance
         public ServiceResponse<TimeSpan> CountAttendanceByMonth(DateTime month)
         {
             var now = DateTime.UtcNow;
-            List<Data.Models.EmployeeAttendance> Attendance = _db.EmployeeAttendances
+            var Attendance = _db.EmployeeAttendances
                 .Where(e => e.FromDate.Month == month.Month
                             && e.FromDate.Year == month.Year).ToList();
 
-            TimeSpan count = new TimeSpan();
-            
-            foreach (var i in Attendance)
-            {
-                count = count.Add(i.Period);
-            }
-            CultureInfo cul = CultureInfo.CreateSpecificCulture("en-US");
+            var count = new TimeSpan();
+
+            count = Attendance.Aggregate(count, (current, i) => current.Add(i.Period));
+            var cul = CultureInfo.CreateSpecificCulture("en-US");
             
             return new ServiceResponse<TimeSpan>
             {
@@ -277,18 +274,15 @@ namespace HR_UIT.Services.EmployeeAttendance
         {
             var now = DateTime.UtcNow;
             
-            List<Data.Models.EmployeeAttendance> Attendance = _db.EmployeeAttendances
+            var Attendance = _db.EmployeeAttendances
                 .Where(e => e.FromDate.Day == day.Day
                             && e.FromDate.Month == day.Month
                             && e.FromDate.Year == day.Year).ToList();
 
-            TimeSpan count = new TimeSpan();
-            foreach (var i in Attendance)
-            {
-                count = count.Add(i.Period);
-            }
-            
-            CultureInfo cul = CultureInfo.CreateSpecificCulture("en-US");
+            var count = new TimeSpan();
+            count = Attendance.Aggregate(count, (current, i) => current.Add(i.Period));
+
+            var cul = CultureInfo.CreateSpecificCulture("en-US");
             
             return new ServiceResponse<TimeSpan>
             {

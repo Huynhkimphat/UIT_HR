@@ -18,6 +18,11 @@ const routes = [
     component: () => import('@/views/admin/dashboard/Dashboard.vue'),
   },
   {
+    path: '/admin/employee',
+    name: 'adminEmployee',
+    component: () => import('@/views/admin/employee/Employee.vue'),
+  },
+  {
     path: '/',
     redirect: 'dashboard',
   },

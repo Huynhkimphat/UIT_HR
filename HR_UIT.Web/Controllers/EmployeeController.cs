@@ -25,7 +25,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/employee/all")]
-        [Authorize(Policy = "Admin")]
+        // [Authorize(Policy = "Admin")]
         public ActionResult GetAllEmployee()
         {
             _logger.LogInformation("Getting employees");

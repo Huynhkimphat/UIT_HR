@@ -2,9 +2,17 @@
   <v-row>
     <v-col cols="12">
       <v-card>
-        <v-card-title>Basic</v-card-title>
+        <v-card-title>Employees</v-card-title>
         <EmployeesList></EmployeesList>
       </v-card>
+      <v-col
+        offset-md="0"
+        cols="3"
+      >
+        <v-btn color="primary">
+          New Employee
+        </v-btn>
+      </v-col>
     </v-col>
   </v-row>
 </template>

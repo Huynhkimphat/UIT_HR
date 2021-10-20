@@ -5,28 +5,24 @@
         <v-card-title>Employees</v-card-title>
         <EmployeesList></EmployeesList>
       </v-card>
+
       <v-col
-        offset-md="0"
-        cols="3"
+        cols="12"
       >
-        <v-btn color="primary">
-          New Employee
-        </v-btn>
+        <EmployeeCreateNew></EmployeeCreateNew>
       </v-col>
     </v-col>
   </v-row>
 </template>
 
 <script>
-// eslint-disable-next-line import/extensions
-import EmployeesList from '@/views/admin/employee/EmployeesList'
+import EmployeesList from './EmployeesList.vue'
+import EmployeeCreateNew from './EmployeeCreateNew.vue'
 
 export default {
   components: {
+    EmployeeCreateNew,
     EmployeesList,
-  },
-  setup() {
-    return {}
   },
 }
 </script>

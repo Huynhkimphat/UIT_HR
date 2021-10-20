@@ -1,25 +1,12 @@
-import axios from 'axios'
-import API_URL from '../API_URL'
+import employeeMutations from './employeeMutations'
+import employeeGetters from './employeeGetters'
+import employeeActions from './employeeActions'
 
-const employee = {
+export default {
   state: () => ({
     employees: [],
   }),
-  mutations: {
-    getEmployees(state, payload) {
-      state.employees = payload
-    },
-  },
-  actions: {
-    async getEmployees(context) {
-      const result = await axios.get(`${API_URL}/employee/all`)
-      context.commit('getEmployees', result.data)
-    },
-  },
-  getters: {
-    getEmployees(state) {
-      return state.employees
-    },
-  },
+  getters: employeeGetters,
+  mutations: employeeMutations,
+  actions: employeeActions,
 }
-export default employee

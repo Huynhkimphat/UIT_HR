@@ -85,7 +85,7 @@
                   Join On: {{ item.CreatedOn | humanizeDate }}
                 </v-card-text>
                 <v-card-text>
-                  {{ item.dateOfBirth | humanizeDate }}
+                  Birthday: {{ item.dateOfBirth | humanizeDate }}
                 </v-card-text>
                 <v-divider></v-divider>
 

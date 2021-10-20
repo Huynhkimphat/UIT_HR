@@ -28,7 +28,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="item in employees"
+          v-for="item in getEmployees"
           :key="item.id"
           @click="toggle(item.id)"
         >
@@ -109,24 +109,31 @@
 </template>
 
 <script>
-import EmployeeService from '@/services/employee-service'
+import { mapGetters } from 'vuex'
 
-const employeeService = new EmployeeService()
+// import EmployeeService from '@/services/employee-service'
+
+// const employeeService = new EmployeeService()
 
 export default {
   data() {
     return {
       opened: [],
-      employees: [],
+      employees: this.$store.state.employee.employees,
       dialog: false,
     }
+  },
+  computed: {
+    ...mapGetters(['getEmployees']),
   },
   created() {
     this.initialize()
   },
   methods: {
     async initialize() {
-      this.employees = await employeeService.getEmployees()
+      await this.$store.dispatch('getEmployees')
+
+      // this.employees = await employeeService.getEmployees()
     },
     toggle(id) {
       const index = this.opened.indexOf(id)

@@ -111,15 +111,10 @@
 <script>
 import { mapGetters } from 'vuex'
 
-// import EmployeeService from '@/services/employee-service'
-
-// const employeeService = new EmployeeService()
-
 export default {
   data() {
     return {
       opened: [],
-      employees: this.$store.state.employee.employees,
       dialog: false,
     }
   },
@@ -132,8 +127,6 @@ export default {
   methods: {
     async initialize() {
       await this.$store.dispatch('getEmployees')
-
-      // this.employees = await employeeService.getEmployees()
     },
     toggle(id) {
       const index = this.opened.indexOf(id)

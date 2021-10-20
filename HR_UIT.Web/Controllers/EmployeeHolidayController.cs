@@ -22,11 +22,11 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Get All Holiday ----- Admin
+        /// Get All Holiday ----- Both
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/holiday/all")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Both")]
         public ActionResult GetAllEmployee()
         {
             _logger.LogInformation("Getting holidays");
@@ -39,12 +39,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Get Holiday By Given Month ----- Admin
+        /// Get Holiday By Given Month ----- Both
         /// </summary>
         /// <param name="month"></param>
         /// <returns></returns>
         [HttpGet("/api/holiday/{month}")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Both")]
         public ActionResult GetHolidaysByMonth(DateTime month)
         {
             _logger.LogInformation("Getting information of holidays by selected month");
@@ -57,12 +57,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Get Holiday By Given Id ----- Admin
+        /// Get Holiday By Given Id ----- Both
         /// </summary>
         /// <param name="holidayId"></param>
         /// <returns></returns>
         [HttpGet("/api/holiday/{holidayId}")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Both")]
         public ActionResult GetHolidayById(int holidayId)
         {
             _logger.LogInformation($"Getting information of Holiday {holidayId}");

@@ -24,6 +24,8 @@
           <th class="text-center text-uppercase">
             More Info
           </th>
+          <th class="text-center text-uppercase">
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -70,17 +72,27 @@
               <v-list>
                 <v-list-item>
                   <v-list-item-title>
-                    Street {{ item.primaryAddress.addressLine }}
+                    Date Of Birth : {{ item.dateOfBirth | humanizeDate }}
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
-                    Ward {{ item.primaryAddress.ward }}
+                    Join On : {{ item.createdOn | humanizeDate }}
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
-                    District {{ item.primaryAddress.district }}
+                    Street : {{ item.primaryAddress.addressLine }}
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    Ward : {{ item.primaryAddress.ward }}
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    District : {{ item.primaryAddress.district }}
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
@@ -96,6 +108,20 @@
               </v-list>
             </v-menu>
           </td>
+          <td class="text-center">
+            <v-btn
+              class="ma-2"
+              :class="item.isArchived?'recoverBtn':'deleteBtn'"
+              @click="item.isArchived?recoverEmployeeWithGivenId(item.id):deleteEmployeeWithGivenId(item.id)"
+            >
+              {{ item.isArchived ? 'Recover' : 'Delete' }}
+              <v-icon
+                right
+              >
+                {{ item.isArchived? restoreIcon.icon: deleteIcon.icon }}
+              </v-icon>
+            </v-btn>
+          </td>
         </tr>
       </tbody>
     </template>
@@ -104,20 +130,29 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { mdiDelete, mdiRestore } from '@mdi/js'
 
 export default {
   data() {
     return {
       opened: [],
       dialog: false,
+      deleteIcon: { icon: mdiDelete, name: 'mdiDelete' },
+      restoreIcon: { icon: mdiRestore, name: 'mdiRestore' },
     }
   },
   computed: {
     // mapGetters(namespace, ['...'])
-    ...mapGetters('employeeStore', ['getEmployees', 'createEmployee']),
+    ...mapGetters('employeeStore', ['getEmployees', 'createEmployee', 'deleteEmployee', 'recoverEmployee']),
   },
   watch: {
     createEmployee() {
+      this.initialize()
+    },
+    deleteEmployee() {
+      this.initialize()
+    },
+    recoverEmployee() {
       this.initialize()
     },
   },
@@ -136,13 +171,30 @@ export default {
         this.opened.push(id)
       }
     },
+    async recoverEmployeeWithGivenId(id) {
+      console.log(id)
+      await this.$store.dispatch('employeeStore/recoverEmployee', { employeeId: id })
+    },
+    async deleteEmployeeWithGivenId(id) {
+      await this.$store.dispatch('employeeStore/deleteEmployee', { employeeId: id })
+    },
   },
 }
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
 $color-pack: false
-import '../../../../styles/styles.scss'
+import '../../../../styles/styles.scss';
 
+.deleteBtn{
+  min-width:150px !important;
+  color:red !important;
+  //border:1px solid var(--v-primary-base);
+}
+
+.recoverBtn{
+  min-width:150px !important;
+  color:darkorange !important;
+  //border:1px solid var(--v-primary-base);
+}
 </style>

@@ -6,7 +6,9 @@ export default {
   namespaced: true,
   state: () => ({
     employees: [],
-    response: {},
+    createResponse: {},
+    deleteResponse: {},
+    recoverResponse: {},
   }),
   getters: employeeGetters,
   mutations: employeeMutations,

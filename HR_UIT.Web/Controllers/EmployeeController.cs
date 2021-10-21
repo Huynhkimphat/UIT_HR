@@ -99,7 +99,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPatch("/api/employee/delete/{employeeId}")]
-        [Authorize(Policy = "Admin")]
+        // [Authorize(Policy = "Admin")]
         public ActionResult DeleteEmployee(int employeeId)
         {
             _logger.LogInformation($"Deleting Employee {employeeId} Complete... ");
@@ -112,7 +112,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPatch("/api/employee/recover/{employeeId}")]
-        [Authorize(Policy = "Admin")]
+        // [Authorize(Policy = "Admin")]
         public ActionResult RecoverEmployee(int employeeId)
         {
             _logger.LogInformation($"Recovering Employee {employeeId} Complete... ");

@@ -370,7 +370,9 @@ export default {
     },
     async submitInfo() {
       if (this.$refs.form3.validate()) {
-        await this.$store.dispatch('employeeStore/createEmployee', this.newEmployee).finally(
+        await this.$store.dispatch('employeeStore/createEmployee', this.newEmployee).then(
+          this.resetInfo(),
+        ).finally(
           this.isCreateEmployeeFormShow = false,
         )
       }

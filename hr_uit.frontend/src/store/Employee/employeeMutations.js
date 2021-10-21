@@ -3,6 +3,12 @@ export default {
     state.employees = payload
   },
   createEmployee(state, payload) {
-    state.response = payload
+    state.createResponse = payload
+  },
+  deleteEmployee(state, payload) {
+    state.deleteResponse = payload
+  },
+  recoverEmployee(state, payload) {
+    state.recoverResponse = payload
   },
 }

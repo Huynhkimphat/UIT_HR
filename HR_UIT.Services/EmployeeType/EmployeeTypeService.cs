@@ -178,8 +178,8 @@ namespace HR_UIT.Services.EmployeeType
         /// <summary>
         /// Add Employee To Type With Given Id
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="employee"></param>
+        /// <param name="typeId"></param>
+        /// <param name="employeeId"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public ServiceResponse<Data.Models.EmployeeType> UpdateEmployeeTypeEmployees(int typeId, int employeeId)
@@ -201,6 +201,17 @@ namespace HR_UIT.Services.EmployeeType
                 };
             }
 
+            var isEmployeeHasRole = this.IsEmployeeHasRole((employeeId));
+            if (isEmployeeHasRole.Data)
+            {
+                return new ServiceResponse<Data.Models.EmployeeType>
+                {
+                    Data = null,
+                    Time = now,
+                    Message = "Employee Already Has Role",
+                    IsSuccess = false
+                };  
+            }
             try
             {
                 currentType.Employees ??= new List<Data.Models.Employee>();

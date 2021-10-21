@@ -23,6 +23,7 @@ namespace HR_UIT.Web.Serialization
                 IsArchived = salary.IsArchived,
                 IsChecked = salary.IsChecked,
                 IsReceived = salary.IsReceived,
+                IsExisted = salary.IsExisted,
                 PrimarySalaryDetail = (salary.PrimarySalaryDetail != null)
                     ? SalaryDetailMapper.MapSalaryDetail(salary.PrimarySalaryDetail)
                     : new SalaryDetailModel { },
@@ -47,6 +48,7 @@ namespace HR_UIT.Web.Serialization
                 IsArchived = salary.IsArchived,
                 IsChecked = salary.IsChecked,
                 IsReceived = salary.IsReceived,
+                IsExisted = salary.IsExisted,
                 PrimarySalaryDetail = SalaryDetailMapper
                     .MapSalaryDetail(
                         salary.PrimarySalaryDetail

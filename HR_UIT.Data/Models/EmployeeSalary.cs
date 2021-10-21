@@ -16,6 +16,8 @@ namespace HR_UIT.Data.Models
         public bool IsChecked { get; set; }
 
         public bool IsReceived { get; set; }
+        
+        public bool IsExisted {get; set; }
 
         public DateTime CreatedOn { get; set; }
 

@@ -1,11 +1,11 @@
 export interface IEmployee {
-  Id:number;
-  FirstName:string;
-  LastName:string;
-  DateOfBirth:Date;
-  PhoneNumber:string;
-  IdentityCard:string;
-  CreatedOn:Date;
-  UpdatedOn:Date;
-  IsArchived:Boolean;
+  id:number;
+  firstName:string;
+  lastName:string;
+  dateOfBirth:Date;
+  phoneNumber:string;
+  identityCard:string;
+  createdOn:Date;
+  updatedOn:Date;
+  isArchived:Boolean;
 }

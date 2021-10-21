@@ -6,4 +6,8 @@ export default {
     const result = await axios.get(`${API_URL}/employee/all`)
     context.commit('getEmployees', result.data)
   },
+  async createEmployee(context, payload) {
+    const result = await axios.post(`${API_URL}/employee`, payload)
+    context.commit('createEmployee', result.data)
+  },
 }

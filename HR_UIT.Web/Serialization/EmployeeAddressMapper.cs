@@ -1,4 +1,5 @@
-﻿using HR_UIT.Data.Models;
+﻿using System;
+using HR_UIT.Data.Models;
 using HR_UIT.Web.ViewModels;
 
 namespace HR_UIT.Web.Serialization
@@ -34,6 +35,7 @@ namespace HR_UIT.Web.Serialization
         public static EmployeeAddress
             MapEmployeeAddress(EmployeeAddressModel address)
         {
+            var now = DateTime.UtcNow;
             return new EmployeeAddress
             {
                 AddressLine = address.AddressLine,
@@ -41,8 +43,8 @@ namespace HR_UIT.Web.Serialization
                 District = address.District,
                 City = address.City,
                 Country = address.Country,
-                CreatedOn = address.CreatedOn,
-                UpdatedOn = address.UpdatedOn
+                CreatedOn = now,
+                UpdatedOn = now
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using HR_UIT.Data.Models;
+﻿using System;
+using HR_UIT.Data.Models;
 using HR_UIT.Web.ViewModels;
 
 namespace HR_UIT.Web.Serialization
@@ -33,12 +34,13 @@ namespace HR_UIT.Web.Serialization
         public static EmployeeAccount
             MapEmployeeAccount(EmployeeAccountModel account)
         {
+            var now = DateTime.UtcNow;
             return new EmployeeAccount
             {
                 Email = account.Email,
                 Password = account.Password,
-                CreatedOn = account.CreatedOn,
-                UpdatedOn = account.UpdatedOn,
+                CreatedOn = now,
+                UpdatedOn = now,
                 IsArchived = account.IsArchived,
             };
         }

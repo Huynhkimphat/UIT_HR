@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HR_UIT.Data.Models;
 using HR_UIT.Web.ViewModels;
@@ -57,6 +58,7 @@ namespace HR_UIT.Web.Serialization
         public static Employee
             MapEmployee(EmployeeModel employee)
         {
+            var now = DateTime.UtcNow;
             return new Employee
             {
                 FirstName = employee.FirstName,
@@ -66,13 +68,9 @@ namespace HR_UIT.Web.Serialization
                 IdentityCard = employee.IdentityCard,
                 PrimaryAddress = EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress),
                 PrimaryAccount = EmployeeAccountMapper.MapEmployeeAccount(employee.PrimaryAccount),
-                PrimarySalaries = employee.PrimarySalaries
-                    .Select(EmployeeSalaryMapper.MapEmployeeSalary)
-                    .OrderByDescending(salary => salary.Id)
-                    .ToList(),
-                    
-                CreatedOn = employee.CreatedOn,
-                UpdatedOn = employee.UpdatedOn,
+                PrimarySalaries = null,
+                CreatedOn = now,
+                UpdatedOn = now,
                 IsArchived = employee.IsArchived
             };
         }

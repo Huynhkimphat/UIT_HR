@@ -56,51 +56,45 @@
             {{ item.identityCard }}
           </td>
           <td class="text-center">
-            <v-dialog
-              v-model="dialog"
-              width="1000"
-            >
+            <v-menu transition="fab-transition">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   dark
+                  color="primary"
                   v-bind="attrs"
                   v-on="on"
                 >
                   See More
                 </v-btn>
               </template>
-
-              <v-card>
-                <v-card-title class="text-h5">
-                  {{ item.firstName + ' ' + item.lastName }}
-                </v-card-title>
-                <v-card-text>
-                  Address: {{ item.primaryAddress.addressLine }}
-                  Ward: {{ item.primaryAddress.ward }}
-                  District: {{ item.primaryAddress.district }}
-                  City: {{ item.primaryAddress.city }}
-                  Country: {{ item.primaryAddress.country }}
-                </v-card-text>
-                <v-card-text>
-                  Join On: {{ item.CreatedOn | humanizeDate }}
-                </v-card-text>
-                <v-card-text>
-                  Birthday: {{ item.dateOfBirth | humanizeDate }}
-                </v-card-text>
-                <v-divider></v-divider>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    color="primary"
-                    text
-                    @click="dialog = false"
-                  >
-                    I accept
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
+              <v-list>
+                <v-list-item>
+                  <v-list-item-title>
+                    Street {{ item.primaryAddress.addressLine }}
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    Ward {{ item.primaryAddress.ward }}
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    District {{ item.primaryAddress.district }}
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    City : {{ item.primaryAddress.city }}
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    Country: {{ item.primaryAddress.country }}
+                  </v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
           </td>
         </tr>
       </tbody>
@@ -119,14 +113,20 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getEmployees']),
+    // mapGetters(namespace, ['...'])
+    ...mapGetters('employeeStore', ['getEmployees', 'createEmployee']),
+  },
+  watch: {
+    createEmployee() {
+      this.initialize()
+    },
   },
   created() {
     this.initialize()
   },
   methods: {
     async initialize() {
-      await this.$store.dispatch('getEmployees')
+      await this.$store.dispatch('employeeStore/getEmployees')
     },
     toggle(id) {
       const index = this.opened.indexOf(id)

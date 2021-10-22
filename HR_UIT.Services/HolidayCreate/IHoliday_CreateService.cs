@@ -5,17 +5,17 @@ namespace HR_UIT.Services.HolidayCreate
 {
     public interface IHolidayCreateService
     {
-        List<Data.Models.Holiday_Create> GetAllHolidaysOff();
-        List<Data.Models.Holiday_Create> GetAllHolidaysOffByMonth(DateTime month);
+        List<Data.Models.HolidayCreate> GetAllHolidaysOff();
+        List<Data.Models.HolidayCreate> GetAllHolidaysOffByMonth(DateTime month);
 
-        ServiceResponse<Data.Models.Holiday_Create>
+        ServiceResponse<Data.Models.HolidayCreate>
             CreateHolidayOff(
-                Data.Models.Holiday_Create holidayOff
+                Data.Models.HolidayCreate holidayOff
                 );
 
-        ServiceResponse<Data.Models.Holiday_Create>
+        ServiceResponse<Data.Models.HolidayCreate>
             UpdateHolidayOff(
-                Data.Models.Holiday_Create holidayOff, int holidayOffId
+                Data.Models.HolidayCreate holidayOff, int holidayOffId
             );
 
         ServiceResponse<bool> DeleteHolidayOff(int id);

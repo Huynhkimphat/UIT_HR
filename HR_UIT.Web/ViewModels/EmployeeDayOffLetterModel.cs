@@ -15,6 +15,8 @@ namespace HR_UIT.Web.ViewModels
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }
+        
+        public bool IsExisted { get; set;}
 
         public bool IsArchived { get; set; }
 

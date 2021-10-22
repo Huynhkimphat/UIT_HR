@@ -21,6 +21,7 @@ namespace HR_UIT.Web.Serialization
                 Reason = dayOffLetter.Reason,
                 CreatedOn = dayOffLetter.CreatedOn,
                 UpdatedOn = dayOffLetter.UpdatedOn,
+                IsExisted = dayOffLetter.IsExisted,
                 IsArchived = dayOffLetter.IsArchived,
                 IsApproved = dayOffLetter.IsApproved,
                 DayOffCounting = dayOffLetter.DayOffCounting
@@ -42,6 +43,7 @@ namespace HR_UIT.Web.Serialization
                 Reason = dayOffLetter.Reason,
                 CreatedOn = dayOffLetter.CreatedOn,
                 UpdatedOn = dayOffLetter.UpdatedOn,
+                IsExisted = dayOffLetter.IsExisted,
                 IsArchived = dayOffLetter.IsArchived,
                 IsApproved = dayOffLetter.IsApproved,
                 DayOffCounting = dayOffLetter.DayOffCounting

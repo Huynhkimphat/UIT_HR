@@ -19,7 +19,7 @@ namespace HR_UIT.Services.HolidayCreate
         /// Return list of Holidays Off
         /// </summary>
         /// <returns></returns>
-        public List<Data.Models.Holiday_Create> GetAllHolidaysOff()
+        public List<Data.Models.HolidayCreate> GetAllHolidaysOff()
         {
             return _db
                 .HolidayCreates
@@ -33,7 +33,7 @@ namespace HR_UIT.Services.HolidayCreate
         /// </summary>
         /// <param name="month"></param>
         /// <returns></returns>
-        public List<Data.Models.Holiday_Create> GetAllHolidaysOffByMonth(DateTime month)
+        public List<Data.Models.HolidayCreate> GetAllHolidaysOffByMonth(DateTime month)
         {
             return _db
                 .HolidayCreates
@@ -46,14 +46,14 @@ namespace HR_UIT.Services.HolidayCreate
         /// </summary>
         /// <param name="holidayOff;"></param>
         /// <returns></returns>
-        public ServiceResponse<Data.Models.Holiday_Create> CreateHolidayOff(Data.Models.Holiday_Create holidayOff)
+        public ServiceResponse<Data.Models.HolidayCreate> CreateHolidayOff(Data.Models.HolidayCreate holidayOff)
         {
             var now = DateTime.UtcNow;
             try
             {
                 _db.HolidayCreates.Add(holidayOff);
                 _db.SaveChanges();
-                return new ServiceResponse<Holiday_Create>
+                return new ServiceResponse<Data.Models.HolidayCreate>
                 {
                     Data = holidayOff,
                     Time = now,
@@ -63,7 +63,7 @@ namespace HR_UIT.Services.HolidayCreate
             }
             catch (Exception e)
             {
-                return new ServiceResponse<Holiday_Create>
+                return new ServiceResponse<Data.Models.HolidayCreate>
                 {
                     Data = null,
                     Time = now,
@@ -79,12 +79,12 @@ namespace HR_UIT.Services.HolidayCreate
         /// <param name="holidayOff"></param>
         /// <returns></returns>
         
-        public ServiceResponse<Data.Models.Holiday_Create> UpdateHolidayOff(Data.Models.Holiday_Create holidayOff, int holidayOffId)
+        public ServiceResponse<Data.Models.HolidayCreate> UpdateHolidayOff(Data.Models.HolidayCreate holidayOff, int holidayOffId)
         {
             var now = DateTime.UtcNow;
             var newHolidayOff = _db.HolidayCreates.Find(holidayOffId);
             if (newHolidayOff == null)
-                return new ServiceResponse<Data.Models.Holiday_Create>
+                return new ServiceResponse<Data.Models.HolidayCreate>
                 {
                     Data = null,
                     Time = now,
@@ -99,7 +99,7 @@ namespace HR_UIT.Services.HolidayCreate
                 newHolidayOff.UpdatedOn = holidayOff.UpdatedOn;
                 _db.HolidayCreates.Update(newHolidayOff);
                 _db.SaveChanges();
-                return new ServiceResponse<Data.Models.Holiday_Create>
+                return new ServiceResponse<Data.Models.HolidayCreate>
                 {
                     Data = newHolidayOff,
                     Time = now,
@@ -109,7 +109,7 @@ namespace HR_UIT.Services.HolidayCreate
             }
             catch (Exception e)
             {
-                return new ServiceResponse<Data.Models.Holiday_Create>
+                return new ServiceResponse<Data.Models.HolidayCreate>
                 {
                     Data = null,
                     Time = now,

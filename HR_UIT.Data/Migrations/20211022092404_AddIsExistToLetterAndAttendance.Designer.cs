@@ -3,15 +3,17 @@ using System;
 using HR_UIT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HR_UIT.Data.Migrations
 {
     [DbContext(typeof(HrUitDbContext))]
-    partial class HrUitDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211022092404_AddIsExistToLetterAndAttendance")]
+    partial class AddIsExistToLetterAndAttendance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,19 +333,21 @@ namespace HR_UIT.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("DateOfHoliday")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<bool>("IsArchived")
                         .HasColumnType("boolean");
 
                     b.Property<string>("NameOfHoliday")
                         .HasColumnType("text");
 
+                    b.Property<int?>("PrimaryHolidayCreateId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PrimaryHolidayCreateId");
 
                     b.ToTable("Holidays");
                 });
@@ -364,16 +368,7 @@ namespace HR_UIT.Data.Migrations
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("HolidayId")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("IsArchived")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsExistedAdmin")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsExistedHoliday")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("ToDate")
@@ -385,8 +380,6 @@ namespace HR_UIT.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
-
-                    b.HasIndex("HolidayId");
 
                     b.ToTable("HolidayCreates");
                 });
@@ -679,15 +672,20 @@ namespace HR_UIT.Data.Migrations
                     b.Navigation("PrimarySalaryDetail");
                 });
 
+            modelBuilder.Entity("HR_UIT.Data.Models.Holiday", b =>
+                {
+                    b.HasOne("HR_UIT.Data.Models.HolidayCreate", "PrimaryHolidayCreate")
+                        .WithMany()
+                        .HasForeignKey("PrimaryHolidayCreateId");
+
+                    b.Navigation("PrimaryHolidayCreate");
+                });
+
             modelBuilder.Entity("HR_UIT.Data.Models.HolidayCreate", b =>
                 {
                     b.HasOne("HR_UIT.Data.Models.Employee", null)
-                        .WithMany("EmployeeHolidayCreates")
+                        .WithMany("EmployeeHoliday_Creates")
                         .HasForeignKey("EmployeeId");
-
-                    b.HasOne("HR_UIT.Data.Models.Holiday", null)
-                        .WithMany("PrimaryHolidayCreates")
-                        .HasForeignKey("HolidayId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -745,7 +743,7 @@ namespace HR_UIT.Data.Migrations
                 {
                     b.Navigation("EmployeeAttendances");
 
-                    b.Navigation("EmployeeHolidayCreates");
+                    b.Navigation("EmployeeHoliday_Creates");
 
                     b.Navigation("PrimaryDayOffLetters");
 
@@ -755,11 +753,6 @@ namespace HR_UIT.Data.Migrations
             modelBuilder.Entity("HR_UIT.Data.Models.EmployeeType", b =>
                 {
                     b.Navigation("Employees");
-                });
-
-            modelBuilder.Entity("HR_UIT.Data.Models.Holiday", b =>
-                {
-                    b.Navigation("PrimaryHolidayCreates");
                 });
 #pragma warning restore 612, 618
         }

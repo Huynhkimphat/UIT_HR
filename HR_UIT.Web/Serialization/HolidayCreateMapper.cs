@@ -12,7 +12,7 @@ namespace HR_UIT.Web.Serialization
         /// <param name="holidayCreate"></param>
         /// <returns></returns>
         public static HolidayCreateModel
-            MapHolidayCreate(Holiday_Create holidayCreate)
+            MapHolidayCreate(HolidayCreate holidayCreate)
         {
             return new HolidayCreateModel
             {
@@ -21,6 +21,8 @@ namespace HR_UIT.Web.Serialization
                 ToDate = holidayCreate.ToDate,
                 CreatedOn = holidayCreate.CreatedOn,
                 UpdatedOn = holidayCreate.UpdatedOn,
+                IsExistedHoliday = holidayCreate.IsExistedHoliday,
+                IsExistedAdmin = holidayCreate.IsExistedAdmin,
                 IsArchived = holidayCreate.IsArchived
             };
         }
@@ -30,16 +32,18 @@ namespace HR_UIT.Web.Serialization
         /// </summary>
         /// <param name="holidayCreate"></param>
         /// <returns></returns>
-        public static Holiday_Create
+        public static HolidayCreate
             MapHolidayCreate(HolidayCreateModel holidayCreate)
         {
-            return new Holiday_Create
+            return new HolidayCreate
             {
                 FromDate = holidayCreate.FromDate,
                 ToDate = holidayCreate.ToDate,
                 CreatedOn = holidayCreate.CreatedOn,
                 UpdatedOn = holidayCreate.UpdatedOn,
-                IsArchived = holidayCreate.IsArchived
+                IsArchived = holidayCreate.IsArchived, 
+                IsExistedHoliday = holidayCreate.IsExistedHoliday,
+                IsExistedAdmin = holidayCreate.IsExistedAdmin,
             };
         }
     }

@@ -3,15 +3,17 @@ using System;
 using HR_UIT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HR_UIT.Data.Migrations
 {
     [DbContext(typeof(HrUitDbContext))]
-    partial class HrUitDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211022094838_RefactorHolidayAndHolidayCreate")]
+    partial class RefactorHolidayAndHolidayCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

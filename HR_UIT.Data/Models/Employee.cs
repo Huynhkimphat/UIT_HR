@@ -26,11 +26,11 @@ namespace HR_UIT.Data.Models
 
         public EmployeeDayOff PrimaryDayOff { get; set; }
 
-        public List<EmployeeDayOffLetter> PrimaryDayOff_Letters { get; set; }
+        public List<EmployeeDayOffLetter> PrimaryDayOffLetters { get; set; }
 
         public List<EmployeeSalary> PrimarySalaries { get; set; }
 
-        public List<Holiday_Create> EmployeeHoliday_Creates { get; set;}
+        public List<HolidayCreate> EmployeeHolidayCreates { get; set;}
 
         public DateTime CreatedOn { get; set; }
 

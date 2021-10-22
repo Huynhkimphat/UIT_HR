@@ -14,6 +14,8 @@ namespace HR_UIT.Data.Models
         public bool IsProgressing { get; set; }
 
         public TimeSpan Period { get; set; }
+        
+        public bool IsExisted {get; set; }
 
         public DateTime CreatedOn { get; set; }
 

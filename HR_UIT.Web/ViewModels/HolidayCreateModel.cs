@@ -10,5 +10,9 @@ namespace HR_UIT.Web.ViewModels
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
         public bool IsArchived { get; set; }
+
+        public bool IsExistedHoliday { get; set; }
+
+        public bool IsExistedAdmin { get; set; }
     }
 }

@@ -21,9 +21,12 @@ namespace HR_UIT.Web.Serialization
                 NameOfHoliday = holiday.NameOfHoliday,
                 CreatedOn = holiday.CreatedOn,
                 UpdateOn = holiday.UpdatedOn,
-                PrimaryHoliday_Create = (holiday.PrimaryHoliday_Create != null)
-                    ? HolidayCreateMapper.MapHolidayCreate(holiday.PrimaryHoliday_Create)
-                    : new HolidayCreateModel { },
+                PrimaryHolidayCreates = (holiday.PrimaryHolidayCreates != null)
+                    ? holiday.PrimaryHolidayCreates
+                        .Select(HolidayCreateMapper.MapHolidayCreate)
+                        .OrderByDescending(holidayCreate=>holidayCreate.Id)
+                        .ToList()
+                    : new List<HolidayCreateModel> { },
                 IsArchived = holiday.IsArchived
             };
         }
@@ -41,7 +44,12 @@ namespace HR_UIT.Web.Serialization
                 NameOfHoliday = holiday.NameOfHoliday,
                 CreatedOn = holiday.CreatedOn,
                 UpdatedOn = holiday.UpdateOn,
-                PrimaryHoliday_Create = HolidayCreateMapper.MapHolidayCreate(holiday.PrimaryHoliday_Create),
+                   PrimaryHolidayCreates = (holiday.PrimaryHolidayCreates != null)
+                                    ? holiday.PrimaryHolidayCreates
+                                        .Select(HolidayCreateMapper.MapHolidayCreate)
+                                        .OrderByDescending(holidayCreate=>holidayCreate.Id)
+                                        .ToList()
+                                    : new List<HolidayCreate> { },
                 IsArchived = holiday.IsArchived
             };
         }

@@ -17,6 +17,8 @@ namespace HR_UIT.Data.Models
 
         public DateTime UpdatedOn { get; set; }
         
+        public bool IsExisted { get; set; }
+        
         public bool IsArchived { get; set; }
 
         public bool IsApproved { get; set; }

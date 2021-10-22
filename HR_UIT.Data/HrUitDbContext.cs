@@ -31,7 +31,7 @@ namespace HR_UIT.Data
         
         public virtual DbSet<Holiday> Holidays { get; set; }
         
-        public virtual DbSet<Holiday_Create> HolidayCreates { get; set; }
+        public virtual DbSet<HolidayCreate> HolidayCreates { get; set; }
         
         public virtual DbSet<SalaryDetail> SalaryDetails { get; set; }
         

@@ -21,8 +21,8 @@ namespace HR_UIT.Web.ViewModels
         public EmployeeAddressModel PrimaryAddress { get; set; }
 
         public EmployeeAccountModel PrimaryAccount { get; set; }
-        //
-        // public List<EmployeeAttendance> EmployeeAttendances { get; set; }
+        
+        public List<EmployeeAttendanceModel> EmployeeAttendances { get; set; }
         //
         // public EmployeeDayOff PrimaryDayOff { get; set; }
         //

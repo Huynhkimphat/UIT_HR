@@ -3,23 +3,25 @@ using System.Linq;
 using System.Collections.Generic;
 using HR_UIT.Data;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
+
 namespace HR_UIT.Services.EmployeeAttendance
 {
     public class EmployeeAttendanceService : IEmployeeAttendanceService
     {
         private readonly HrUitDbContext _db;
-        
+
         public EmployeeAttendanceService(HrUitDbContext dbContext)
         {
             _db = dbContext;
         }
-        
+
         /// <summary>
         /// Create new  Employee Attendance
         /// </summary>
         /// <param name="attendance"></param>
         /// <returns></returns>
-        public ServiceResponse<Data.Models.EmployeeAttendance> 
+        public ServiceResponse<Data.Models.EmployeeAttendance>
             CreateNewEmployeeAttendance(Data.Models.EmployeeAttendance attendance)
         {
             var now = DateTime.UtcNow;
@@ -46,18 +48,18 @@ namespace HR_UIT.Services.EmployeeAttendance
                 };
             }
         }
-        
+
         /// <summary>
         /// Update an Employee Attendance
         /// </summary>
         /// <param name="attendance"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public ServiceResponse<Data.Models.EmployeeAttendance> 
+        public ServiceResponse<Data.Models.EmployeeAttendance>
             UpdateEmployeeAttendance(Data.Models.EmployeeAttendance attendance)
         {
             var now = DateTime.UtcNow;
-            var newEmployeeAttendance = _db.EmployeeAttendances.Find(attendance);
+            var newEmployeeAttendance = _db.EmployeeAttendances.Find(attendance.Id);
             if (newEmployeeAttendance == null)
                 return new ServiceResponse<Data.Models.EmployeeAttendance>
                 {
@@ -95,7 +97,7 @@ namespace HR_UIT.Services.EmployeeAttendance
                 };
             }
         }
-        
+
         /// <summary>
         /// Get a list of Employee Attendance by given month from database
         /// </summary>
@@ -110,7 +112,7 @@ namespace HR_UIT.Services.EmployeeAttendance
                 .OrderBy(employeeAttendance => employeeAttendance.Id)
                 .ToList();
         }
-        
+
         /// <summary>
         /// Get a list of Employee Attendance by given week from database
         /// </summary>
@@ -125,7 +127,7 @@ namespace HR_UIT.Services.EmployeeAttendance
             var endOfWeek = startOfWeek.AddDays(7);
 
             var attendances = new List<Data.Models.EmployeeAttendance>();
-            
+
             while (startOfWeek <= endOfWeek)
             {
                 attendances.AddRange(GetEmployeeAttendancesByDays(startOfWeek));
@@ -134,7 +136,7 @@ namespace HR_UIT.Services.EmployeeAttendance
 
             return attendances;
         }
-        
+
         /// <summary>
         /// Get a list of Employee Attendance by given day from database
         /// </summary>
@@ -143,13 +145,13 @@ namespace HR_UIT.Services.EmployeeAttendance
         public List<Data.Models.EmployeeAttendance> GetEmployeeAttendancesByDays(DateTime day)
         {
             return _db.EmployeeAttendances
-                .Where(e => e.FromDate.Day == day.Day 
+                .Where(e => e.FromDate.Day == day.Day
                             && e.FromDate.Month == day.Month
                             && e.FromDate.Year == day.Year)
                 .OrderBy(employeeAttendance => employeeAttendance.Id)
                 .ToList();
         }
-        
+
         /// <summary>
         /// Delete an Employee Attendance by given ID
         /// </summary>
@@ -179,7 +181,6 @@ namespace HR_UIT.Services.EmployeeAttendance
                     Time = now,
                     Message = "EmployeeAttendance archived",
                     IsSuccess = true
-
                 };
             }
             catch (Exception e)
@@ -193,7 +194,7 @@ namespace HR_UIT.Services.EmployeeAttendance
                 };
             }
         }
-        
+
         /// <summary>
         /// Recover an Employee Attendance by given ID
         /// </summary>
@@ -224,7 +225,6 @@ namespace HR_UIT.Services.EmployeeAttendance
                     Time = now,
                     Message = "EmployeeAttendance recovered",
                     IsSuccess = true
-
                 };
             }
             catch (Exception e)
@@ -238,7 +238,7 @@ namespace HR_UIT.Services.EmployeeAttendance
                 };
             }
         }
-        
+
         /// <summary>
         /// Count Employee Attendance Period by given Month
         /// </summary>
@@ -255,7 +255,7 @@ namespace HR_UIT.Services.EmployeeAttendance
 
             count = Attendance.Aggregate(count, (current, i) => current.Add(i.Period));
             var cul = CultureInfo.CreateSpecificCulture("en-US");
-            
+
             return new ServiceResponse<TimeSpan>
             {
                 Data = count,
@@ -264,7 +264,7 @@ namespace HR_UIT.Services.EmployeeAttendance
                 IsSuccess = true
             };
         }
-        
+
         /// <summary>
         /// Count Employee Attendance Period by given day
         /// </summary>
@@ -273,7 +273,7 @@ namespace HR_UIT.Services.EmployeeAttendance
         public ServiceResponse<TimeSpan> CountAttendanceByDay(DateTime day)
         {
             var now = DateTime.UtcNow;
-            
+
             var Attendance = _db.EmployeeAttendances
                 .Where(e => e.FromDate.Day == day.Day
                             && e.FromDate.Month == day.Month
@@ -283,7 +283,7 @@ namespace HR_UIT.Services.EmployeeAttendance
             count = Attendance.Aggregate(count, (current, i) => current.Add(i.Period));
 
             var cul = CultureInfo.CreateSpecificCulture("en-US");
-            
+
             return new ServiceResponse<TimeSpan>
             {
                 Data = count,
@@ -291,6 +291,64 @@ namespace HR_UIT.Services.EmployeeAttendance
                 Message = $"{count} Periods in {day.ToString("Y", cul)}",
                 IsSuccess = true
             };
+        }
+
+    public ServiceResponse<bool> AddAttendanceToEmployee(int attendanceId, int employeeId)
+        {
+            var now = DateTime.UtcNow;
+            var currentEmployee = _db.Employees.Find(employeeId);
+            var currentAttendance = _db.EmployeeAttendances.Find(attendanceId);
+            ;
+            if (currentAttendance == null || currentEmployee == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Employee To Update or Attendance To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+            if (currentAttendance.IsExisted)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Attendance Already Has Linked To Another Employee",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                currentEmployee.EmployeeAttendances ??= new List<Data.Models.EmployeeAttendance>();
+                currentEmployee.EmployeeAttendances.Add(currentAttendance);
+                _db.Update(currentEmployee);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Attendance To Update Completed",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+
+        public ServiceResponse<bool> RemoveAttendanceOutOfEmployee(int attendanceId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

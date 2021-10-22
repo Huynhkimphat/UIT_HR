@@ -27,18 +27,24 @@ namespace HR_UIT.Web.Serialization
                 PrimaryAddress = (employee.PrimaryAddress != null)
                     ? EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress)
                     : new EmployeeAddressModel { },
-                PrimaryAccount= (employee.PrimaryAccount != null)
+                PrimaryAccount = (employee.PrimaryAccount != null)
                     ? EmployeeAccountMapper.MapEmployeeAccount(employee.PrimaryAccount)
                     : new EmployeeAccountModel { },
                 PrimarySalaries = (employee.PrimarySalaries != null)
                     ? employee.PrimarySalaries
                         .Select(EmployeeSalaryMapper.MapEmployeeSalary)
                         .OrderByDescending(salary => salary.Id)
-                        .ToList() 
-                    : new List<EmployeeSalaryModel>{ },
+                        .ToList()
+                    : new List<EmployeeSalaryModel> { },
                 CreatedOn = employee.CreatedOn,
                 UpdatedOn = employee.UpdatedOn,
                 IsArchived = employee.IsArchived,
+                EmployeeAttendances = (employee.EmployeeAttendances != null)
+                    ? employee.EmployeeAttendances
+                        .Select(EmployeeAttendanceMapper.MapEmployeeAttendance)
+                        .OrderByDescending(attendance => attendance.Id)
+                        .ToList()
+                    : new List<EmployeeAttendanceModel> { },
                 // EmployeeHolidayCreates = (employee.EmployeeHoliday_Creates is not null) 
                 //     ? 
                 //     employee.EmployeeHoliday_Creates
@@ -69,6 +75,7 @@ namespace HR_UIT.Web.Serialization
                 PrimaryAddress = EmployeeAddressMapper.MapEmployeeAddress(employee.PrimaryAddress),
                 PrimaryAccount = EmployeeAccountMapper.MapEmployeeAccount(employee.PrimaryAccount),
                 PrimarySalaries = null,
+                EmployeeAttendances = null,
                 CreatedOn = now,
                 UpdatedOn = now,
                 IsArchived = employee.IsArchived

@@ -28,6 +28,7 @@ namespace HR_UIT.Services.Employee
                 .Include(employee => employee.PrimaryAddress)
                 .Include(employee => employee.PrimaryAccount)
                 .Include(employee => employee.PrimarySalaries)
+                .Include(employee => employee.EmployeeAttendances)
                 // .Include(employee => employee.PrimaryDayOff)
                 .OrderBy(employee => employee.Id)
                 .ToList();
@@ -45,6 +46,7 @@ namespace HR_UIT.Services.Employee
                 .Where(employee => !employee.IsArchived)
                 .Include(employee => employee.PrimaryAccount)
                 .Include(employee => employee.PrimarySalaries)
+                .Include(employee => employee.EmployeeAttendances)
                 // .Include(employee => employee.PrimaryDayOff)
                 .OrderBy(employee => employee.Id)
                 .ToList();
@@ -59,6 +61,7 @@ namespace HR_UIT.Services.Employee
         {
             var now = DateTime.UtcNow;
             employee.PrimarySalaries = null;
+            employee.EmployeeAttendances = null;
             try
             {
                 _db.Employees.Add(employee);
@@ -91,9 +94,8 @@ namespace HR_UIT.Services.Employee
         public Data.Models.Employee GetEmployeeById(int id)
         {
             return _db
-                .Employees
-                .Include(employee => employee.PrimaryAddress)
-                .FirstOrDefault(e => e.Id == id);
+                .Employees.Find(id);
+
         }
 
         /// <summary>

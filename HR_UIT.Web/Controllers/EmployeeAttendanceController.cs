@@ -132,5 +132,20 @@ namespace HR_UIT.Web.Controllers
             var response = _attendanceService.RecoverEmployeeAttendance(attendanceId);
             return Ok(response);
         }
+        
+        /// <summary>
+        /// Add Attendance To Employee ----- Admin
+        /// </summary>
+        /// <param name="attendanceId"></param>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/employee/type/{employeeId}/add/{attendanceId}")]
+        [Authorize(Policy = "Admin")]  
+        public ActionResult UpdateRoleOfEmployee(int attendanceId, int employeeId)
+        {
+            _logger.LogInformation($"Update Employee {employeeId} with Type {attendanceId}");
+            var response = _attendanceService.AddAttendanceToEmployee(attendanceId, employeeId);
+            return Ok(response);
+        }
     }
 }

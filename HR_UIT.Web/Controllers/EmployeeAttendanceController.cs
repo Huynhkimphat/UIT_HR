@@ -139,7 +139,7 @@ namespace HR_UIT.Web.Controllers
         /// <param name="attendanceId"></param>
         /// <param name="employeeId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/employee/type/{employeeId}/add/{attendanceId}")]
+        [HttpPatch("/api/employee/attendance/{employeeId}/add/{attendanceId}")]
         [Authorize(Policy = "Admin")]  
         public ActionResult UpdateRoleOfEmployee(int attendanceId, int employeeId)
         {

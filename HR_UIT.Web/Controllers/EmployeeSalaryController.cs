@@ -46,7 +46,8 @@ namespace HR_UIT.Web.Controllers
         public ActionResult UpdateEmployeeSalary([FromBody] EmployeeSalaryModel salary, int salaryId)
         {
             _logger.LogInformation($"Update Employee Salary Id: {salaryId}");
-            var response = _salaryService.UpdateEmployeeSalary(EmployeeSalaryMapper.MapEmployeeSalary(salary), salaryId);
+            var response =
+                _salaryService.UpdateEmployeeSalary(EmployeeSalaryMapper.MapEmployeeSalary(salary), salaryId);
             return Ok(response);
         }
 
@@ -63,7 +64,7 @@ namespace HR_UIT.Web.Controllers
             var response = _salaryService.GetEmployeeSalaryById(salaryId);
             return Ok(EmployeeSalaryMapper.MapEmployeeSalary(response));
         }
-        
+
         /// <summary>
         /// Get Employee Salary By Year And Month ----- Admin And Staff
         /// </summary>
@@ -92,7 +93,7 @@ namespace HR_UIT.Web.Controllers
             var response = _salaryService.DeleteSalary(salaryId);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Recovering Employee Salary ----- Admin
         /// </summary>
@@ -106,7 +107,7 @@ namespace HR_UIT.Web.Controllers
             var response = _salaryService.RecoverSalary(salaryId);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Check Salary By Employee ----- Staff 
         /// </summary>
@@ -120,8 +121,8 @@ namespace HR_UIT.Web.Controllers
             var response = _salaryService.IsCheckedSalary(salaryId);
             return Ok(response);
         }
-        
-        
+
+
         /// <summary>
         /// UnCheck Salary By Employee ----- Staff 
         /// </summary>
@@ -135,7 +136,7 @@ namespace HR_UIT.Web.Controllers
             var response = _salaryService.IsUnCheckedSalary(salaryId);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Receiving Salary By Given Id ----- Admin
         /// </summary>
@@ -155,12 +156,42 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="salaryId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/salary/unreceived/{salaryId")]
+        [HttpPatch("/api/salary/unreceived/{salaryId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult UnReceivedEmployeeSalary(int salaryId)
         {
             _logger.LogInformation($"UnReceiving employee salary Id: {salaryId}");
             var response = _salaryService.IsUnReceivedSalary(salaryId);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Add Salary To Employee With Given Id ----- Admin
+        /// </summary>
+        /// <param name="salaryId"></param>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/employee/salary/{salaryId}/add/{employeeId}")]
+        [Authorize(Policy = "Admin")]
+        public ActionResult AddSalaryToEmployee(int salaryId, int employeeId)
+        {
+            _logger.LogInformation($"Update Employee {employeeId} with Salary {salaryId}");
+            var response = _salaryService.AddSalaryToEmployee(salaryId, employeeId);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Remove Salary Out Of Employee With Given Id ----- Admin
+        /// </summary>
+        /// <param name="salaryId"></param>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/employee/salary/{salaryId}/remove/{employeeId}")]
+        [Authorize(Policy = "Admin")]
+        public ActionResult RemoveRoleOfEmployee(int salaryId,int employeeId)
+        {
+            _logger.LogInformation($"Remove Employee {employeeId} with Salary {salaryId}");
+            var response = _salaryService.RemoveSalaryOutOfEmployee(salaryId,employeeId);
             return Ok(response);
         }
     }

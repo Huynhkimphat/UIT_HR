@@ -161,7 +161,7 @@ export default {
   },
   methods: {
     async initialize() {
-      await this.$store.dispatch('employeeStore/getEmployees')
+      await this.$store.dispatch('employeeStore/getEmployees', this.$store.state.token)
     },
     toggle(id) {
       const index = this.opened.indexOf(id)

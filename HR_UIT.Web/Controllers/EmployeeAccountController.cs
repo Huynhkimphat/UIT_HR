@@ -120,24 +120,22 @@ namespace HR_UIT.Web.Controllers
         /// <summary>
         /// Login ----- Admin And Staff
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
         /// <returns></returns>
-        [HttpGet("/api/login")]
+        [HttpPost("/api/login")]
         // [Authorize(Policy = "Both")]
-        public ActionResult Login(string email, string password)
+        public ActionResult Login([FromBody] User user)
         {
             _logger.LogInformation("Logging In");
 
-            var isLogin = _employeeAccountService.Login(email, password);
-            var isAdmin = _employeeAccountService.IsAdmin(email);
+            var isLogin = _employeeAccountService.Login(user.Username, user.Password);
+            var isAdmin = _employeeAccountService.IsAdmin(user.Username);
             if (!isLogin.IsSuccess) return Ok(isLogin);
             var Claims = new List<Claim>
             {
                 isAdmin.Data
                     ? new Claim("type", "Admin")
                     : new Claim("type", "Staff"),
-                new Claim("username", "email"),
+                new Claim("username", user.Username),
                 new Claim("employeeId",isLogin.Data)
             };
             var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SXkSqsKyNUyvGbnHs7ke2NCq8zQzNLW7mPmHbnZZ"));
@@ -153,5 +151,11 @@ namespace HR_UIT.Web.Controllers
             return new OkObjectResult(new JwtSecurityTokenHandler().WriteToken(Token));
 
         }
+    }
+
+    public class User
+    {
+        public string Username { get; set; }
+        public string Password { get; set;}
     }
 }

@@ -139,7 +139,10 @@
       <v-divider class="my-2"></v-divider>
 
       <!-- Logout -->
-      <v-list-item link>
+      <v-list-item
+        link
+        @click="logout"
+      >
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiLogoutVariant }}
@@ -166,6 +169,16 @@ import {
 } from '@mdi/js'
 
 export default {
+  methods: {
+    async logout() {
+      await this.$store.dispatch('logout')
+        .then(
+          this.$router.push({
+            name: 'pages-login',
+          }),
+        )
+    },
+  },
   setup() {
     return {
       icons: {

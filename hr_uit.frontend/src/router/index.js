@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/index'
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,10 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: () => import('@/views/dashboard/Dashboard.vue'),
+
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/typography',
@@ -68,6 +73,13 @@ const routes = [
     meta: {
       layout: 'blank',
     },
+
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isLoggedIn) {
+        next({ name: 'dashboard' })
+      }
+      next()
+    },
   },
   {
     path: '/pages/register',
@@ -96,5 +108,15 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 })
-
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.isLoggedIn) {
+      next({ name: 'pages-login' })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 export default router

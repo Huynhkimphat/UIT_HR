@@ -5,16 +5,16 @@
         <!-- logo -->
         <v-card-title class="d-flex align-center justify-center py-7">
           <router-link
-            to="/"
             class="d-flex align-center"
+            to="/"
           >
             <v-img
               :src="require('@/assets/images/logos/logo.svg')"
+              alt="logo"
+              class="me-3 "
+              contain
               max-height="30px"
               max-width="30px"
-              alt="logo"
-              contain
-              class="me-3 "
             ></v-img>
 
             <h2 class="text-2xl font-weight-semibold">
@@ -38,36 +38,36 @@
           <v-form>
             <v-text-field
               v-model="email"
-              outlined
-              label="Email"
-              placeholder="john@example.com"
-              hide-details
               class="mb-3"
+              hide-details
+              label="Email"
+              outlined
+              placeholder="john@example.com"
             ></v-text-field>
 
             <v-text-field
               v-model="password"
-              outlined
-              :type="isPasswordVisible ? 'text' : 'password'"
-              label="Password"
-              placeholder="············"
               :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
+              :type="isPasswordVisible ? 'text' : 'password'"
               hide-details
+              label="Password"
+              outlined
+              placeholder="············"
               @click:append="isPasswordVisible = !isPasswordVisible"
             ></v-text-field>
 
             <div class="d-flex align-center justify-space-between flex-wrap">
               <v-checkbox
-                label="Remember Me"
-                hide-details
                 class="me-3 mt-1"
+                hide-details
+                label="Remember Me"
               >
               </v-checkbox>
 
               <!-- forgot link -->
               <a
-                href="javascript:void(0)"
                 class="mt-1"
+                href="javascript:void(0)"
               >
                 Forgot Password?
               </a>
@@ -75,8 +75,9 @@
 
             <v-btn
               block
-              color="primary"
               class="mt-6"
+              color="primary"
+              @click="login"
             >
               Login
             </v-btn>
@@ -87,35 +88,53 @@
 
     <!-- background triangle shape  -->
     <img
+      :src="require(`@/assets/images/misc/mask-${$vuetify.theme.dark ? 'dark':'light'}.png`)"
       class="auth-mask-bg"
       height="173"
-      :src="require(`@/assets/images/misc/mask-${$vuetify.theme.dark ? 'dark':'light'}.png`)"
     >
 
     <!-- tree -->
     <v-img
       class="auth-tree"
-      width="247"
       height="185"
       src="@/assets/images/misc/tree.png"
+      width="247"
     ></v-img>
 
     <!-- tree  -->
     <v-img
       class="auth-tree-3"
-      width="377"
       height="289"
       src="@/assets/images/misc/tree-3.png"
+      width="377"
     ></v-img>
   </div>
 </template>
 
 <script>
 // eslint-disable-next-line object-curly-newline
-import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
+import {
+  mdiFacebook,
+  mdiTwitter,
+  mdiGithub,
+  mdiGoogle,
+  mdiEyeOutline,
+  mdiEyeOffOutline,
+} from '@mdi/js'
 import { ref } from '@vue/composition-api'
 
 export default {
+  methods: {
+    async login() {
+      await this.$store.dispatch('login', {
+        username: this.email,
+        password: this.password,
+      })
+      if (this.$store.getters.isLoggedIn) {
+        await this.$router.push({ name: 'dashboard' })
+      }
+    },
+  },
   setup() {
     const isPasswordVisible = ref(false)
     const email = ref('')

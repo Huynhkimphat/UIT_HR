@@ -40,5 +40,11 @@ namespace HR_UIT.Services.Salary
 
         Data.Models.EmployeeSalary GetEmployeeSalaryById(int id);
         Data.Models.EmployeeSalary GetEmployeeSalaryByYearMonth(int year, int month);
+
+        ServiceResponse<bool>
+            AddSalaryToEmployee(int salId, int empId);
+        
+        ServiceResponse<bool>
+            RemoveSalaryOutOfEmployee(int salId,int empId);
     }
 }

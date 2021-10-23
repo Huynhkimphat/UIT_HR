@@ -6,7 +6,6 @@ using HR_UIT.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc;
 
 namespace HR_UIT.Web.Controllers
 {
@@ -95,11 +94,25 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
+        /// Recovering Employee Salary ----- Admin
+        /// </summary>
+        /// <param name="salaryId"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/salary/recover/{salaryId}")]
+        [Authorize(Policy = "Admin")]
+        public ActionResult RecoverEmployeeSalary(int salaryId)
+        {
+            _logger.LogInformation($"Recover Employee Salary Id: {salaryId}");
+            var response = _salaryService.RecoverSalary(salaryId);
+            return Ok(response);
+        }
+        
+        /// <summary>
         /// Check Salary By Employee ----- Staff 
         /// </summary>
         /// <param name="salaryId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/salary/check/{salaryId}")]
+        [HttpPatch("/api/salary/checked/{salaryId}")]
         [Authorize(Policy = "Staff")]
         public ActionResult CheckEmployeeSalary(int salaryId)
         {
@@ -108,17 +121,46 @@ namespace HR_UIT.Web.Controllers
             return Ok(response);
         }
         
+        
         /// <summary>
-        /// Check if salary received ----- Admin
+        /// UnCheck Salary By Employee ----- Staff 
         /// </summary>
         /// <param name="salaryId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/salary/receive/{salaryId}")]
+        [HttpPatch("/api/salary/unchecked/{salaryId}")]
+        [Authorize(Policy = "Staff")]
+        public ActionResult UnCheckEmployeeSalary(int salaryId)
+        {
+            _logger.LogInformation($"UnChecking employee salary Id: {salaryId}");
+            var response = _salaryService.IsUnCheckedSalary(salaryId);
+            return Ok(response);
+        }
+        
+        /// <summary>
+        /// Receiving Salary By Given Id ----- Admin
+        /// </summary>
+        /// <param name="salaryId"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/salary/received/{salaryId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult ReceiveEmployeeSalary(int salaryId)
         {
-            _logger.LogInformation($"Checking employee salary Id: {salaryId}");
+            _logger.LogInformation($"Receiving employee salary Id: {salaryId}");
             var response = _salaryService.IsReceivedSalary(salaryId);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// UnReceiving Salary By Given Id ----- Admin
+        /// </summary>
+        /// <param name="salaryId"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/salary/unreceived/{salaryId")]
+        [Authorize(Policy = "Admin")]
+        public ActionResult UnReceivedEmployeeSalary(int salaryId)
+        {
+            _logger.LogInformation($"UnReceiving employee salary Id: {salaryId}");
+            var response = _salaryService.IsUnReceivedSalary(salaryId);
             return Ok(response);
         }
     }

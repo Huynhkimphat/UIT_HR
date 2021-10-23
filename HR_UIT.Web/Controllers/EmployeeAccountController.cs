@@ -136,9 +136,10 @@ namespace HR_UIT.Web.Controllers
             {
                 isAdmin.Data
                     ? new Claim("type", "Admin")
-                    : new Claim("type", "Staff")
+                    : new Claim("type", "Staff"),
+                new Claim("username", "email"),
+                new Claim("employeeId",isLogin.Data)
             };
-
             var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SXkSqsKyNUyvGbnHs7ke2NCq8zQzNLW7mPmHbnZZ"));
 
             var Token = new JwtSecurityToken(

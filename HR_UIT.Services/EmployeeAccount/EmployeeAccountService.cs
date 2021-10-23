@@ -226,13 +226,14 @@ namespace HR_UIT.Services.EmployeeAccount
         public ServiceResponse<string> Login(string email, string password)
         {
             var now = DateTime.UtcNow;
-            var employeeAccount = _db.EmployeeAccounts
-                .FirstOrDefault(empAccount => empAccount.Email == email);
-            if (employeeAccount != null && employeeAccount.Password == password)
+            var employee = _db.Employees
+                .Include(employee => employee.PrimaryAccount)
+                .FirstOrDefault(employee=> employee.PrimaryAccount.Email == email);
+            if (employee != null && employee.PrimaryAccount.Password == password)
             {
                 return new ServiceResponse<string>
                 {
-                    Data = "Succeed",
+                    Data = $"{employee.Id}",
                     Time = now,
                     Message = "Login Successful",
                     IsSuccess = true

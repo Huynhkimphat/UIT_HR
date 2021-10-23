@@ -189,40 +189,40 @@ namespace HR_UIT.Services.Salary
         /// <returns></returns>
         public ServiceResponse<EmployeeSalary> IsUnReceivedSalary(int salaryId)
         {
-              var now = DateTime.UtcNow;
-                        var salary = _db.EmployeeSalaries.Find(salaryId);
-                        if (salary == null)
-                            return new ServiceResponse<Data.Models.EmployeeSalary>
-                            {
-                                Data = null,
-                                Time = now,
-                                Message = "Employee salary to Update not Found",
-                                IsSuccess = false
-                            };
-                        try
-                        {
-                            salary.IsReceived = false;
-                            salary.UpdatedOn = now;
-                            _db.EmployeeSalaries.Update(salary);
-                            _db.SaveChanges();
-                            return new ServiceResponse<EmployeeSalary>
-                            {
-                                Data = salary,
-                                Time = now,
-                                Message = $"Employee salary {salary.Id} Checked!",
-                                IsSuccess = true
-                            };
-                        }
-                        catch (Exception e)
-                        {
-                            return new ServiceResponse<EmployeeSalary>
-                            {
-                                Data = null,
-                                Time = now,
-                                Message = e.StackTrace,
-                                IsSuccess = false
-                            };
-                        }
+            var now = DateTime.UtcNow;
+            var salary = _db.EmployeeSalaries.Find(salaryId);
+            if (salary == null)
+                return new ServiceResponse<Data.Models.EmployeeSalary>
+                {
+                    Data = null,
+                    Time = now,
+                    Message = "Employee salary to Update not Found",
+                    IsSuccess = false
+                };
+            try
+            {
+                salary.IsReceived = false;
+                salary.UpdatedOn = now;
+                _db.EmployeeSalaries.Update(salary);
+                _db.SaveChanges();
+                return new ServiceResponse<EmployeeSalary>
+                {
+                    Data = salary,
+                    Time = now,
+                    Message = $"Employee salary {salary.Id} Checked!",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<EmployeeSalary>
+                {
+                    Data = null,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
         }
 
         /// <summary>
@@ -378,6 +378,65 @@ namespace HR_UIT.Services.Salary
                 .EmployeeSalaries
                 .Include(salary => salary.PrimarySalaryDetail)
                 .FirstOrDefault(e => e.Year == year && e.Month == month);
+        }
+
+        public ServiceResponse<bool> AddSalaryToEmployee(int salId, int empId)
+        {
+            var now = DateTime.UtcNow;
+            var currentEmployee = _db.Employees.Find(empId);
+            var currentSalary = _db.EmployeeSalaries.Find(salId);
+            ;
+            if (currentSalary == null || currentEmployee == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Employee To Update or Salary To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            if (currentSalary.IsExisted)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Salary Already Has Linked To Another Employee",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                currentEmployee.PrimarySalaries ??= new List<Data.Models.EmployeeSalary>();
+                currentEmployee.PrimarySalaries.Add(currentSalary);
+                _db.Update(currentEmployee);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Salary To Update Completed",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+
+        public ServiceResponse<bool> RemoveSalaryOutOfEmployee(int salId, int empId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

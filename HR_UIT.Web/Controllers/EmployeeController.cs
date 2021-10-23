@@ -55,24 +55,7 @@ namespace HR_UIT.Web.Controllers
                 .ToList();
             return Ok(employeeModels);
         }
-        
-        /// <summary>
-        /// Get All Holidays Off With Employee Id ----- Both
-        /// </summary>
-        /// <param name="employeeId"></param>
-        /// <returns></returns>
-        [HttpGet("/api/employee/{employeeId}/holidayCreate")]
-        [Authorize(Policy = "Both")]
-        public ActionResult GetHolidaysOffByEmployeeId(int employeeId)
-        {
-            _logger.LogInformation($"Getting information of holiday off with employee Id");
-            var holidayCreateModels = _employeeService.GetHolidaysOffByEmployeeId(employeeId)
-                .Select(HolidayCreateMapper.MapHolidayCreate)
-                .OrderByDescending(HolidayCreate => HolidayCreate.Id)
-                .ToList();
-            return Ok(holidayCreateModels);
-        }
-        
+
         /// <summary>
         /// Create New Employee ----- Admin
         /// </summary>

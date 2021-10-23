@@ -99,12 +99,6 @@ namespace HR_UIT.Services.Employee
 
         }
 
-        public List<Data.Models.HolidayCreate> GetHolidaysOffByEmployeeId(int employeeId)
-        {
-            var employee = _db.Employees.Find(employeeId);
-            return employee.EmployeeHolidayCreates;
-        }
-
         /// <summary>
         /// Update Employee
         /// </summary>

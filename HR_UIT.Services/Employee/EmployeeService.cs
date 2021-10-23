@@ -42,11 +42,11 @@ namespace HR_UIT.Services.Employee
         {
             return _db
                 .Employees
-                .Include(employee => employee.PrimaryAddress)
                 .Where(employee => !employee.IsArchived)
-                .Include(employee => employee.PrimaryAccount)
-                .Include(employee => employee.PrimarySalaries)
-                .Include(employee => employee.EmployeeAttendances)
+                // .Include(employee => employee.PrimaryAddress)
+                // .Include(employee => employee.PrimaryAccount)
+                // .Include(employee => employee.PrimarySalaries)
+                // .Include(employee => employee.EmployeeAttendances)
                 // .Include(employee => employee.PrimaryDayOff)
                 .OrderBy(employee => employee.Id)
                 .ToList();

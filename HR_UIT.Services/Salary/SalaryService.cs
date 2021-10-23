@@ -385,7 +385,6 @@ namespace HR_UIT.Services.Salary
             var now = DateTime.UtcNow;
             var currentEmployee = _db.Employees.Find(empId);
             var currentSalary = _db.EmployeeSalaries.Find(salId);
-            ;
             if (currentSalary == null || currentEmployee == null)
             {
                 return new ServiceResponse<bool>
@@ -412,6 +411,7 @@ namespace HR_UIT.Services.Salary
             {
                 currentEmployee.PrimarySalaries ??= new List<Data.Models.EmployeeSalary>();
                 currentEmployee.PrimarySalaries.Add(currentSalary);
+                currentSalary.IsExisted = true;
                 _db.Update(currentEmployee);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
@@ -436,7 +436,57 @@ namespace HR_UIT.Services.Salary
 
         public ServiceResponse<bool> RemoveSalaryOutOfEmployee(int salId, int empId)
         {
-            throw new NotImplementedException();
+            var now = DateTime.UtcNow;
+            var currentEmployee = _db.Employees.Find(empId);
+            var currentSalary = _db.EmployeeSalaries.Find(salId);
+            if (currentSalary == null || currentEmployee == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Employee To Update or Salary To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            if (!currentSalary.IsExisted)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Salary Has Not Linked To Any Employee",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                currentEmployee.PrimarySalaries ??= new List<Data.Models.EmployeeSalary>();
+                currentEmployee.PrimarySalaries.Remove(currentSalary);
+                currentSalary.IsExisted = false;
+                _db.Update(currentEmployee);
+                _db.Update(currentSalary);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Salary To Update Completed",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
         }
     }
 }

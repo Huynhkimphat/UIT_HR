@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using HR_UIT.Data.Models;
 using HR_UIT.Services.Employee;
+using HR_UIT.Services.HolidayCreate;
 using HR_UIT.Web.Serialization;
 using HR_UIT.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +54,23 @@ namespace HR_UIT.Web.Controllers
                 .OrderByDescending(employee => employee.Id)
                 .ToList();
             return Ok(employeeModels);
+        }
+        
+        /// <summary>
+        /// Get All Holidays Off With Employee Id ----- Both
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        [HttpGet("/api/employee/{employeeId}/holidayCreate")]
+        [Authorize(Policy = "Both")]
+        public ActionResult GetHolidaysOffByEmployeeId(int employeeId)
+        {
+            _logger.LogInformation($"Getting information of holiday off with employee Id");
+            var holidayCreateModels = _employeeService.GetHolidaysOffByEmployeeId(employeeId)
+                .Select(HolidayCreateMapper.MapHolidayCreate)
+                .OrderByDescending(HolidayCreate => HolidayCreate.Id)
+                .ToList();
+            return Ok(holidayCreateModels);
         }
         
         /// <summary>

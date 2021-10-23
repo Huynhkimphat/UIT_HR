@@ -10,7 +10,8 @@ namespace HR_UIT.Services.Employee
         
         Data.Models.Employee GetEmployeeById(int id);
 
-        
+        List<HR_UIT.Data.Models.HolidayCreate> GetHolidaysOffByEmployeeId(int employeeId);
+
         ServiceResponse<Data.Models.Employee>
             CreateEmployee(
                 Data.Models.Employee employee

@@ -62,6 +62,7 @@ namespace HR_UIT.Services.Employee
             var now = DateTime.UtcNow;
             employee.PrimarySalaries = null;
             employee.EmployeeAttendances = null;
+            employee.EmployeeHolidayCreates = null;
             try
             {
                 _db.Employees.Add(employee);
@@ -96,6 +97,12 @@ namespace HR_UIT.Services.Employee
             return _db
                 .Employees.Find(id);
 
+        }
+
+        public List<Data.Models.HolidayCreate> GetHolidaysOffByEmployeeId(int employeeId)
+        {
+            var employee = _db.Employees.Find(employeeId);
+            return employee.EmployeeHolidayCreates;
         }
 
         /// <summary>

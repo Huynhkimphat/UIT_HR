@@ -1,7 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using HR_UIT.Services.Employee;
 using HR_UIT.Services.Holiday;
 using HR_UIT.Web.Serialization;
 using HR_UIT.Web.ViewModels;
@@ -79,7 +78,7 @@ namespace HR_UIT.Web.Controllers
         [Authorize(Policy = "Admin")]
         public ActionResult CreateNewHoliday([FromBody] HolidayModel holiday)
         {
-            _logger.LogInformation("Creating New Employee");
+            _logger.LogInformation("Creating New Holiday");
             var response = _holidayService.CreateHoliday(HolidayMapper.MapHoliday(holiday));
             return Ok(response);
         }

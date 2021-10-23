@@ -323,7 +323,9 @@ namespace HR_UIT.Services.EmployeeAttendance
             try
             {
                 currentEmployee.EmployeeAttendances ??= new List<Data.Models.EmployeeAttendance>();
+                currentAttendance.IsExisted = true;
                 currentEmployee.EmployeeAttendances.Add(currentAttendance);
+                
                 _db.Update(currentEmployee);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>

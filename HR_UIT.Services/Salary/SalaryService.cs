@@ -410,8 +410,8 @@ namespace HR_UIT.Services.Salary
             try
             {
                 currentEmployee.PrimarySalaries ??= new List<Data.Models.EmployeeSalary>();
-                currentEmployee.PrimarySalaries.Add(currentSalary);
                 currentSalary.IsExisted = true;
+                currentEmployee.PrimarySalaries.Add(currentSalary);
                 _db.Update(currentEmployee);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
@@ -464,8 +464,8 @@ namespace HR_UIT.Services.Salary
             try
             {
                 currentEmployee.PrimarySalaries ??= new List<Data.Models.EmployeeSalary>();
-                currentEmployee.PrimarySalaries.Remove(currentSalary);
                 currentSalary.IsExisted = false;
+                currentEmployee.PrimarySalaries.Remove(currentSalary);
                 _db.Update(currentEmployee);
                 _db.Update(currentSalary);
                 _db.SaveChanges();

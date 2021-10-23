@@ -26,7 +26,6 @@ namespace HR_UIT.Services.HolidayCreate
                 .OrderBy(holidayOff => holidayOff.Id)
                 .ToList();
         }
-
         
         /// <summary>
         /// Get Holidays Off by Month

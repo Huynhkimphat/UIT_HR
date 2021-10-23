@@ -6,6 +6,7 @@ namespace HR_UIT.Services.HolidayCreate
     public interface IHolidayCreateService
     {
         List<Data.Models.HolidayCreate> GetAllHolidaysOff();
+        
         List<Data.Models.HolidayCreate> GetAllHolidaysOffByMonth(DateTime month);
 
         ServiceResponse<Data.Models.HolidayCreate>

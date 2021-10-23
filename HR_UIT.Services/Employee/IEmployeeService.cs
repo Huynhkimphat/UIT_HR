@@ -10,7 +10,6 @@ namespace HR_UIT.Services.Employee
         
         Data.Models.Employee GetEmployeeById(int id);
 
-        
         ServiceResponse<Data.Models.Employee>
             CreateEmployee(
                 Data.Models.Employee employee

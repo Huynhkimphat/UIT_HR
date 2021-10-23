@@ -30,7 +30,7 @@ namespace HR_UIT.Web.ViewModels
         //
         public List<EmployeeSalaryModel> PrimarySalaries { get; set; }
         //
-        // public List<HolidayCreateModel> EmployeeHolidayCreates { get; set;}
+        public List<HolidayCreateModel> EmployeeHolidayCreates { get; set;}
 
         public DateTime CreatedOn { get; set; }
 

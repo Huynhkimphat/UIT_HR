@@ -45,14 +45,12 @@ namespace HR_UIT.Web.Serialization
                         .OrderByDescending(attendance => attendance.Id)
                         .ToList()
                     : new List<EmployeeAttendanceModel> { },
-                // EmployeeHolidayCreates = (employee.EmployeeHoliday_Creates is not null) 
-                //     ? 
-                //     employee.EmployeeHoliday_Creates
-                //     .Select(HolidayCreateMapper.MapHolidayCreate)
-                //     .OrderByDescending(holidayCreate => holidayCreate.Id)
-                //     .ToList() 
-                //     :
-                //     new List<HolidayCreateModel>{}
+                EmployeeHolidayCreates = (employee.EmployeeHolidayCreates != null)
+                    ? employee.EmployeeHolidayCreates
+                        .Select(HolidayCreateMapper.MapHolidayCreate)
+                        .OrderByDescending(holidayCreate => holidayCreate.Id)
+                        .ToList()
+                    : new List<HolidayCreateModel>{ }
             };
         }
 
@@ -76,6 +74,7 @@ namespace HR_UIT.Web.Serialization
                 PrimaryAccount = EmployeeAccountMapper.MapEmployeeAccount(employee.PrimaryAccount),
                 PrimarySalaries = null,
                 EmployeeAttendances = null,
+                EmployeeHolidayCreates = null,
                 CreatedOn = now,
                 UpdatedOn = now,
                 IsArchived = employee.IsArchived

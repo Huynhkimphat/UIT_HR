@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using HR_UIT.Services;
 using HR_UIT.Services.EmployeeAccount;
 using HR_UIT.Web.Serialization;
 using HR_UIT.Web.ViewModels;
@@ -148,7 +149,15 @@ namespace HR_UIT.Web.Controllers
                 signingCredentials: new SigningCredentials(Key, SecurityAlgorithms.HmacSha256)
             );
 
-            return new OkObjectResult(new JwtSecurityTokenHandler().WriteToken(Token));
+            var response = new ServiceResponse<string>
+            {
+                IsSuccess = true,
+                Data = new JwtSecurityTokenHandler().WriteToken(Token),
+                Message = "Login Success",
+                Time = DateTime.UtcNow
+            };
+            return Ok(response);
+            
 
         }
     }

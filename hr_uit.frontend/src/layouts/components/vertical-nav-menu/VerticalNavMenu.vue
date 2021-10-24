@@ -43,6 +43,12 @@
         :icon="icons.mdiHomeOutline"
       ></nav-menu-link>
       <nav-menu-link
+        title="Employee"
+        :disabled="role!=='Admin'"
+        :to="{ name: 'adminEmployee' }"
+        :icon="icons.mdiHomeOutline"
+      ></nav-menu-link>
+      <nav-menu-link
         title="Account Settings"
         :to="{ name: 'pages-account-settings'}"
         :icon="icons.mdiAccountCogOutline"
@@ -123,6 +129,11 @@ export default {
     isDrawerOpen: {
       type: Boolean,
       default: null,
+    },
+  },
+  computed: {
+    role() {
+      return this.$store.getters.getRole
     },
   },
   setup() {

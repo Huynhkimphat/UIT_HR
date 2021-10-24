@@ -11,4 +11,10 @@ export default {
   recoverEmployee(state, payload) {
     state.recoverResponse = payload
   },
+  resetState(state) {
+    state.employees = []
+    state.createResponse = {}
+    state.deleteResponse = {}
+    state.recoverResponse = {}
+  },
 }

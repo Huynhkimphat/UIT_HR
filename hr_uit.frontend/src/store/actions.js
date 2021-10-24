@@ -9,7 +9,8 @@ export default {
   },
 
   async logout(context) {
-    return context.commit('logout')
+    context.commit('logout')
+    context.commit('employeeStore/resetState')
   },
 
 }

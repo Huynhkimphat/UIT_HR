@@ -22,6 +22,10 @@ const routes = [
     path: '/admin/employee',
     name: 'adminEmployee',
     component: () => import('@/views/admin/employee/Employee.vue'),
+    meta: {
+      requiresAuth: true,
+      adminAuth: true,
+    },
   },
   {
     path: '/',
@@ -109,10 +113,11 @@ const router = new VueRouter({
   routes,
 })
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.adminAuth)) {
     if (!store.getters.isLoggedIn) {
       next({ name: 'pages-login' })
-    } else {
+    } else if (store.getters.getRole !== 'Admin') next({ name: 'dashboard' })
+    else {
       next()
     }
   } else {

@@ -9,6 +9,7 @@ export default {
     createResponse: {},
     deleteResponse: {},
     recoverResponse: {},
+    error: {},
   }),
   getters: employeeGetters,
   mutations: employeeMutations,

@@ -53,7 +53,13 @@ namespace HR_UIT.Web.Serialization
                     : new List<HolidayCreateModel>{ },
                 PrimaryDayOff = (employee.PrimaryDayOff != null)
                     ? EmployeeDayOffMapper.MapEmployeeDayOff(employee.PrimaryDayOff)
-                    : new EmployeeDayOffModel{ }
+                    : new EmployeeDayOffModel{ },
+                PrimaryDayOffLetters = (employee.PrimaryDayOffLetters != null) 
+                    ? employee.PrimaryDayOffLetters
+                    .Select(EmployeeDayOffLetterMapper.MapEmployeeDayOffLetter)
+                    .OrderByDescending(dayOffLetter => dayOffLetter.Id)
+                    .ToList()
+                    : new List<EmployeeDayOffLetterModel>{ }
             };
         }
 
@@ -79,6 +85,7 @@ namespace HR_UIT.Web.Serialization
                 EmployeeAttendances = null,
                 EmployeeHolidayCreates = null,
                 PrimaryDayOff = null,
+                PrimaryDayOffLetters = null,
                 CreatedOn = now,
                 UpdatedOn = now,
                 IsArchived = employee.IsArchived

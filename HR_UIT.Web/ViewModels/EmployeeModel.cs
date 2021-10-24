@@ -24,7 +24,7 @@ namespace HR_UIT.Web.ViewModels
         
         public List<EmployeeAttendanceModel> EmployeeAttendances { get; set; }
         //
-        // public EmployeeDayOff PrimaryDayOff { get; set; }
+        public EmployeeDayOffModel PrimaryDayOff { get; set; }
         //
         // public List<EmployeeDayOff_Letter> PrimaryDayOff_Letters { get; set; }
         //

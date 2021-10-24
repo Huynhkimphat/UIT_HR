@@ -50,7 +50,10 @@ namespace HR_UIT.Web.Serialization
                         .Select(HolidayCreateMapper.MapHolidayCreate)
                         .OrderByDescending(holidayCreate => holidayCreate.Id)
                         .ToList()
-                    : new List<HolidayCreateModel>{ }
+                    : new List<HolidayCreateModel>{ },
+                PrimaryDayOff = (employee.PrimaryDayOff != null)
+                    ? EmployeeDayOffMapper.MapEmployeeDayOff(employee.PrimaryDayOff)
+                    : new EmployeeDayOffModel{ }
             };
         }
 
@@ -75,6 +78,7 @@ namespace HR_UIT.Web.Serialization
                 PrimarySalaries = null,
                 EmployeeAttendances = null,
                 EmployeeHolidayCreates = null,
+                PrimaryDayOff = null,
                 CreatedOn = now,
                 UpdatedOn = now,
                 IsArchived = employee.IsArchived

@@ -63,6 +63,7 @@ namespace HR_UIT.Services.Employee
             employee.PrimarySalaries = null;
             employee.EmployeeAttendances = null;
             employee.EmployeeHolidayCreates = null;
+            employee.PrimaryDayOff = null;
             try
             {
                 _db.Employees.Add(employee);

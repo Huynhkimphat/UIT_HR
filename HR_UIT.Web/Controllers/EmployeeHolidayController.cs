@@ -89,7 +89,7 @@ namespace HR_UIT.Web.Controllers
         /// <param name="name"></param>
         /// <param name="holidayId"></param>
         /// <returns></returns>
-        [HttpPut("/api/holiday/updateName/{holidayId}")]
+        [HttpPut("/api/holiday/name-update/{holidayId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult UpdateHoliday([FromBody] string name, int holidayId)
         {

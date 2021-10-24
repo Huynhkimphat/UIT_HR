@@ -28,7 +28,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="dayOffLetter"></param>
         /// <returns></returns>
-        [HttpPost("/api/employee/dayOffLetter")]
+        [HttpPost("/api/employee/day-off-letter")]
         [Authorize(Policy = "Staff")]
         public ActionResult CreateNewEmployeeDayOffLetter([FromBody] EmployeeDayOffLetterModel dayOffLetter)
         {
@@ -45,7 +45,7 @@ namespace HR_UIT.Web.Controllers
         /// <param name="dayOffLetter"></param>
         /// <param name="dayOffLetterId"></param>
         /// <returns></returns>
-        [HttpPut("/api/employee/dayOffLetter/update/{dayOffLetterId}")]
+        [HttpPut("/api/employee/day-off-letter/update/{dayOffLetterId}")]
         [Authorize(Policy = "Staff")]
         public ActionResult UpdateEmployeeDayOffLetter([FromBody] EmployeeDayOffLetterModel dayOffLetter,
             int dayOffLetterId)
@@ -59,7 +59,7 @@ namespace HR_UIT.Web.Controllers
         /// Get All Employee Day Off Letter ----- Both
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/employee/dayOffLetter/all")]
+        [HttpGet("/api/employee/day-off-letter/all")]
         [Authorize(Policy = "Both")]
         public ActionResult GetAllEmployeeDayOffLetter()
         {
@@ -76,7 +76,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="day"></param>
         /// <returns></returns>
-        [HttpGet("/api/employee/dayOffLetter/day/{day}")]
+        [HttpGet("/api/employee/day-off-letter/day/{day}")]
         [Authorize(Policy = "Both")]
         public ActionResult GetAllEmployeeDayOffLetterByDay(DateTime day)
         {
@@ -93,7 +93,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="month"></param>
         /// <returns></returns>
-        [HttpGet("/api/employee/dayOffLetter/month/{month}")]
+        [HttpGet("/api/employee/day-off-letter/month/{month}")]
         [Authorize(Policy = "Both")]
         public ActionResult GetAllEmployeeDayOffLetterByMonth(DateTime month)
         {
@@ -110,7 +110,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="week"></param>
         /// <returns></returns>
-        [HttpGet("/api/employee/dayOffLetter/week/{week}")]
+        [HttpGet("/api/employee/day-off-letter/week/{week}")]
         [Authorize(Policy = "Both")]
         public ActionResult GetAllEmployeeDayOffLetterByWeek(DateTime week)
         {
@@ -127,7 +127,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="dayOffLetterId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/employee/dayOffLetter/{dayOffLetterId}/Approve")]
+        [HttpPatch("/api/employee/day-off-letter/{dayOffLetterId}/Approved")]
         [Authorize(Policy = "Admin")]
         public ActionResult ApproveEmployeeDayOffLetter(int dayOffLetterId)
         {
@@ -141,7 +141,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="dayOffLetterId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/employee/dayOffLetter/delete/{dayOffLetterId}")]
+        [HttpPatch("/api/employee/day-off-letter/delete/{dayOffLetterId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult DeleteEmployeeDayOffLetter(int dayOffLetterId)
         {
@@ -155,7 +155,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="dayOffLetterId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/employee/dayOffLetter/recover/{dayOffLetterId}")]
+        [HttpPatch("/api/employee/day-off-letter/recover/{dayOffLetterId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult RecoverEmployeeDayOffLetter(int dayOffLetterId)
         {

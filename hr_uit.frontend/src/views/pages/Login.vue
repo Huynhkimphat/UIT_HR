@@ -29,7 +29,7 @@
             Welcome to HR_UIT! 👋🏻
           </p>
           <p class="mb-2">
-            Please sign-in to your account and start the adventure
+            Please sign-in to your account
           </p>
         </v-card-text>
 
@@ -55,7 +55,24 @@
               placeholder="············"
               @click:append="isPasswordVisible = !isPasswordVisible"
             ></v-text-field>
-
+            <v-alert
+              v-if="!isLoggedIn && !loading && logged"
+              dense
+              outlined
+              type="error"
+              class="mt-1"
+            >
+              Invalid <strong>username</strong> and/or <strong>password</strong> !!!
+            </v-alert>
+            <v-alert
+              v-if="isLoggedIn && !loading && logged"
+              dense
+              outlined
+              type="success"
+              class="mt-1"
+            >
+              Login Success. Yay!!!
+            </v-alert>
             <div class="d-flex align-center justify-space-between flex-wrap">
               <v-checkbox
                 class="me-3 mt-1"
@@ -79,7 +96,7 @@
               color="primary"
               @click="login"
             >
-              Login
+              {{ loading? "Loading...": "Login" }}
             </v-btn>
           </v-form>
         </v-card-text>
@@ -114,60 +131,45 @@
 <script>
 // eslint-disable-next-line object-curly-newline
 import {
-  mdiFacebook,
-  mdiTwitter,
-  mdiGithub,
-  mdiGoogle,
   mdiEyeOutline,
   mdiEyeOffOutline,
 } from '@mdi/js'
 import { ref } from '@vue/composition-api'
+import { mapGetters } from 'vuex'
 
 export default {
+  data() {
+    return {
+      logged: false,
+      loading: false,
+    }
+  },
   methods: {
     async login() {
+      this.loading = true
       await this.$store.dispatch('login', {
         username: this.email,
         password: this.password,
       })
+      this.loading = false
+      this.logged = true
       if (this.$store.getters.isLoggedIn) {
         await this.$router.push({ name: 'dashboard' })
       }
     },
   },
+  computed: {
+    ...mapGetters(['isLoggedIn']),
+  },
   setup() {
     const isPasswordVisible = ref(false)
     const email = ref('')
     const password = ref('')
-    const socialLink = [
-      {
-        icon: mdiFacebook,
-        color: '#4267b2',
-        colorInDark: '#4267b2',
-      },
-      {
-        icon: mdiTwitter,
-        color: '#1da1f2',
-        colorInDark: '#1da1f2',
-      },
-      {
-        icon: mdiGithub,
-        color: '#272727',
-        colorInDark: '#fff',
-      },
-      {
-        icon: mdiGoogle,
-        color: '#db4437',
-        colorInDark: '#db4437',
-      },
-    ]
 
     return {
       isPasswordVisible,
       email,
       password,
-      socialLink,
-
       icons: {
         mdiEyeOutline,
         mdiEyeOffOutline,

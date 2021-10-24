@@ -2,13 +2,17 @@
 import jwt_decode from 'jwt-decode'
 
 export default {
-  login(state, payload) {
-    state.token = payload
+  loginSucceed(state, payload) {
+    state.token = payload.data
     state.isLoggedIn = true
-    const tokenDecoded = jwt_decode(payload)
+    const tokenDecoded = jwt_decode(payload.data)
     state.role = tokenDecoded.type
     state.userId = tokenDecoded.employeeId
     state.username = tokenDecoded.username
+  },
+
+  loginFailed(state) {
+    state.isLoggedIn = false
   },
 
   logout(state) {

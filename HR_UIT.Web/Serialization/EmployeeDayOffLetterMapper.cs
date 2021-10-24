@@ -11,7 +11,7 @@ namespace HR_UIT.Web.Serialization
         /// <param name="dayOffLetter"></param>
         /// <returns></returns>
         public static EmployeeDayOffLetterModel
-            EmployeeDayOff(EmployeeDayOffLetter dayOffLetter)
+            MapEmployeeDayOffLetter(EmployeeDayOffLetter dayOffLetter)
         {
             return new EmployeeDayOffLetterModel
             {
@@ -34,7 +34,7 @@ namespace HR_UIT.Web.Serialization
         /// <param name="dayOffLetter"></param>
         /// <returns></returns>
         public static EmployeeDayOffLetter
-            EmployeeDayOffLetter(EmployeeDayOffLetterModel dayOffLetter)
+            MapEmployeeDayOffLetter(EmployeeDayOffLetterModel dayOffLetter)
         {
             return new EmployeeDayOffLetter
             {

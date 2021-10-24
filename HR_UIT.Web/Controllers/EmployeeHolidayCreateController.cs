@@ -26,7 +26,7 @@ namespace HR_UIT.Web.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/holidayCreate/all")]
+        [HttpGet("/api/holiday-create/all")]
         [Authorize(Policy = "Admin")]
         public ActionResult GetAllHolidayOff()
         {
@@ -44,7 +44,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="month"></param>
         /// <returns></returns>
-        [HttpGet("/api/holidayCreate/{month}")]
+        [HttpGet("/api/holiday-create/{month}")]
         [Authorize(Policy = "Admin")]
         public ActionResult GetAllHolidaysOffByMonth(DateTime month)
         {
@@ -61,7 +61,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="holidayCreate"></param>
         /// <returns></returns>
-        [HttpPost("/api/holidayCreate")]
+        [HttpPost("/api/holiday-create")]
         [Authorize(Policy = "Admin")]
         public ActionResult CreateHolidayOff([FromBody] HolidayCreateModel holidayCreate)
         {
@@ -76,7 +76,7 @@ namespace HR_UIT.Web.Controllers
         /// <param name="holidayCreate"></param>
         /// <param name="holidayCreateId"></param>
         /// <returns></returns>
-        [HttpPut("/api/holidayCreate/update/{holidayCreateId}")]
+        [HttpPut("/api/holiday-create/update/{holidayCreateId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult UpdateHolidayOff([FromBody] HolidayCreateModel holidayCreate, int holidayCreateId)
         {
@@ -91,7 +91,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="holidayCreateId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/holidayCreate/delete/{holidayCreateId}")]
+        [HttpPatch("/api/holiday-create/delete/{holidayCreateId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult DeleteHolidayOff(int holidayCreateId)
         {
@@ -105,7 +105,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="holidayCreateId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/holidayCreate/recover/{holidayCreateId}")]
+        [HttpPatch("/api/holiday-create/recover/{holidayCreateId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult RecoverHolidayOff(int holidayCreateId)
         {

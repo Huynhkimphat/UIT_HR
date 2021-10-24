@@ -27,7 +27,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="employeeDayOff"></param>
         /// <returns></returns>
-        [HttpPost("/api/employee/dayOff")]
+        [HttpPost("/api/employee/day-off")]
         [Authorize(Policy = "Admin")]
         public ActionResult CreateNewEmployeeDayOff([FromBody] EmployeeDayOffModel employeeDayOff)
         {
@@ -43,7 +43,7 @@ namespace HR_UIT.Web.Controllers
         /// <param name="employeeDayOff"></param>
         /// <param name="dayOffId"></param>
         /// <returns></returns>
-        [HttpPut("/api/employee/dayOff/update/{dayOffId}")]
+        [HttpPut("/api/employee/day-off/update/{dayOffId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult UpdateEmployeeDayOff([FromBody] EmployeeDayOffModel employeeDayOff, int dayOffId)
         {
@@ -58,7 +58,7 @@ namespace HR_UIT.Web.Controllers
         /// Get All Employee Day Off ----- Admin
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/employee/dayOff/all")]
+        [HttpGet("api/employee/day-off/all")]
         [Authorize(Policy = "Admin")]
         public ActionResult GetAllEmployeeDayOff()
         {
@@ -75,7 +75,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="dayOffId"></param>
         /// <returns></returns>
-        [HttpGet("api/employee/dayOff/{dayOffId}")]
+        [HttpGet("api/employee/day-off/{dayOffId}")]
         [Authorize(Policy = "Both")]
         public ActionResult GetEmployeeDayOffById(int dayOffId)
         {
@@ -89,7 +89,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="dayOffId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/employee/dayOff/delete/{dayOffId}")]
+        [HttpPatch("/api/employee/day-off/delete/{dayOffId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult DeleteEmployeeDayOff(int dayOffId)
         {
@@ -103,7 +103,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="dayOffId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/employee/dayOff/recover/{dayOffId}")]
+        [HttpPatch("/api/employee/day-off/recover/{dayOffId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult RecoverEmployeeDayOff(int dayOffId)
         {

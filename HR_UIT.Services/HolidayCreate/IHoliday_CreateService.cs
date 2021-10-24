@@ -21,5 +21,13 @@ namespace HR_UIT.Services.HolidayCreate
 
         ServiceResponse<bool> DeleteHolidayOff(int id);
         ServiceResponse<bool> RecoverHolidayOff(int id);
+
+        ServiceResponse<bool> AddHolidayCreateToEmployee(int holidayCreateId, int employeeId);
+
+        ServiceResponse<bool> RemoveHolidayCreateOutOfEmployee(int holidayCreateId, int employeeId);
+
+        ServiceResponse<bool> AddHolidayCreateToHoliday(int holidayCreateId, int holidayId);
+
+        ServiceResponse<bool> RemoveHolidayCreateOutOfHoliday(int holidayCreateId, int holidayId);
     }
 }

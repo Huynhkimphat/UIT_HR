@@ -14,7 +14,7 @@ namespace HR_UIT.Services.HolidayCreate
         {
             _db = dbContext;
         }
-        
+
         /// <summary>
         /// Return list of Holidays Off
         /// </summary>
@@ -26,7 +26,7 @@ namespace HR_UIT.Services.HolidayCreate
                 .OrderBy(holidayOff => holidayOff.Id)
                 .ToList();
         }
-        
+
         /// <summary>
         /// Get Holidays Off by Month
         /// </summary>
@@ -39,7 +39,7 @@ namespace HR_UIT.Services.HolidayCreate
                 .Where((e => e.FromDate.Month == month.Month))
                 .ToList();
         }
-        
+
         /// <summary>
         /// Create new Holiday Off
         /// </summary>
@@ -77,8 +77,8 @@ namespace HR_UIT.Services.HolidayCreate
         /// </summary>
         /// <param name="holidayOff"></param>
         /// <returns></returns>
-        
-        public ServiceResponse<Data.Models.HolidayCreate> UpdateHolidayOff(Data.Models.HolidayCreate holidayOff, int holidayOffId)
+        public ServiceResponse<Data.Models.HolidayCreate> UpdateHolidayOff(Data.Models.HolidayCreate holidayOff,
+            int holidayOffId)
         {
             var now = DateTime.UtcNow;
             var newHolidayOff = _db.HolidayCreates.Find(holidayOffId);
@@ -189,6 +189,225 @@ namespace HR_UIT.Services.HolidayCreate
                     Data = true,
                     Time = now,
                     Message = "Holiday Off recovered",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+
+        public ServiceResponse<bool> AddHolidayCreateToEmployee(int holidayCreateId, int employeeId)
+        {
+            var now = DateTime.UtcNow;
+            var currentEmployee = _db.Employees.Find(employeeId);
+            var currentHolidayCreate = _db.HolidayCreates.Find(holidayCreateId);
+            if (currentHolidayCreate == null || currentEmployee == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Employee To Update or Holiday Create To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            if (currentHolidayCreate.IsExistedAdmin)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Holiday Create Already Has Linked To Another Admin",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                currentEmployee.EmployeeHolidayCreates ??= new List<Data.Models.HolidayCreate>();
+                currentHolidayCreate.IsExistedAdmin = true;
+                currentEmployee.EmployeeHolidayCreates.Add(currentHolidayCreate);
+                _db.Update(currentEmployee);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Holiday Create To Update Completed",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+
+        public ServiceResponse<bool> RemoveHolidayCreateOutOfEmployee(int holidayCreateId, int employeeId)
+        {
+            var now = DateTime.UtcNow;
+            var currentEmployee = _db.Employees.Find(employeeId);
+            var currentHolidayCreate = _db.HolidayCreates.Find(holidayCreateId);
+            if (currentHolidayCreate == null || currentEmployee == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Employee To Update or Holiday Create To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+
+
+            if (!currentHolidayCreate.IsExistedAdmin)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Holiday Create Has Not Linked To Any Employee",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                currentEmployee.EmployeeHolidayCreates ??= new List<Data.Models.HolidayCreate>();
+                currentHolidayCreate.IsExistedAdmin = false;
+                currentEmployee.EmployeeHolidayCreates.Remove(currentHolidayCreate);
+                _db.Update(currentEmployee);
+                _db.Update(currentHolidayCreate);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Holiday Create To Update Completed",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+
+        public ServiceResponse<bool> AddHolidayCreateToHoliday(int holidayCreateId, int holidayId)
+        {
+            var now = DateTime.UtcNow;
+            var currentHoliday = _db.Holidays.Find(holidayId);
+            var currentHolidayCreate = _db.HolidayCreates.Find(holidayCreateId);
+            if (currentHolidayCreate == null || currentHoliday == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Holiday To Update or Holiday Create To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            if (currentHolidayCreate.IsExistedHoliday)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Holiday Create Already Has Linked To Another Holiday",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                currentHoliday.PrimaryHolidayCreates ??= new List<Data.Models.HolidayCreate>();
+                currentHolidayCreate.IsExistedHoliday = true;
+                currentHoliday.PrimaryHolidayCreates.Add(currentHolidayCreate);
+                _db.Update(currentHoliday);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Holiday Create To Update Completed",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+
+        public ServiceResponse<bool> RemoveHolidayCreateOutOfHoliday(int holidayCreateId, int holidayId)
+        {
+            var now = DateTime.UtcNow;
+            var currentHoliday = _db.Holidays.Find(holidayId);
+            var currentHolidayCreate = _db.HolidayCreates.Find(holidayCreateId);
+            if (currentHolidayCreate == null || currentHoliday == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Holiday To Update or Holiday Create To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            if (!currentHolidayCreate.IsExistedAdmin)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Holiday Create Has Not Linked To Any Employee",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                currentHoliday.PrimaryHolidayCreates ??= new List<Data.Models.HolidayCreate>();
+                currentHolidayCreate.IsExistedAdmin = false;
+                currentHoliday.PrimaryHolidayCreates.Remove(currentHolidayCreate);
+                _db.Update(currentHoliday);
+                _db.Update(currentHolidayCreate);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "Holiday Create To Update Completed",
                     IsSuccess = true
                 };
             }

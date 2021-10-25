@@ -144,6 +144,9 @@ export default {
       loading: false,
     }
   },
+  computed: {
+    ...mapGetters(['isLoggedIn']),
+  },
   methods: {
     async login() {
       this.loading = true
@@ -157,9 +160,6 @@ export default {
         await this.$router.push({ name: 'dashboard' })
       }
     },
-  },
-  computed: {
-    ...mapGetters(['isLoggedIn']),
   },
   setup() {
     const isPasswordVisible = ref(false)

@@ -21,7 +21,7 @@ namespace HR_UIT.Web.Controllers
             _logger = logger;
             _holidayCreateService = holidayCreateService;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -81,9 +81,9 @@ namespace HR_UIT.Web.Controllers
         public ActionResult UpdateHolidayOff([FromBody] HolidayCreateModel holidayCreate, int holidayCreateId)
         {
             _logger.LogInformation($"Update Holiday Create {holidayCreateId}");
-            var response = _holidayCreateService.UpdateHolidayOff(HolidayCreateMapper.MapHolidayCreate(holidayCreate), holidayCreateId);
+            var response = _holidayCreateService.UpdateHolidayOff(HolidayCreateMapper.MapHolidayCreate(holidayCreate),
+                holidayCreateId);
             return Ok(response);
-
         }
 
         /// <summary>
@@ -111,6 +111,42 @@ namespace HR_UIT.Web.Controllers
         {
             _logger.LogInformation($"Recovering Holiday Off {holidayCreateId}");
             var response = _holidayCreateService.RecoverHolidayOff(holidayCreateId);
+            return Ok(response);
+        }
+
+        [HttpPatch("/api/holiday-create/{holidayCreateId}/add/employee/{employeeId}")]
+        [Authorize(Policy = "Admin")]
+        public ActionResult AddHolidayCreateToEmployee(int employeeId, int holidayCreateId)
+        {
+            _logger.LogInformation($"Update Employee {employeeId} with Holiday Create {holidayCreateId}");
+            var response = _holidayCreateService.AddHolidayCreateToEmployee(holidayCreateId, employeeId);
+            return Ok(response);
+        }
+
+        [HttpPatch("/api/holiday-create/{holidayCreateId}/remove/employee/{employeeId}")]
+        [Authorize(Policy = "Admin")]
+        public ActionResult RemoveHolidayCreateToEmployee(int employeeId, int holidayCreateId)
+        {
+            _logger.LogInformation($"Update Employee {employeeId} with Holiday Create {holidayCreateId}");
+            var response = _holidayCreateService.RemoveHolidayCreateOutOfEmployee(holidayCreateId, employeeId);
+            return Ok(response);
+        }
+        
+        [HttpPatch("/api/holiday-create/{holidayCreateId}/add/employee/{holidayId}")]
+        [Authorize(Policy = "Admin")]
+        public ActionResult AddHolidayCreateToHoliday(int holidayId, int holidayCreateId)
+        {
+            _logger.LogInformation($"Update Holiday {holidayId} with Holiday Create {holidayCreateId}");
+            var response = _holidayCreateService.AddHolidayCreateToHoliday(holidayCreateId, holidayId);
+            return Ok(response);
+        }
+
+        [HttpPatch("/api/holiday-create/{holidayCreateId}/remove/employee/{holidayId}")]
+        [Authorize(Policy = "Admin")]
+        public ActionResult RemoveHolidayCreateToHoliday(int holidayId, int holidayCreateId)
+        {
+            _logger.LogInformation($"Update Holiday {holidayId} with Holiday Create {holidayCreateId}");
+            var response = _holidayCreateService.RemoveHolidayCreateOutOfHoliday(holidayCreateId, holidayId);
             return Ok(response);
         }
     }

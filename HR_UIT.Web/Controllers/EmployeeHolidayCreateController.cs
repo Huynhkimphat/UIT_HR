@@ -132,7 +132,7 @@ namespace HR_UIT.Web.Controllers
             return Ok(response);
         }
         
-        [HttpPatch("/api/holiday-create/{holidayCreateId}/add/employee/{holidayId}")]
+        [HttpPatch("/api/holiday-create/{holidayCreateId}/add/holiday/{holidayId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult AddHolidayCreateToHoliday(int holidayId, int holidayCreateId)
         {
@@ -141,7 +141,7 @@ namespace HR_UIT.Web.Controllers
             return Ok(response);
         }
 
-        [HttpPatch("/api/holiday-create/{holidayCreateId}/remove/employee/{holidayId}")]
+        [HttpPatch("/api/holiday-create/{holidayCreateId}/remove/holiday/{holidayId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult RemoveHolidayCreateToHoliday(int holidayId, int holidayCreateId)
         {

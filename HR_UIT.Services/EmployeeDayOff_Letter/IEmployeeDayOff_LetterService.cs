@@ -28,5 +28,9 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
         List<Data.Models.EmployeeDayOffLetter> GetAllEmployeeDayOffLetterByWeek(DateTime week);
 
         ServiceResponse<bool> ApproveEmployeeDayOffLetter(int id);
+
+        ServiceResponse<bool> AddDayOffLetterToEmployee(int dayOffLetterId, int employeeId);
+        
+        ServiceResponse<bool> RemoveDayOffLetterOutOfEmployee(int dayOffLetterId, int employeeId);
     }
 }

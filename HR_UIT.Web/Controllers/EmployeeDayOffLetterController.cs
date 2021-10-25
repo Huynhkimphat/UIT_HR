@@ -8,6 +8,7 @@ using HR_UIT.Web.Serialization;
 using HR_UIT.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
+
 namespace HR_UIT.Web.Controllers
 {
     [ApiController]
@@ -51,7 +52,9 @@ namespace HR_UIT.Web.Controllers
             int dayOffLetterId)
         {
             _logger.LogInformation($"Update Employee Day Off Letter {dayOffLetterId}");
-            var response = _dayOffLetterService.UpdateEmployeeDayOffLetter(EmployeeDayOffLetterMapper.MapEmployeeDayOffLetter(dayOffLetter), dayOffLetterId);
+            var response =
+                _dayOffLetterService.UpdateEmployeeDayOffLetter(
+                    EmployeeDayOffLetterMapper.MapEmployeeDayOffLetter(dayOffLetter), dayOffLetterId);
             return Ok(response);
         }
 
@@ -87,7 +90,7 @@ namespace HR_UIT.Web.Controllers
                 .ToList();
             return Ok(dayOffLetters);
         }
-        
+
         /// <summary>
         /// Get All Employee Day Off Letter By Given Month ----- Both
         /// </summary>
@@ -104,7 +107,7 @@ namespace HR_UIT.Web.Controllers
                 .ToList();
             return Ok(dayOffLetters);
         }
-        
+
         /// <summary>
         /// Get All Employee Day Off Letter By Given Week ----- Both
         /// </summary>
@@ -163,5 +166,37 @@ namespace HR_UIT.Web.Controllers
             var response = _dayOffLetterService.RecoverEmployeeDayOffLetter(dayOffLetterId);
             return Ok(response);
         }
+
+        /// <summary>
+        /// Add DayOffLetter To Employee ----- Both
+        /// </summary>
+        /// <param name="dayOffLetterId"></param>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/day-off-letter/{dayOffLetterId}/add/employee/{employeeId}")]
+        [Authorize(Policy = "Both")]
+        public ActionResult AddDayOffLetterToEmployee(int dayOffLetterId, int employeeId)
+        {
+            _logger.LogInformation($"Update DayOff Letter {dayOffLetterId} with Employee {employeeId}");
+            var response = _dayOffLetterService.AddDayOffLetterToEmployee(dayOffLetterId, employeeId);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Remove DayOffLetter Out Of Employee ----- Both
+        /// </summary>
+        /// <param name="dayOffLetterId"></param>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        [HttpPatch("/api/day-off-letter/{dayOffLetterId}/remove/employee/{employeeId}")]
+        [Authorize(Policy = "Both")]
+        public ActionResult RemoveDayOffLetterOutOfEmployee(int dayOffLetterId, int employeeId)
+        {
+            _logger.LogInformation($"Update DayOff Letter {dayOffLetterId} with Employee {employeeId}");
+            var response = _dayOffLetterService.RemoveDayOffLetterOutOfEmployee(dayOffLetterId, employeeId);
+            return Ok(response);
+        }
+
+
     }
 }

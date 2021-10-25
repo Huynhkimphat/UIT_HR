@@ -46,7 +46,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 };
             }
         }
-    
+
         /// <summary>
         /// Update Employee DayOff Letter With Given Id
         /// </summary>
@@ -127,7 +127,6 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                     Time = now,
                     Message = "EmployeeDayOffLetter archived",
                     IsSuccess = true
-
                 };
             }
             catch (Exception e)
@@ -171,7 +170,6 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                     Time = now,
                     Message = "EmployeeDayOffLetter recovered",
                     IsSuccess = true
-
                 };
             }
             catch (Exception e)
@@ -196,7 +194,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                 .OrderBy(employeeDayOffLetter => employeeDayOffLetter.Id)
                 .ToList();
         }
-        
+
         /// <summary>
         /// Get All Employee DayOff Letter By Given Day
         /// </summary>
@@ -239,7 +237,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
             var endOfWeek = startOfWeek.AddDays(7);
 
             var dayOffLetter = new List<Data.Models.EmployeeDayOffLetter>();
-            
+
             while (startOfWeek <= endOfWeek)
             {
                 dayOffLetter.AddRange(GetAllEmployeeDayOffLetterByDay(startOfWeek));
@@ -278,7 +276,115 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
                     Time = now,
                     Message = "EmployeeDayOffLetter approved",
                     IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
 
+        public ServiceResponse<bool> AddDayOffLetterToEmployee(int dayOffLetterId, int employeeId)
+        {
+            var now = DateTime.UtcNow;
+            var currentEmployee = _db.Employees.Find(employeeId);
+            var currentDayOffLetter = _db.EmployeeDayOffLetters.Find(dayOffLetterId);
+            if (currentDayOffLetter == null || currentEmployee == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Employee To Update or DayOff Letter To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            if (currentDayOffLetter.IsExisted)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "DayOff Letter Already Has Linked To Another Admin",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                currentEmployee.PrimaryDayOffLetters ??= new List<Data.Models.EmployeeDayOffLetter>();
+                currentDayOffLetter.IsArchived = true;
+                currentEmployee.PrimaryDayOffLetters.Add(currentDayOffLetter);
+                _db.Update(currentEmployee);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "DayOff Letter To Update Completed",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
+            }
+        }
+
+        public ServiceResponse<bool> RemoveDayOffLetterOutOfEmployee(int dayOffLetterId, int employeeId)
+        {
+            var now = DateTime.UtcNow;
+            var currentEmployee = _db.Employees.Find(employeeId);
+            var currentDayOffLetter = _db.EmployeeDayOffLetters.Find(dayOffLetterId);
+            if (currentDayOffLetter == null || currentEmployee == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "Employee To Update or DayOff Letter To Update Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            if (!currentDayOffLetter.IsExisted)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Time = now,
+                    Message = "DayOff Letter Has Not Linked To Any Employee",
+                    IsSuccess = false
+                };
+            }
+
+            try
+            {
+                currentEmployee.PrimaryDayOffLetters ??= new List<Data.Models.EmployeeDayOffLetter>();
+                currentDayOffLetter.IsExisted = false;
+                currentEmployee.PrimaryDayOffLetters.Remove(currentDayOffLetter);
+                _db.Update(currentEmployee);
+                _db.Update(currentDayOffLetter);
+                _db.SaveChanges();
+                return new ServiceResponse<bool>
+                {
+                    Data = true,
+                    Time = now,
+                    Message = "DayOff Letter To Update Completed",
+                    IsSuccess = true
                 };
             }
             catch (Exception e)
@@ -294,4 +400,3 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
         }
     }
 }
-            

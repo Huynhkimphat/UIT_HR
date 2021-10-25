@@ -26,6 +26,8 @@
           </th>
           <th class="text-center text-uppercase">
           </th>
+          <th class="text-center text-uppercase">
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -122,6 +124,19 @@
               </v-icon>
             </v-btn>
           </td>
+          <td class="text-center">
+            <v-btn
+              class="ma-2 resetBtn"
+              @click="resetEmployeeWithGivenId(item.id,item.primaryAccount.password)"
+            >
+              Reset Password
+              <v-icon
+                right
+              >
+                {{ item.isArchived? restoreIcon.icon: deleteIcon.icon }}
+              </v-icon>
+            </v-btn>
+          </td>
         </tr>
       </tbody>
     </template>
@@ -131,6 +146,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { mdiDelete, mdiRestore } from '@mdi/js'
+import bcrypt from 'bcryptjs'
 
 export default {
   data() {
@@ -177,6 +193,19 @@ export default {
     },
     async deleteEmployeeWithGivenId(id) {
       await this.$store.dispatch('employeeStore/deleteEmployee', { employeeId: id })
+    },
+    async resetEmployeeWithGivenId(id, password) {
+      const salt = bcrypt.genSaltSync(10)
+      const hash = bcrypt.hashSync(password, salt)
+      console.log(id)
+      console.log(hash)
+      bcrypt.compare(password, hash, (err, result) => {
+        if (!err) {
+          console.log(result)
+        } else {
+          console.log(err)
+        }
+      })
     },
   },
 }

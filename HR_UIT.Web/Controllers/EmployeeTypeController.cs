@@ -151,7 +151,5 @@ namespace HR_UIT.Web.Controllers
             var response = _employeeTypeService.RemoveEmployeeTypeEmployees(employeeId);
             return Ok(response);
         }
-
-
     }
 }

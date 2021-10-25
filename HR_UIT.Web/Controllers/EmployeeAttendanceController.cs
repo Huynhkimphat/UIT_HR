@@ -134,13 +134,13 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
-        /// Add Attendance To Employee ----- Admin
+        /// Add Attendance To Employee ----- Both
         /// </summary>
         /// <param name="attendanceId"></param>
         /// <param name="employeeId"></param>
         /// <returns></returns>
         [HttpPatch("/api/employee/attendance/{employeeId}/add/{attendanceId}")]
-        [Authorize(Policy = "Admin")]  
+        [Authorize(Policy = "Both")]  
         public ActionResult UpdateRoleOfEmployee(int attendanceId, int employeeId)
         {
             _logger.LogInformation($"Update Employee {employeeId} with Type {attendanceId}");

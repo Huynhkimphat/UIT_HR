@@ -70,11 +70,11 @@ namespace HR_UIT.Web.Controllers
         }
         
         /// <summary>
-        /// Update Employee By Id ----- Admin
+        /// Update Employee By Id ----- Both
         /// </summary>
         /// <returns></returns>
         [HttpPut("/api/employee/update/{employeeId}")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Both")]
         public ActionResult UpdateEmployee([FromBody] EmployeeModel employee, int employeeId)
         {
             _logger.LogInformation($"Update Employee {employeeId}");

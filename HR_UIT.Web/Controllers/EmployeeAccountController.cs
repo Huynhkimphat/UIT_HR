@@ -91,12 +91,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Delete Employee Account ----- Admin And Staff
+        /// Delete Employee Account ----- Admin 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPatch("/api/employee/account/{id}/delete")]
-        [Authorize(Policy = "Both")]
+        [Authorize(Policy = "Admin")]
         public ActionResult DeleteEmployeeAccount(int id)
         {
             _logger.LogInformation($"Delete Employee Account {id}");
@@ -105,12 +105,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Recover Employee Account ----- Admin And Staff
+        /// Recover Employee Account ----- Admin
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPatch("/api/employee/account/{id}/recover")]
-        [Authorize(Policy = "Both")]
+        [Authorize(Policy = "Admin")]
         public ActionResult RecoverEmployeeAccount(int id)
         {
             _logger.LogInformation($"Recover Employee Account {id}");

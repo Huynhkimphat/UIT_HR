@@ -23,12 +23,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Create New Employee Day Off ----- Admin
+        /// Create New Employee Day Off ----- Both
         /// </summary>
         /// <param name="employeeDayOff"></param>
         /// <returns></returns>
-        [HttpPost("/api/employee/day-off")]
-        [Authorize(Policy = "Admin")]
+        [HttpPost("/api/employee/day-off/new")]
+        [Authorize(Policy = "Both")]
         public ActionResult CreateNewEmployeeDayOff([FromBody] EmployeeDayOffModel employeeDayOff)
         {
             _logger.LogInformation("Creating New Employee Day Off");
@@ -38,13 +38,13 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Update Employee Day Off ----- Admin
+        /// Update Employee Day Off ----- Both
         /// </summary>
         /// <param name="employeeDayOff"></param>
         /// <param name="dayOffId"></param>
         /// <returns></returns>
         [HttpPut("/api/employee/day-off/update/{dayOffId}")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Both")]
         public ActionResult UpdateEmployeeDayOff([FromBody] EmployeeDayOffModel employeeDayOff, int dayOffId)
         {
             _logger.LogInformation($"Update Employee Day Off {dayOffId}");
@@ -58,7 +58,7 @@ namespace HR_UIT.Web.Controllers
         /// Get All Employee Day Off ----- Admin
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/employee/day-off/all")]
+        [HttpGet("/api/employee/day-off/all")]
         [Authorize(Policy = "Admin")]
         public ActionResult GetAllEmployeeDayOff()
         {
@@ -85,12 +85,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Delete Employee Day Off ----- Admin
+        /// Delete Employee Day Off ----- Both
         /// </summary>
         /// <param name="dayOffId"></param>
         /// <returns></returns>
         [HttpPatch("/api/employee/day-off/delete/{dayOffId}")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Both")]
         public ActionResult DeleteEmployeeDayOff(int dayOffId)
         {
             _logger.LogInformation($"Deleting Employee Day Off {dayOffId}");
@@ -99,12 +99,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Recover Employee Day Of ----- Admin
+        /// Recover Employee Day Of ----- Both
         /// </summary>
         /// <param name="dayOffId"></param>
         /// <returns></returns>
         [HttpPatch("/api/employee/day-off/recover/{dayOffId}")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Both")]
         public ActionResult RecoverEmployeeDayOff(int dayOffId)
         {
             _logger.LogInformation($"Recovering Employee Day Off {dayOffId}");

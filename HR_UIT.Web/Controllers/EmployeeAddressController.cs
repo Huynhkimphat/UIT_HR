@@ -43,7 +43,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("/api/employee/address")]
+        [HttpGet("/api/employee/address/{id}")]
         [Authorize(Policy = "Both")]
         public ActionResult GetAddressByEmployeeId(int id)
         {
@@ -53,12 +53,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Create New Address ----- Admin And Staff
+        /// Create New Address ----- Admin
         /// </summary>
         /// <param name="employeeAddress"></param>
         /// <returns></returns>
         [HttpPost("/api/employee/address/new")]
-        [Authorize(Policy = "Both")]
+        [Authorize(Policy = "Admin")]
         public ActionResult CreateAddress([FromBody] EmployeeAddressModel employeeAddress)
         {
             _logger.LogInformation("Creating new employeeAddress");
@@ -74,13 +74,15 @@ namespace HR_UIT.Web.Controllers
         /// <param name="employeeAddress"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPut("/api/employee/address/update")]
+        [HttpPut("/api/employee/address/update/{id}")]
         public ActionResult UpdateEmployeeAddress([FromBody] EmployeeAddressModel employeeAddress, int id)
         {
             _logger.LogInformation($"Updating new employeeAddress {id}");
             var response =
-                _employeeAddressService.UpdateEmployeeAddress(EmployeeAddressMapper.MapEmployeeAddress(employeeAddress),
-                    id);
+                _employeeAddressService.UpdateEmployeeAddress(
+                    EmployeeAddressMapper
+                        .MapEmployeeAddress(employeeAddress), id
+                    );
             return Ok(response);
         }
     }

@@ -23,11 +23,11 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Get All Holiday Off ----- Both
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/holiday-create/all")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Both")]
         public ActionResult GetAllHolidayOff()
         {
             _logger.LogInformation("Getting all holidays Off");
@@ -40,12 +40,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Get Holiday Creates By Month ----- Admin
+        /// Get Holiday Creates By Month ----- Both
         /// </summary>
         /// <param name="month"></param>
         /// <returns></returns>
         [HttpGet("/api/holiday-create/{month}")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Both")]
         public ActionResult GetAllHolidaysOffByMonth(DateTime month)
         {
             _logger.LogInformation("Getting information of Holiday Create by selected month");
@@ -114,6 +114,12 @@ namespace HR_UIT.Web.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Add Holiday Create To Employee ----- Admin
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <param name="holidayCreateId"></param>
+        /// <returns></returns>
         [HttpPatch("/api/holiday-create/{holidayCreateId}/add/employee/{employeeId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult AddHolidayCreateToEmployee(int employeeId, int holidayCreateId)
@@ -123,15 +129,27 @@ namespace HR_UIT.Web.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Remove Holiday Create Out Of Employee ----- Admin
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <param name="holidayCreateId"></param>
+        /// <returns></returns>
         [HttpPatch("/api/holiday-create/{holidayCreateId}/remove/employee/{employeeId}")]
         [Authorize(Policy = "Admin")]
-        public ActionResult RemoveHolidayCreateToEmployee(int employeeId, int holidayCreateId)
+        public ActionResult RemoveHolidayCreateOutOfEmployee(int employeeId, int holidayCreateId)
         {
             _logger.LogInformation($"Update Employee {employeeId} with Holiday Create {holidayCreateId}");
             var response = _holidayCreateService.RemoveHolidayCreateOutOfEmployee(holidayCreateId, employeeId);
             return Ok(response);
         }
         
+        /// <summary>
+        /// Add Holiday Create To Holiday ----- Admin
+        /// </summary>
+        /// <param name="holidayId"></param>
+        /// <param name="holidayCreateId"></param>
+        /// <returns></returns>
         [HttpPatch("/api/holiday-create/{holidayCreateId}/add/holiday/{holidayId}")]
         [Authorize(Policy = "Admin")]
         public ActionResult AddHolidayCreateToHoliday(int holidayId, int holidayCreateId)
@@ -141,9 +159,15 @@ namespace HR_UIT.Web.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Remove Holiday Create Out Of Holiday ----- Admin
+        /// </summary>
+        /// <param name="holidayId"></param>
+        /// <param name="holidayCreateId"></param>
+        /// <returns></returns>
         [HttpPatch("/api/holiday-create/{holidayCreateId}/remove/holiday/{holidayId}")]
         [Authorize(Policy = "Admin")]
-        public ActionResult RemoveHolidayCreateToHoliday(int holidayId, int holidayCreateId)
+        public ActionResult RemoveHolidayCreateOutOfHoliday(int holidayId, int holidayCreateId)
         {
             _logger.LogInformation($"Update Holiday {holidayId} with Holiday Create {holidayCreateId}");
             var response = _holidayCreateService.RemoveHolidayCreateOutOfHoliday(holidayCreateId, holidayId);

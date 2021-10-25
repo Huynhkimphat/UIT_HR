@@ -50,7 +50,7 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Getting Salary Detail By Id ----- Admin And Staff
+        /// Getting Salary Detail By Id ----- Both
         /// </summary>
         /// <param name="salaryDetailId"></param>
         /// <returns></returns>

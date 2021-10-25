@@ -39,7 +39,7 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Get Employee Type By Given Id ----- Admin And Staff
+        /// Get Employee Type By Given Id ----- Both
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -53,12 +53,12 @@ namespace HR_UIT.Web.Controllers
         }
 
         /// <summary>
-        /// Check Employee Has Role ----- Admin And Staff
+        /// Check Employee Has Role ----- Admin
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
         [HttpGet("/api/employee/type/{employeeId}")]
-        [Authorize(Policy = "Both")]  
+        [Authorize(Policy = "Admin")]  
         public ActionResult CheckEmployeeHasRole(int employeeId)
         {
             _logger.LogInformation($"Is Employee {employeeId}'s Role");

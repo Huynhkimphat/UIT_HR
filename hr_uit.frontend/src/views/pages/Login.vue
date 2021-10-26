@@ -137,8 +137,6 @@ import {
 import { ref } from '@vue/composition-api'
 import { mapGetters } from 'vuex'
 
-// import bcrypt from 'bcryptjs'
-
 export default {
   data() {
     return {
@@ -157,13 +155,6 @@ export default {
         password: this.password,
       })
 
-      // bcrypt.compare(password, hashPassword, (err, result) => {
-      //   if (!err) {
-      //     console.log(result)
-      //   } else {
-      //     console.log(err)
-      //   }
-      // })
       this.loading = false
       this.logged = true
       if (this.$store.getters.isLoggedIn) {

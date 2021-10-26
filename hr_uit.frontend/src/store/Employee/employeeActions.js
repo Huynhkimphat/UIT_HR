@@ -22,4 +22,15 @@ export default {
     const result = await axios.patch(`${API_URL}/employee/recover/${payload.employeeId}`)
     context.commit('recoverEmployee', result.data)
   },
+  async resetPassword(context, payload) {
+    const config = {
+      headers: { Authorization: `Bearer ${payload.token}` },
+    }
+    const result = await axios.patch(
+      `${API_URL}/employee/account/${payload.employeeId}/change`,
+      payload.resetPassword,
+      config,
+    )
+    context.commit('resetEmployeePassword', result.data)
+  },
 }

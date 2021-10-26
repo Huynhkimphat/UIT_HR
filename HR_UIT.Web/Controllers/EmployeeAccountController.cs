@@ -83,10 +83,10 @@ namespace HR_UIT.Web.Controllers
         /// <returns></returns>
         [HttpPatch("/api/employee/account/{id}/change")]
         [Authorize(Policy = "Both")]
-        public ActionResult ChangeAccountPassword(int id, [FromBody] string password)
+        public ActionResult ChangeAccountPassword(int id, [FromBody] User user)
         {
             _logger.LogInformation($"Change Account Password For {id}");
-            var response=_employeeAccountService.ChangeEmployeeAccountPassword(id, password);
+            var response=_employeeAccountService.ChangeEmployeeAccountPassword(id, user.Password);
             return Ok(response);
         }
 

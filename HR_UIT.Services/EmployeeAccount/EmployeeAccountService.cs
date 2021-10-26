@@ -229,7 +229,8 @@ namespace HR_UIT.Services.EmployeeAccount
             var employee = _db.Employees
                 .Include(employee => employee.PrimaryAccount)
                 .FirstOrDefault(employee=> employee.PrimaryAccount.Email == email);
-            if (employee != null && employee.PrimaryAccount.Password == password)
+            
+            if (employee != null && BCrypt.Net.BCrypt.Verify(password, employee.PrimaryAccount.Password))
             {
                 return new ServiceResponse<string>
                 {

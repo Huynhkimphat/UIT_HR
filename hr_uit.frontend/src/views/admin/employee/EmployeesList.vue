@@ -127,7 +127,7 @@
           <td class="text-center">
             <v-btn
               class="ma-2 resetBtn"
-              @click="resetEmployeeWithGivenId(item.id,item.primaryAccount.password)"
+              @click="resetEmployeeWithGivenId(item.id)"
             >
               Reset Password
               <v-icon
@@ -194,17 +194,16 @@ export default {
     async deleteEmployeeWithGivenId(id) {
       await this.$store.dispatch('employeeStore/deleteEmployee', { employeeId: id })
     },
-    async resetEmployeeWithGivenId(id, password) {
+    async resetEmployeeWithGivenId(id) {
       const salt = bcrypt.genSaltSync(10)
-      const hash = bcrypt.hashSync(password, salt)
-      console.log(id)
-      console.log(hash)
-      bcrypt.compare(password, hash, (err, result) => {
-        if (!err) {
-          console.log(result)
-        } else {
-          console.log(err)
-        }
+      const hashPassword = bcrypt.hashSync('kimphat2001', salt)
+      await this.$store.dispatch('employeeStore/resetPassword', {
+        employeeId: id,
+        resetPassword: {
+          username: '',
+          password: hashPassword,
+        },
+        token: this.$store.state.token,
       })
     },
   },

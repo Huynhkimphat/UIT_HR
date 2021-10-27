@@ -5,4 +5,7 @@ export default {
   getRole(state) {
     return state.role
   },
+  getUsername(state) {
+    return state.username
+  },
 }

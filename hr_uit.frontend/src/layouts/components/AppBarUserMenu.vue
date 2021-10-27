@@ -45,7 +45,7 @@
           style="vertical-align:middle"
         >
           <span class="text--primary font-weight-semibold mb-n1">
-            John Doe
+            {{ getUsername }}
           </span>
           <small class="text--disabled text-capitalize">Admin</small>
         </div>
@@ -167,8 +167,12 @@ import {
   mdiHelpCircleOutline,
   mdiLogoutVariant,
 } from '@mdi/js'
+import { mapGetters } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters(['getUsername']),
+  },
   methods: {
     async logout() {
       await this.$store.dispatch('logout')

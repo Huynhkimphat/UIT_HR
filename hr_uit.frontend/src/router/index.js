@@ -17,6 +17,10 @@ const routes = [
     path: '/admin/dashboard',
     name: 'adminDashboard',
     component: () => import('@/views/admin/dashboard/Dashboard.vue'),
+    meta: {
+      requiresAuth: true,
+      adminAuth: true,
+    },
   },
   {
     path: '/admin/employee',
@@ -35,7 +39,6 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: () => import('@/views/dashboard/Dashboard.vue'),
-
     meta: {
       requiresAuth: true,
     },

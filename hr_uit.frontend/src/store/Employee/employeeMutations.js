@@ -2,6 +2,9 @@ export default {
   getEmployees(state, payload) {
     state.employees = payload
   },
+  getEmployeeByCurrentId(state, payload) {
+    state.employee = payload
+  },
   createEmployee(state, payload) {
     state.createResponse = payload
   },

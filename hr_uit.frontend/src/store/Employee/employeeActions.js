@@ -9,6 +9,13 @@ export default {
     const result = await axios.get(`${API_URL}/employee/all`, config)
     context.commit('getEmployees', result.data)
   },
+  async getEmployeeByCurrentId(context, payload) {
+    const config = {
+      headers: { Authorization: `Bearer ${payload.token}` },
+    }
+    const result = await axios.get(`${API_URL}/employee/${payload.userId}`, config)
+    context.commit('getEmployeeByCurrentId', result.data)
+  },
   async createEmployee(context, payload) {
     const result = await axios.post(`${API_URL}/employee`, payload)
     context.commit('createEmployee', result.data)
@@ -32,5 +39,6 @@ export default {
       config,
     )
     context.commit('resetEmployeePassword', result.data)
-  },
+  }
+  ,
 }

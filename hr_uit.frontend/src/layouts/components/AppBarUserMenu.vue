@@ -45,7 +45,7 @@
           style="vertical-align:middle"
         >
           <span class="text--primary font-weight-semibold mb-n1">
-            {{ getUsername }}
+            {{ getUsername.split('@')[0] }}
           </span>
           <small class="text--disabled text-capitalize">Admin</small>
         </div>

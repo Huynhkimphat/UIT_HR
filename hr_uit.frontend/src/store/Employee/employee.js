@@ -10,6 +10,7 @@ export default {
     deleteResponse: {},
     recoverResponse: {},
     resetResponse: {},
+    employee: {},
     error: {},
   }),
   getters: employeeGetters,

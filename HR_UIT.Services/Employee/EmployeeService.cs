@@ -96,7 +96,15 @@ namespace HR_UIT.Services.Employee
         public Data.Models.Employee GetEmployeeById(int id)
         {
             return _db
-                .Employees.Find(id);
+                .Employees
+                .Include(i=>i.PrimaryAddress)
+                .Include(i=>i.PrimaryAccount)
+                .Include(i=>i.EmployeeAttendances)
+                .Include(i=>i.PrimaryDayOff)
+                .Include(i=>i.PrimaryDayOffLetters)
+                .Include(i=>i.PrimarySalaries)
+                .Include(i=>i.EmployeeHolidayCreates)
+                .FirstOrDefault(x=>x.Id==id);
 
         }
 

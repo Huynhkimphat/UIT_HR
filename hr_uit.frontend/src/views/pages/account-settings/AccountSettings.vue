@@ -94,5 +94,16 @@ export default {
       },
     }
   },
+  created() {
+    this.initialize()
+  },
+  methods: {
+    async initialize() {
+      await this.$store.dispatch('employeeStore/getEmployeeByCurrentId', {
+        token: this.$store.state.token,
+        userId: this.$store.state.userId,
+      })
+    },
+  },
 }
 </script>

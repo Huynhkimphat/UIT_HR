@@ -6,14 +6,6 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/helloworld',
-    name: 'helloworld',
-    component: () => import('@/views/helloworld/HelloWorld.vue'),
-    meta: {
-      layout: 'blank',
-    },
-  },
-  {
     path: '/admin/dashboard',
     name: 'adminDashboard',
     component: () => import('@/views/admin/dashboard/Dashboard.vue'),
@@ -26,6 +18,15 @@ const routes = [
     path: '/admin/employee',
     name: 'adminEmployee',
     component: () => import('@/views/admin/employee/Employee.vue'),
+    meta: {
+      requiresAuth: true,
+      adminAuth: true,
+    },
+  },
+  {
+    path: '/admin/holiday',
+    name: 'adminHoliday',
+    component: () => import('@/views/admin/holiday/Holiday.vue'),
     meta: {
       requiresAuth: true,
       adminAuth: true,

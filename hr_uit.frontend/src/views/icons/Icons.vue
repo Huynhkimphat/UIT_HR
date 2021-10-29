@@ -90,12 +90,14 @@ import {
   mdiEmoticonHappyOutline,
   mdiFileMultipleOutline,
   mdiFlaskEmptyOutline,
+  mdiPlusCircleOutline,
 } from '@mdi/js'
 
 export default {
   setup() {
     // icons list
     const iconsList = [
+      { icon: mdiPlusCircleOutline, name: 'mdiPlusCircleOutline' },
       { icon: mdiAbTesting, name: 'mdiAbTesting' },
       { icon: mdiAbacus, name: 'mdiAbacus' },
       { icon: mdiAbjadArabic, name: 'mdiAbjadArabic' },

@@ -9,7 +9,18 @@
           color="primary"
           @click="toggleCreateEmployeeForm()"
         >
-          New Employee
+          <v-icon
+            v-model="icon"
+            class="mr-2"
+            size="30"
+          >
+            {{ icon }}
+          </v-icon>
+          <span
+            class="mr-2"
+          >
+            New Employee
+          </span>
         </v-btn>
       </v-col>
       <v-expand-transition>
@@ -270,6 +281,7 @@
 </template>
 
 <script>
+import { mdiPlusCircleOutline } from '@mdi/js'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -319,6 +331,7 @@ export default {
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'Email must be valid',
       ],
+      icon: mdiPlusCircleOutline,
     }
   },
   computed: {

@@ -7,7 +7,7 @@
       >
         <v-btn
           color="primary"
-          @click="toggleCreateEmployeeForm()"
+          @click="toggleNewHolidayForm()"
         >
           New Company's Holiday
         </v-btn>
@@ -27,35 +27,10 @@
                   md="4"
                 >
                   <v-text-field
-                    v-model="newEmployee.firstName"
+                    v-model="newHoliday.name"
                     :counter="20"
                     :rules="nameRules"
-                    label="First name"
-                    required
-                  ></v-text-field>
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    v-model="newEmployee.lastName"
-                    :counter="20"
-                    :rules="nameRules"
-                    label="Last name"
-                    required
-                  ></v-text-field>
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    v-model="newEmployee.primaryAccount.email"
-                    :rules="emailRules"
-                    label="Email"
+                    label="Name of Holiday"
                     required
                   ></v-text-field>
                 </v-col>
@@ -76,7 +51,6 @@
               Reset
             </v-btn>
             <v-btn
-              :disabled="currentTab!==3"
               color="primary"
               @click="submitInfo"
             >
@@ -93,6 +67,11 @@
 export default {
   data() {
     return {
+      newHoliday: {
+        name: '',
+        createdOn: Date.now,
+        updatedOn: Date.now,
+      },
       isCreateHolidayFormShow: false,
       valid: false,
       nameRules: [
@@ -100,6 +79,26 @@ export default {
         v => v.length <= 20 || 'Name must be less than 10 characters',
       ],
     }
+  },
+  methods: {
+    toggleNewHolidayForm() {
+      this.isCreateHolidayFormShow = !this.isCreateHolidayFormShow
+    },
+    resetInfo() {
+      this.newHoliday.name = ''
+      this.newHoliday.createOn = Date.now
+      this.newHoliday.updatedOn = Date.now
+    },
+    async submitInfo() {
+      if (this.$refs.form.validate()) {
+        await this.$store.dispatch('holidayStore/createHoliday', this.newHoliday).then(
+          this.resetInfo(),
+        ).finally(
+          this.isCreateEmployeeFormShow = false,
+        )
+      }
+    },
+
   },
 }
 </script>

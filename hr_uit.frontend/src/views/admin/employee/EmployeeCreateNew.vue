@@ -304,6 +304,12 @@ export default {
           updatedOn: Date.now,
           isArchived: false,
         },
+        primaryDayOff: {
+          DayOffAmount: 15,
+          CreatedOn: Date.now,
+          updatedOn: Date.now,
+          isArchived: false,
+        },
         primaryAccount: {
           email: '',
           password: 1,

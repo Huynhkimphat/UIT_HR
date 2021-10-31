@@ -283,6 +283,7 @@
 <script>
 import { mdiPlusCircleOutline } from '@mdi/js'
 import { mapGetters } from 'vuex'
+import bcrypt from 'bcryptjs'
 
 export default {
   data() {
@@ -389,6 +390,8 @@ export default {
     },
     async submitInfo() {
       if (this.$refs.form3.validate()) {
+        const salt = bcrypt.genSaltSync(10)
+        this.newEmployee.primaryAccount.password = bcrypt.hashSync('1', salt)
         await this.$store.dispatch('employeeStore/createEmployee', this.newEmployee).then(
           this.resetInfo(),
         ).finally(

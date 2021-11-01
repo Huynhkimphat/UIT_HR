@@ -12,6 +12,7 @@ namespace HR_UIT.Web.ViewModels
         public DateTime UpdateOn { get; set; }
         public List<HolidayCreateModel> PrimaryHolidayCreates { get; set; }
         
+        public DateTime DateOfHoliday { get; set; }
  
         public bool IsArchived { get; set; }
     }

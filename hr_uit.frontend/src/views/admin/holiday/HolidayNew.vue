@@ -1,10 +1,7 @@
 <template>
   <v-row>
     <v-col>
-      <v-col
-        cols="12"
-        offset-md="0"
-      >
+      <v-col>
         <v-btn
           color="primary"
           @click="toggleNewHolidayForm()"
@@ -27,22 +24,67 @@
                   md="4"
                 >
                   <v-text-field
-                    v-model="newHoliday.name"
-                    :counter="20"
+                    v-model="newHoliday.nameOfHoliday"
                     :rules="nameRules"
                     label="Name of Holiday"
                     required
                   ></v-text-field>
                 </v-col>
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-menu
+                    ref="menu"
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :return-value.sync="newHoliday.dateOfHoliday"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="newHoliday.dateOfHoliday"
+                        label="Picker in menu"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="newHoliday.dateOfHoliday"
+                      no-title
+                      scrollable
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="menu = false"
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.menu.save(newHoliday.dateOfHoliday)"
+                      >
+                        OK
+                      </v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
               </v-row>
             </v-container>
           </v-form>
           <v-col
-            cols="2"
-            offset-md="5"
+            cols="12"
+            offset-md="1"
           >
             <v-btn
-              class="mx-2"
+              class="mb-2 mw-105"
               color="primary"
               outlined
               type="reset"
@@ -51,6 +93,7 @@
               Reset
             </v-btn>
             <v-btn
+              class="mb-2 mw-105"
               color="primary"
               @click="submitInfo"
             >
@@ -67,16 +110,15 @@
 export default {
   data() {
     return {
+      menu: false,
       newHoliday: {
-        name: '',
-        createdOn: Date.now,
-        updatedOn: Date.now,
+        nameOfHoliday: '',
+        dateOfHoliday: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       },
       isCreateHolidayFormShow: false,
       valid: false,
       nameRules: [
         v => !!v || 'Name is required',
-        v => v.length <= 20 || 'Name must be less than 10 characters',
       ],
     }
   },
@@ -85,24 +127,32 @@ export default {
       this.isCreateHolidayFormShow = !this.isCreateHolidayFormShow
     },
     resetInfo() {
-      this.newHoliday.name = ''
-      this.newHoliday.createOn = Date.now
-      this.newHoliday.updatedOn = Date.now
+      this.newHoliday.nameOfHoliday = ''
+      this.newHoliday.dateOfHoliday = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
     },
     async submitInfo() {
       if (this.$refs.form.validate()) {
-        await this.$store.dispatch('holidayStore/createHoliday', this.newHoliday).then(
-          this.resetInfo(),
-        ).finally(
-          this.isCreateEmployeeFormShow = false,
-        )
+        await this.$store.dispatch('holidayStore/createHoliday', {
+          token: this.$store.state.token,
+          newHoliday: this.newHoliday,
+        })
+          .then(
+
+            // this.resetInfo(),
+          )
+          .finally(
+            this.isCreateHolidayFormShow = false,
+          )
       }
-    },
+    }
+    ,
 
   },
 }
 </script>
 
 <style scoped>
-
+.mw-105{
+  min-width: 105px !important;
+}
 </style>

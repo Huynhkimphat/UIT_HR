@@ -1,3 +1,4 @@
+using System;
 using HR_UIT.Web.ViewModels;
 using System.Collections.Generic;
 using HR_UIT.Data.Models;
@@ -21,6 +22,7 @@ namespace HR_UIT.Web.Serialization
                 NameOfHoliday = holiday.NameOfHoliday,
                 CreatedOn = holiday.CreatedOn,
                 UpdateOn = holiday.UpdatedOn,
+                DateOfHoliday = holiday.DateOfHoliday,
                 PrimaryHolidayCreates = (holiday.PrimaryHolidayCreates != null)
                     ? holiday.PrimaryHolidayCreates
                         .Select(HolidayCreateMapper.MapHolidayCreate)
@@ -39,12 +41,14 @@ namespace HR_UIT.Web.Serialization
         public static Holiday
             MapHoliday(HolidayModel holiday)
         {
+            var now = DateTime.UtcNow;
             return new Holiday
             {
                 NameOfHoliday = holiday.NameOfHoliday,
-                CreatedOn = holiday.CreatedOn,
-                UpdatedOn = holiday.UpdateOn,
-                   PrimaryHolidayCreates = (holiday.PrimaryHolidayCreates != null)
+                CreatedOn = now,
+                UpdatedOn = now,
+                DateOfHoliday = holiday.DateOfHoliday,
+                PrimaryHolidayCreates = (holiday.PrimaryHolidayCreates != null)
                                     ? holiday.PrimaryHolidayCreates
                                         .Select(HolidayCreateMapper.MapHolidayCreate)
                                         .OrderByDescending(holidayCreate=>holidayCreate.Id)

@@ -53,7 +53,7 @@
             cols="12"
           >
             <v-text-field
-              v-model="accountDataLocale.username"
+              v-model="currentDatatype.primaryAccount.email"
               label="Username"
               dense
               outlined
@@ -181,11 +181,17 @@ export default {
       type: Object,
       default: () => {},
     },
+    currentData: {
+      type: Object,
+      default: () => {},
+    },
   },
   setup(props) {
     const status = ['Active', 'Inactive', 'Pending', 'Closed']
 
     const accountDataLocale = ref(JSON.parse(JSON.stringify(props.accountData)))
+
+    const currentDatatype = props.currentData
 
     const resetForm = () => {
       accountDataLocale.value = JSON.parse(JSON.stringify(props.accountData))
@@ -194,6 +200,7 @@ export default {
     return {
       status,
       accountDataLocale,
+      currentDatatype,
       resetForm,
       icons: {
         mdiAlertOutline,

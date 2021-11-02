@@ -54,7 +54,7 @@
           >
             <v-text-field
               v-model="currentDataRecord.firstName"
-              label="firstName"
+              label="First Name"
               dense
               outlined
             ></v-text-field>
@@ -65,7 +65,7 @@
           >
             <v-text-field
               v-model="currentDataRecord.lastName"
-              label="lastName"
+              label="Last Name"
               dense
               outlined
             ></v-text-field>

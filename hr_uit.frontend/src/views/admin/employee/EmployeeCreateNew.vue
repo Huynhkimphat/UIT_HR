@@ -292,7 +292,7 @@ export default {
       newEmployee: {
         firstName: '',
         lastName: '',
-        birthday: '',
+        dateOfBirth: '',
         identityCard: '',
         phoneNumber: '',
         primaryAddress: {

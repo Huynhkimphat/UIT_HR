@@ -21,7 +21,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   v-model="dateOfBirth"
-                  label="dateOfBirth"
+                  label="Date Of Birth"
                   readonly
                   v-on="on"
                 ></v-text-field>
@@ -42,7 +42,7 @@
               v-model="currentDataRecord.phoneNumber"
               outlined
               dense
-              label="phoneNumber"
+              label="Phone Number"
               @change="checkDate()"
             ></v-text-field>
           </v-col>
@@ -55,7 +55,7 @@
               v-model="currentDataRecord.identityCard"
               outlined
               dense
-              label="identityCard"
+              label="Identity Card"
             ></v-text-field>
           </v-col>
 
@@ -63,13 +63,12 @@
             cols="12"
             md="6"
           >
-            <v-select
+            <v-text-field
               v-model="currentDataRecord.primaryAddress.city"
               outlined
               dense
               label="City"
-              :items="city"
-            ></v-select>
+            ></v-text-field>
           </v-col>
           <v-col
             cols="12"
@@ -79,7 +78,7 @@
               v-model="createdOn"
               outlined
               dense
-              label="createdOn"
+              label="Created On"
               readonly
             ></v-text-field>
           </v-col>
@@ -110,7 +109,6 @@
 <script>
 import { ref } from '@vue/composition-api'
 import moment from 'moment'
-import { mdiCalendar } from '@mdi/js'
 
 export default {
   props: {
@@ -126,7 +124,6 @@ export default {
   data() {
     return {
       currentDataRecord: this.currentInfoData,
-      city: ['HCMC', 'HN', 'DNC', 'KTC', 'HTC'],
       dateOfBirth: moment(String(this.currentInfoData.dateOfBirth)).format('YYYY-MM-DD'),
       createdOn: moment(String(this.currentInfoData.createdOn)).format('YYYY-MM-DD'),
       dateOfBirthMenu: false,

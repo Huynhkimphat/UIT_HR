@@ -6,109 +6,82 @@
     <v-form class="multi-col-validation">
       <v-card-text class="pt-5">
         <v-row>
-          <v-col cols="12">
-            <v-textarea
-              v-model="optionsLocal.bio"
-              outlined
-              rows="3"
-              label="Bio"
-            ></v-textarea>
-          </v-col>
-
           <v-col
             cols="12"
             md="6"
           >
-            <v-text-field
-              v-model="optionsLocal.birthday"
-              outlined
-              dense
-              label="Birthday"
-            ></v-text-field>
-          </v-col>
-
-          <v-col
-            cols="12"
-            md="6"
-          >
-            <v-text-field
-              v-model="optionsLocal.phone"
-              outlined
-              dense
-              label="Phone"
-            ></v-text-field>
-          </v-col>
-
-          <v-col
-            cols="12"
-            md="6"
-          >
-            <v-text-field
-              v-model="optionsLocal.website"
-              outlined
-              dense
-              label="Website"
-            ></v-text-field>
-          </v-col>
-
-          <v-col
-            cols="12"
-            md="6"
-          >
-            <v-select
-              v-model="optionsLocal.country"
-              outlined
-              dense
-              label="Country"
-              :items="['USA','UK','AUSTRALIA','BRAZIL']"
-            ></v-select>
-          </v-col>
-
-          <v-col
-            cols="12"
-            md="6"
-          >
-            <v-select
-              v-model="optionsLocal.languages"
-              outlined
-              dense
-              multiple
-              chips
-              small-chips
-              label="Languages"
-              :items="['English','Spanish','French','German']"
-            ></v-select>
-          </v-col>
-
-          <v-col
-            cols="12"
-            md="6"
-          >
-            <p class="text--primary mt-n3 mb-2">
-              Gender
-            </p>
-            <v-radio-group
-              v-model="optionsLocal.gender"
-              row
-              class="mt-0"
-              hide-details
+            <v-menu
+              v-model="dateOfBirthMenu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
             >
-              <v-radio
-                value="male"
-                label="Male"
-              >
-              </v-radio>
-              <v-radio
-                value="female"
-                label="Female"
-              >
-              </v-radio>
-              <v-radio
-                value="other"
-                label="Other"
-              >
-              </v-radio>
-            </v-radio-group>
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="dateOfBirth"
+                  label="dateOfBirth"
+                  readonly
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="dateOfBirth"
+                outlined
+                dense
+                @input="dateOfBirthMenu = false"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="currentDataRecord.phoneNumber"
+              outlined
+              dense
+              label="phoneNumber"
+              @change="checkDate()"
+            ></v-text-field>
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="currentDataRecord.identityCard"
+              outlined
+              dense
+              label="identityCard"
+            ></v-text-field>
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-select
+              v-model="currentDataRecord.primaryAddress.city"
+              outlined
+              dense
+              label="City"
+              :items="city"
+            ></v-select>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="createdOn"
+              outlined
+              dense
+              label="createdOn"
+              readonly
+            ></v-text-field>
           </v-col>
         </v-row>
       </v-card-text>
@@ -136,6 +109,8 @@
 
 <script>
 import { ref } from '@vue/composition-api'
+import moment from 'moment'
+import { mdiCalendar } from '@mdi/js'
 
 export default {
   props: {
@@ -143,6 +118,19 @@ export default {
       type: Object,
       default: () => {},
     },
+    currentInfoData: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  data() {
+    return {
+      currentDataRecord: this.currentInfoData,
+      city: ['HCMC', 'HN', 'DNC', 'KTC', 'HTC'],
+      dateOfBirth: moment(String(this.currentInfoData.dateOfBirth)).format('YYYY-MM-DD'),
+      createdOn: moment(String(this.currentInfoData.createdOn)).format('YYYY-MM-DD'),
+      dateOfBirthMenu: false,
+    }
   },
   setup(props) {
     const optionsLocal = ref(JSON.parse(JSON.stringify(props.informationData)))
@@ -152,6 +140,18 @@ export default {
     }
 
     return { optionsLocal, resetForm }
+  },
+  methods: {
+    checkDate() {
+      console.log('success')
+      console.log(this.dateOfBirth)
+    },
+    frondEndDateFormat(date) {
+      return moment(String(date)).format('MM/DD/YYYY')
+    },
+    backEndDateFormat(date) {
+      return moment(String(date)).format('YYYY-MM-DD')
+    },
   },
 }
 </script>

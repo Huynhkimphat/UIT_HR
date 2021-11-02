@@ -22,7 +22,10 @@
     <!-- tabs item -->
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <account-settings-account :account-data="accountSettingData.account"></account-settings-account>
+        <account-settings-account
+          :account-data="accountSettingData.account"
+          :current-account-data="getEmployee"
+        ></account-settings-account>
       </v-tab-item>
 
       <v-tab-item>
@@ -30,13 +33,17 @@
       </v-tab-item>
 
       <v-tab-item>
-        <account-settings-info :information-data="accountSettingData.information"></account-settings-info>
+        <account-settings-info
+          :information-data="accountSettingData.information"
+          :current-info-data="getEmployee"
+        ></account-settings-info>
       </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { mdiAccountOutline, mdiLockOpenOutline, mdiInformationOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
 
@@ -93,6 +100,9 @@ export default {
         mdiInformationOutline,
       },
     }
+  },
+  computed: {
+    ...mapGetters('employeeStore', ['getEmployee']),
   },
   created() {
     this.initialize()

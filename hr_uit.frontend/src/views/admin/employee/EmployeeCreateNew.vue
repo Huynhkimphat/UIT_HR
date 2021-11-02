@@ -119,13 +119,13 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="newEmployee.birthday"
+                        v-model="newEmployee.dateOfBirth"
                         :counter="20"
                         label="Birthday"
                         :rules="[v => !!v || 'Required']"
                         required
                       ></v-text-field>
-                      <v-date-picker v-model="newEmployee.birthday"></v-date-picker>
+                      <v-date-picker v-model="newEmployee.dateOfBirth"></v-date-picker>
                     </v-col>
 
                     <v-col
@@ -292,7 +292,7 @@ export default {
       newEmployee: {
         firstName: '',
         lastName: '',
-        birthday: '',
+        dateOfBirth: '',
         identityCard: '',
         phoneNumber: '',
         primaryAddress: {

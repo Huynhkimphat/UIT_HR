@@ -53,32 +53,30 @@
             cols="12"
           >
             <v-text-field
-              v-model="accountDataLocale.username"
-              label="Username"
+              v-model="currentDataRecord.firstName"
+              label="First Name"
               dense
               outlined
             ></v-text-field>
           </v-col>
-
           <v-col
             md="6"
             cols="12"
           >
             <v-text-field
-              v-model="accountDataLocale.name"
-              label="Name"
+              v-model="currentDataRecord.lastName"
+              label="Last Name"
               dense
               outlined
             ></v-text-field>
           </v-col>
-
           <v-col
             cols="12"
             md="6"
           >
             <v-text-field
-              v-model="accountDataLocale.email"
-              label="E-mail"
+              v-model="currentDataRecord.primaryAccount.email"
+              label="Email"
               dense
               outlined
             ></v-text-field>
@@ -89,7 +87,7 @@
             md="6"
           >
             <v-text-field
-              v-model="accountDataLocale.role"
+              v-model="currentRole"
               dense
               label="Role"
               outlined
@@ -101,24 +99,14 @@
             md="6"
           >
             <v-select
-              v-model="accountDataLocale.status"
+              v-model="currentDataRecord.isArchived"
               dense
               outlined
               label="Status"
               :items="status"
+              item-text="status"
+              item-value="value"
             ></v-select>
-          </v-col>
-
-          <v-col
-            cols="12"
-            md="6"
-          >
-            <v-text-field
-              v-model="accountDataLocale.company"
-              dense
-              outlined
-              label="Company"
-            ></v-text-field>
           </v-col>
 
           <!-- alert -->
@@ -172,6 +160,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { mdiAlertOutline, mdiCloudUploadOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
 
@@ -181,9 +170,22 @@ export default {
       type: Object,
       default: () => {},
     },
+    currentAccountData: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  data() {
+    return {
+      currentDataRecord: this.currentAccountData,
+      currentRole: this.$store.getters.getRole,
+    }
   },
   setup(props) {
-    const status = ['Active', 'Inactive', 'Pending', 'Closed']
+    const status = [
+      { status: 'Active', value: false },
+      { status: 'Inactive', value: true },
+    ]
 
     const accountDataLocale = ref(JSON.parse(JSON.stringify(props.accountData)))
 
@@ -200,6 +202,9 @@ export default {
         mdiCloudUploadOutline,
       },
     }
+  },
+  computed: {
+    ...mapGetters(['getRole']),
   },
 }
 </script>

@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "npm": "^8.0.0"
+    "npm": "^8.0.0",
+    "vuejs-datetimepicker": "^1.1.13"
   }
 }

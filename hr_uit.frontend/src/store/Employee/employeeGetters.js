@@ -11,4 +11,7 @@ export default {
   recoverEmployee(state) {
     return state.recoverResponse
   },
+  getEmployee(state) {
+    return state.employee
+  },
 }

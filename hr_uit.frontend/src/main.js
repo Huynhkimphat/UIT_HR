@@ -10,7 +10,7 @@ import store from './store'
 Vue.config.productionTip = false
 
 Vue.filter('humanizeDate',
-  date => moment(date).format('MMMM Do YYYY'))
+  date => moment(String(date)).format('MM/DD/YYYY'))
 
 new Vue({
   router,

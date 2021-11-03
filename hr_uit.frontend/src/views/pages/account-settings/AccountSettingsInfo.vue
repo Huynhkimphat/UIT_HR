@@ -20,14 +20,14 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  v-model="dateOfBirth"
+                  v-model="getEmployee.dateOfBirth"
                   label="Date Of Birth"
                   readonly
                   v-on="on"
                 ></v-text-field>
               </template>
               <v-date-picker
-                v-model="dateOfBirth"
+                v-model="getEmployee.dateOfBirth"
                 outlined
                 dense
                 @input="dateOfBirthMenu = false"
@@ -39,11 +39,10 @@
             md="6"
           >
             <v-text-field
-              v-model="currentDataRecord.phoneNumber"
+              v-model="getEmployee.phoneNumber"
               outlined
               dense
               label="Phone Number"
-              @change="checkDate()"
             ></v-text-field>
           </v-col>
 
@@ -52,7 +51,7 @@
             md="6"
           >
             <v-text-field
-              v-model="currentDataRecord.identityCard"
+              v-model="getEmployee.identityCard"
               outlined
               dense
               label="Identity Card"
@@ -64,7 +63,7 @@
             md="6"
           >
             <v-text-field
-              v-model="currentDataRecord.primaryAddress.city"
+              v-model="getEmployee.primaryAddress.city"
               outlined
               dense
               label="City"
@@ -75,7 +74,7 @@
             md="6"
           >
             <v-text-field
-              v-model="createdOn"
+              v-model="getEmployee.createdOn"
               outlined
               dense
               label="Created On"
@@ -108,7 +107,7 @@
 
 <script>
 import { ref } from '@vue/composition-api'
-import moment from 'moment'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -116,16 +115,9 @@ export default {
       type: Object,
       default: () => {},
     },
-    currentInfoData: {
-      type: Object,
-      default: () => {},
-    },
   },
   data() {
     return {
-      currentDataRecord: this.currentInfoData,
-      dateOfBirth: moment(String(this.currentInfoData.dateOfBirth)).format('YYYY-MM-DD'),
-      createdOn: moment(String(this.currentInfoData.createdOn)).format('YYYY-MM-DD'),
       dateOfBirthMenu: false,
     }
   },
@@ -138,17 +130,10 @@ export default {
 
     return { optionsLocal, resetForm }
   },
+  computed: {
+    ...mapGetters('employeeStore', ['getEmployee']),
+  },
   methods: {
-    checkDate() {
-      console.log('success')
-      console.log(this.dateOfBirth)
-    },
-    frondEndDateFormat(date) {
-      return moment(String(date)).format('MM/DD/YYYY')
-    },
-    backEndDateFormat(date) {
-      return moment(String(date)).format('YYYY-MM-DD')
-    },
   },
 }
 </script>

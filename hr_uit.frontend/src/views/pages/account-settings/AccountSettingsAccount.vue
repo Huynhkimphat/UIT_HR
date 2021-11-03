@@ -25,22 +25,22 @@
       <v-form class="multi-col-validation mt-6">
         <v-row>
           <v-col md="6" cols="12">
-            <v-text-field v-model="currentDataRecord.firstName" label="First Name" dense outlined></v-text-field>
+            <v-text-field v-model="getEmployee.firstName" label="First Name" dense outlined></v-text-field>
           </v-col>
           <v-col md="6" cols="12">
-            <v-text-field v-model="currentDataRecord.lastName" label="Last Name" dense outlined></v-text-field>
+            <v-text-field v-model="getEmployee.lastName" label="Last Name" dense outlined></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
-            <v-text-field v-model="currentDataRecord.primaryAccount.email" label="Email" dense outlined></v-text-field>
+            <v-text-field v-model="getEmployee.primaryAccount.email" label="Email" dense outlined></v-text-field>
           </v-col>
 
           <v-col cols="12" md="6">
-            <v-text-field v-model="currentRole" dense label="Role" outlined></v-text-field>
+            <v-text-field v-model="getRole" dense label="Role" outlined></v-text-field>
           </v-col>
 
           <v-col cols="12" md="6">
             <v-select
-              v-model="currentDataRecord.isArchived"
+              v-model="getEmployee.isArchived"
               dense
               outlined
               label="Status"
@@ -96,8 +96,6 @@ export default {
   },
   data() {
     return {
-      currentDataRecord: this.currentAccountData,
-      currentRole: this.$store.getters.getRole,
     }
   },
   setup(props) {
@@ -125,14 +123,6 @@ export default {
   computed: {
     ...mapGetters('employeeStore', ['getEmployee']),
     ...mapGetters(['getRole']),
-  },
-  watch: {
-    getEmployee(value) {
-      this.currentDataRecord = value
-    },
-    getRole(value) {
-      this.currentRole = value
-    },
   },
 }
 </script>

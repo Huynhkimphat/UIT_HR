@@ -24,7 +24,6 @@
       <v-tab-item>
         <account-settings-account
           :account-data="accountSettingData.account"
-          :current-account-data="getEmployee"
         ></account-settings-account>
       </v-tab-item>
 
@@ -35,7 +34,6 @@
       <v-tab-item>
         <account-settings-info
           :information-data="accountSettingData.information"
-          :current-info-data="getEmployee"
         ></account-settings-info>
       </v-tab-item>
     </v-tabs-items>
@@ -43,7 +41,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import { mdiAccountOutline, mdiLockOpenOutline, mdiInformationOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
 
@@ -100,9 +97,6 @@ export default {
         mdiInformationOutline,
       },
     }
-  },
-  computed: {
-    ...mapGetters('employeeStore', ['getEmployee']),
   },
   created() {
     this.initialize()

@@ -14,6 +14,7 @@ export default {
   async logout(context) {
     context.commit('logout')
     context.commit('employeeStore/resetState')
+    context.commit('holidayStore/resetState')
   },
 
 }

@@ -28,9 +28,6 @@ export default {
     ...mapGetters('holidayStore', ['getHolidays', 'createHoliday']),
   },
   watch: {
-    getHolidays() {
-      this.initialize()
-    },
     createHoliday() {
       this.initialize()
     },

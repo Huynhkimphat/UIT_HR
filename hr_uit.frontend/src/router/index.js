@@ -10,7 +10,6 @@ const routes = [
     name: 'adminDashboard',
     component: () => import('@/views/admin/dashboard/Dashboard.vue'),
     meta: {
-      requiresAuth: true,
       adminAuth: true,
     },
   },
@@ -19,7 +18,6 @@ const routes = [
     name: 'adminEmployee',
     component: () => import('@/views/admin/employee/Employee.vue'),
     meta: {
-      requiresAuth: true,
       adminAuth: true,
     },
   },
@@ -28,7 +26,6 @@ const routes = [
     name: 'adminHoliday',
     component: () => import('@/views/admin/holiday/Holiday.vue'),
     meta: {
-      requiresAuth: true,
       adminAuth: true,
     },
   },
@@ -80,6 +77,7 @@ const routes = [
     component: () => import('@/views/pages/Login.vue'),
     meta: {
       layout: 'blank',
+      login: 'true',
     },
 
     beforeEnter: (to, from, next) => {
@@ -117,13 +115,14 @@ const router = new VueRouter({
   routes,
 })
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.adminAuth)) {
-    if (!store.getters.isLoggedIn) {
-      next({ name: 'pages-login' })
-    } else if (store.getters.getRole !== 'Admin') next({ name: 'dashboard' })
-    else {
+  if (!store.getters.isLoggedIn) {
+    if (to.matched.some(record => record.meta.login)) {
       next()
+    } else {
+      next({ name: 'pages-login' })
     }
+  } else if (to.matched.some(record => record.meta.adminAuth) && store.getters.getRole !== 'Admin') {
+    next({ name: 'dashboard' })
   } else {
     next()
   }

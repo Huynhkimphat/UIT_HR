@@ -45,8 +45,13 @@
       <nav-menu-link
         v-if="role==='Admin'"
         title="Employee"
-        :disabled="role!=='Admin'"
         :to="{ name: 'adminEmployee' }"
+        :icon="icons.mdiHomeOutline"
+      ></nav-menu-link>
+      <nav-menu-link
+        v-if="role==='Admin'"
+        title="Holiday"
+        :to="{ name: 'adminHoliday' }"
         :icon="icons.mdiHomeOutline"
       ></nav-menu-link>
       <nav-menu-link

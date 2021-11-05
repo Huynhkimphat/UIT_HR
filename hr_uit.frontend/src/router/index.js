@@ -104,6 +104,14 @@ const routes = [
     path: '*',
     redirect: 'error-404',
   },
+  {
+    path: '/Attendance',
+    name: 'Attendance',
+    component: () => import('@/views/attendance/Attendance.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ]
 
 const router = new VueRouter({

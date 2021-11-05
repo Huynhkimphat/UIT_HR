@@ -30,8 +30,6 @@ namespace HR_UIT.Data.Models
 
         public List<EmployeeSalary> PrimarySalaries { get; set; }
 
-        public List<HolidayCreate> EmployeeHolidayCreates { get; set;}
-
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }

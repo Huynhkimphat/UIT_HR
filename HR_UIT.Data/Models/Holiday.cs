@@ -16,6 +16,6 @@ namespace HR_UIT.Data.Models
 
         public bool IsArchived { get; set; }
 
-        public List<HolidayCreate> PrimaryHolidayCreates { get; set; }
+        public HolidayCreate PrimaryHolidayCreate { get; set; }
     }
 }

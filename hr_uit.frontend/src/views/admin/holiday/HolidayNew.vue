@@ -46,7 +46,7 @@
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field
                         v-model="newHoliday.dateOfHoliday"
-                        label="Picker in menu"
+                        label="Holiday's Date"
                         prepend-icon="mdi-calendar"
                         readonly
                         v-bind="attrs"

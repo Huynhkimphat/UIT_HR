@@ -62,7 +62,6 @@ namespace HR_UIT.Services.Employee
             var now = DateTime.UtcNow;
             employee.PrimarySalaries = null;
             employee.EmployeeAttendances = null;
-            employee.EmployeeHolidayCreates = null;
             try
             {
                 _db.Employees.Add(employee);
@@ -102,7 +101,6 @@ namespace HR_UIT.Services.Employee
                 .Include(i=>i.PrimaryDayOff)
                 .Include(i=>i.PrimaryDayOffLetters)
                 .Include(i=>i.PrimarySalaries)
-                .Include(i=>i.EmployeeHolidayCreates)
                 .FirstOrDefault(x=>x.Id==id);
 
         }

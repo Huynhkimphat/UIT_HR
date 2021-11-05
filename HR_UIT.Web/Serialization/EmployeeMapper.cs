@@ -45,12 +45,6 @@ namespace HR_UIT.Web.Serialization
                         .OrderByDescending(attendance => attendance.Id)
                         .ToList()
                     : new List<EmployeeAttendanceModel> { },
-                EmployeeHolidayCreates = (employee.EmployeeHolidayCreates != null)
-                    ? employee.EmployeeHolidayCreates
-                        .Select(HolidayCreateMapper.MapHolidayCreate)
-                        .OrderByDescending(holidayCreate => holidayCreate.Id)
-                        .ToList()
-                    : new List<HolidayCreateModel>{ },
                 PrimaryDayOff = (employee.PrimaryDayOff != null)
                     ? EmployeeDayOffMapper.MapEmployeeDayOff(employee.PrimaryDayOff)
                     : new EmployeeDayOffModel{ },
@@ -83,7 +77,6 @@ namespace HR_UIT.Web.Serialization
                 PrimaryAccount = EmployeeAccountMapper.MapEmployeeAccount(employee.PrimaryAccount),
                 PrimarySalaries = employee.PrimarySalaries?.Select(EmployeeSalaryMapper.MapEmployeeSalary).ToList(),
                 EmployeeAttendances = employee.EmployeeAttendances?.Select(EmployeeAttendanceMapper.MapEmployeeAttendance).ToList(),
-                EmployeeHolidayCreates = employee.EmployeeHolidayCreates?.Select(HolidayCreateMapper.MapHolidayCreate).ToList(),
                 PrimaryDayOff = EmployeeDayOffMapper.MapEmployeeDayOff(employee.PrimaryDayOff),
                 PrimaryDayOffLetters = employee.PrimaryDayOffLetters?.Select(EmployeeDayOffLetterMapper.MapEmployeeDayOffLetter).ToList(),
                 CreatedOn = now,

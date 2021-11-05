@@ -21,8 +21,6 @@ namespace HR_UIT.Web.Serialization
                 ToDate = holidayCreate.ToDate,
                 CreatedOn = holidayCreate.CreatedOn,
                 UpdatedOn = holidayCreate.UpdatedOn,
-                IsExistedHoliday = holidayCreate.IsExistedHoliday,
-                IsExistedAdmin = holidayCreate.IsExistedAdmin,
                 IsArchived = holidayCreate.IsArchived
             };
         }
@@ -42,8 +40,6 @@ namespace HR_UIT.Web.Serialization
                 CreatedOn = holidayCreate.CreatedOn,
                 UpdatedOn = holidayCreate.UpdatedOn,
                 IsArchived = holidayCreate.IsArchived, 
-                IsExistedHoliday = holidayCreate.IsExistedHoliday,
-                IsExistedAdmin = holidayCreate.IsExistedAdmin,
             };
         }
     }

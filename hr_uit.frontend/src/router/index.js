@@ -37,9 +37,6 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: () => import('@/views/dashboard/Dashboard.vue'),
-    meta: {
-      requiresAuth: true,
-    },
   },
   {
     path: '/typography',

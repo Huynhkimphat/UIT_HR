@@ -10,10 +10,6 @@ namespace HR_UIT.Data.Models
 
         public DateTime ToDate { get; set; }
         
-        public bool IsExistedHoliday { get; set; }
-        
-        public bool IsExistedAdmin {get; set; }
-        
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }

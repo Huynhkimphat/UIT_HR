@@ -6,17 +6,9 @@
     >
       <v-expansion-panel-header>{{ holiday.nameOfHoliday }} ({{ holiday.dateOfHoliday | humanizeDate }})</v-expansion-panel-header>
       <v-expansion-panel-content>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        From Date: {{ holiday.primaryHolidayCreate.fromDate | humanizeDate }} - To Date: {{ holiday.primaryHolidayCreate.toDate | humanizeDate }}
       </v-expansion-panel-content>
       <v-expansion-panel-content>
-        <v-btn
-          class="mb-2"
-          color="primary"
-          outlined
-          type="reset"
-        >
-          Create New
-        </v-btn>
         <v-btn
           class="mb-2"
           color="primary"

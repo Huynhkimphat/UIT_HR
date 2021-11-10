@@ -26,7 +26,7 @@ namespace HR_UIT.Web.Controllers
         /// <returns></returns>
         [HttpGet("/api/holiday/all")]
         [Authorize(Policy = "Both")]
-        public ActionResult GetAllEmployee()
+        public ActionResult GetAllHoliday()
         {
             _logger.LogInformation("Getting holidays");
             var holidays = _holidayService.GetAllHolidays();

@@ -10,6 +10,7 @@ using HR_UIT.Data.Models;
 using HR_UIT.Services.Employee;
 using HR_UIT.Services.EmployeeAccount;
 using HR_UIT.Services.EmployeeAddress;
+using HR_UIT.Services.EmployeeAttendance;
 using HR_UIT.Services.EmployeeDayOff_Letter;
 using HR_UIT.Services.EmployeeDayOffService;
 using HR_UIT.Services.EmployeeType;
@@ -65,7 +66,8 @@ namespace HR_UIT.Web
             
             services.AddCors();
             
-            services.AddControllers().AddNewtonsoftJson(opts =>
+            services.AddControllers()
+                .AddNewtonsoftJson(opts =>
             {
                 opts.SerializerSettings.ContractResolver = new DefaultContractResolver
                 {
@@ -87,6 +89,7 @@ namespace HR_UIT.Web
             services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
             services.AddTransient<IEmployeeAccountService, EmployeeAccountService>();
             services.AddTransient<IEmployeeDayOffService, EmployeeDayOffService>();
+            services.AddTransient<IEmployeeAttendanceService, EmployeeAttendanceService>();
             services.AddTransient<IEmployeeDayOffLetterService, EmployeeDayOffLetterService>();
             services.AddTransient<IHolidayService, HolidayService>();
             services.AddTransient<IHolidayCreateService, HolidayCreateService>();

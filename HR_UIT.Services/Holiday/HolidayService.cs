@@ -25,6 +25,7 @@ namespace HR_UIT.Services.Holiday
         {
             return _db //HrUitDbContext
                 .Holidays
+                .Include(h=>h.PrimaryHolidayCreate)
                 .OrderBy(holiday => holiday.Id)
                 .ToList();
         }

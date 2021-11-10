@@ -12,7 +12,7 @@ namespace HR_UIT.Web.ViewModels
 
         public bool IsProgressing { get; set; }
 
-        public TimeSpan Period { get; set; }
+        public int Period { get; set; }
         
         public bool IsExisted {get; set; }
 

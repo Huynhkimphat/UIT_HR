@@ -244,19 +244,19 @@ namespace HR_UIT.Services.EmployeeAttendance
         /// </summary>
         /// <param name="month"></param>
         /// <returns></returns>
-        public ServiceResponse<TimeSpan> CountAttendanceByMonth(DateTime month)
+        public ServiceResponse<int> CountAttendanceByMonth(DateTime month)
         {
             var now = DateTime.UtcNow;
             var Attendance = _db.EmployeeAttendances
                 .Where(e => e.FromDate.Month == month.Month
                             && e.FromDate.Year == month.Year).ToList();
 
-            var count = new TimeSpan();
+            var count = 0;
 
-            count = Attendance.Aggregate(count, (current, i) => current.Add(i.Period));
+            count = Attendance.Aggregate(count, (current, i) => current+ i.Period);
             var cul = CultureInfo.CreateSpecificCulture("en-US");
 
-            return new ServiceResponse<TimeSpan>
+            return new ServiceResponse<int>
             {
                 Data = count,
                 Time = now,
@@ -270,7 +270,7 @@ namespace HR_UIT.Services.EmployeeAttendance
         /// </summary>
         /// <param name="day"></param>
         /// <returns></returns>
-        public ServiceResponse<TimeSpan> CountAttendanceByDay(DateTime day)
+        public ServiceResponse<int> CountAttendanceByDay(DateTime day)
         {
             var now = DateTime.UtcNow;
 
@@ -279,12 +279,12 @@ namespace HR_UIT.Services.EmployeeAttendance
                             && e.FromDate.Month == day.Month
                             && e.FromDate.Year == day.Year).ToList();
 
-            var count = new TimeSpan();
-            count = Attendance.Aggregate(count, (current, i) => current.Add(i.Period));
+            var count = 0;
+            count = Attendance.Aggregate(count, (current, i) => current + i.Period);
 
             var cul = CultureInfo.CreateSpecificCulture("en-US");
 
-            return new ServiceResponse<TimeSpan>
+            return new ServiceResponse<int>
             {
                 Data = count,
                 Time = now,

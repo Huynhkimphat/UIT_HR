@@ -25,9 +25,9 @@ namespace HR_UIT.Services.EmployeeAttendance
 
         ServiceResponse<bool> RecoverEmployeeAttendance(int id);
 
-        ServiceResponse<TimeSpan> CountAttendanceByMonth(DateTime month);
+        ServiceResponse<int> CountAttendanceByMonth(DateTime month);
 
-        ServiceResponse<TimeSpan> CountAttendanceByDay(DateTime day);
+        ServiceResponse<int> CountAttendanceByDay(DateTime day);
 
         ServiceResponse<bool>
             AddAttendanceToEmployee(

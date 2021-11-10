@@ -21,7 +21,7 @@
               <v-row>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="newHoliday.nameOfHoliday"
@@ -32,11 +32,11 @@
                 </v-col>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-menu
-                    ref="menu"
-                    v-model="menu"
+                    ref="menuDate"
+                    v-model="menuDate"
                     :close-on-content-click="false"
                     :return-value.sync="newHoliday.dateOfHoliday"
                     transition="scale-transition"
@@ -62,6 +62,98 @@
                       <v-btn
                         text
                         color="primary"
+                        @click="menuDate = false"
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.menuDate.save(newHoliday.dateOfHoliday)"
+                      >
+                        OK
+                      </v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-menu
+                    ref="menuFrom"
+                    v-model="menuFrom"
+                    :close-on-content-click="false"
+                    :return-value.sync="newHoliday.primaryHolidayCreate.fromDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="newHoliday.primaryHolidayCreate.fromDate"
+                        label="From Date"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="newHoliday.primaryHolidayCreate.fromDate"
+                      no-title
+                      scrollable
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="menuFrom = false"
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.menuFrom.save(newHoliday.primaryHolidayCreate.fromDate)"
+                      >
+                        OK
+                      </v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-menu
+                    ref="menuTo"
+                    v-model="menuTo"
+                    :close-on-content-click="false"
+                    :return-value.sync="newHoliday.primaryHolidayCreate.toDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="newHoliday.primaryHolidayCreate.toDate"
+                        label="To Date"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="newHoliday.primaryHolidayCreate.toDate"
+                      no-title
+                      scrollable
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        text
+                        color="primary"
                         @click="menu = false"
                       >
                         Cancel
@@ -69,7 +161,7 @@
                       <v-btn
                         text
                         color="primary"
-                        @click="$refs.menu.save(newHoliday.dateOfHoliday)"
+                        @click="$refs.menuTo.save(newHoliday.primaryHolidayCreate.toDate)"
                       >
                         OK
                       </v-btn>
@@ -84,16 +176,7 @@
             offset-md="1"
           >
             <v-btn
-              class="mb-2 mw-105"
-              color="primary"
-              outlined
-              type="reset"
-              @click="resetInfo"
-            >
-              Reset
-            </v-btn>
-            <v-btn
-              class="mb-2 mw-105"
+              class="mb-2"
               color="primary"
               @click="submitInfo"
             >
@@ -110,10 +193,18 @@
 export default {
   data() {
     return {
-      menu: false,
+      menuDate: false,
+      menuFrom: false,
+      menuTo: false,
       newHoliday: {
         nameOfHoliday: '',
         dateOfHoliday: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        primaryHolidayCreate: {
+          fromDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+          toDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+          isArchived: false,
+        },
+        isArchived: false,
       },
       isCreateHolidayFormShow: false,
       valid: false,
@@ -152,7 +243,4 @@ export default {
 </script>
 
 <style scoped>
-.mw-105{
-  min-width: 105px !important;
-}
 </style>

@@ -28,7 +28,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="day"></param>
         /// <returns></returns>
-        [HttpGet("/api/employee/attendance/{day}")]
+        [HttpGet("/api/employee/attendance/day/{day}")]
         [Authorize(Policy = "Admin")]
         public ActionResult GetEmployeeAttendancesByDay(DateTime day)
         {
@@ -46,7 +46,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="month"></param>
         /// <returns></returns>
-        [HttpGet("/api/employee/attendance/{month}")]
+        [HttpGet("/api/employee/attendance/month/{month}")]
         [Authorize(Policy = "Admin")]
         public ActionResult GetEmployeeAttendancesByMonth(DateTime month)
         {
@@ -64,7 +64,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="week"></param>
         /// <returns></returns>
-        [HttpGet("/api/employee/attendance/{week}")]
+        [HttpGet("/api/employee/attendance/week/{week}")]
         [Authorize(Policy = "Admin")]
         public ActionResult GetEmployeeAttendancesByWeek(DateTime week)
         {
@@ -99,7 +99,7 @@ namespace HR_UIT.Web.Controllers
         /// <returns></returns>
         [HttpPut("/api/employee/attendance/checkout")]
         [Authorize(Policy = "Both")]
-        public ActionResult UpdateEmployee([FromBody] EmployeeAttendanceModel attendance)
+        public ActionResult UpdateEmployeeAttendance([FromBody] EmployeeAttendanceModel attendance)
         {
             _logger.LogInformation($"CheckOut Attendance {attendance.Id}");
             var response = _attendanceService.UpdateEmployeeAttendance(
@@ -113,7 +113,7 @@ namespace HR_UIT.Web.Controllers
         /// <returns></returns>
         [HttpPatch("/api/employee/attendance/delete/{attendanceId}")]
         [Authorize(Policy = "Admin")]
-        public ActionResult DeleteEmployee(int attendanceId)
+        public ActionResult DeleteEmployeeAttendance(int attendanceId)
         {
             _logger.LogInformation($"Deleting Attendance {attendanceId} Complete... ");
             var response = _attendanceService.DeleteEmployeeAttendance(attendanceId);
@@ -126,7 +126,7 @@ namespace HR_UIT.Web.Controllers
         /// <returns></returns>
         [HttpPatch("/api/employee/attendance/recover/{attendanceId}")]
         [Authorize(Policy = "Admin")]
-        public ActionResult RecoverEmployee(int attendanceId)
+        public ActionResult RecoverEmployeeAttendance(int attendanceId)
         {
             _logger.LogInformation($"Recovering Employee {attendanceId} Complete... ");
             var response = _attendanceService.RecoverEmployeeAttendance(attendanceId);
@@ -141,7 +141,7 @@ namespace HR_UIT.Web.Controllers
         /// <returns></returns>
         [HttpPatch("/api/employee/attendance/{employeeId}/add/{attendanceId}")]
         [Authorize(Policy = "Both")]  
-        public ActionResult UpdateRoleOfEmployee(int attendanceId, int employeeId)
+        public ActionResult AddAttendanceToEmployee(int attendanceId, int employeeId)
         {
             _logger.LogInformation($"Update Employee {employeeId} with Type {attendanceId}");
             var response = _attendanceService.AddAttendanceToEmployee(attendanceId, employeeId);

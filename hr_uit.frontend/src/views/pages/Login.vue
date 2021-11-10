@@ -159,6 +159,10 @@ export default {
       this.logged = true
       if (this.$store.getters.isLoggedIn) {
         await this.$router.push({ name: 'dashboard' })
+        await this.$store.dispatch('employeeStore/getEmployeeByCurrentId', {
+          token: this.$store.state.token,
+          userId: this.$store.state.userId,
+        })
       }
     },
   },

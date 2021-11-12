@@ -127,7 +127,7 @@
           <td class="text-center">
             <v-btn
               class="ma-2 resetBtn"
-              @click="resetEmployeeWithGivenId(item.id)"
+              @click="resetEmployeeWithGivenId(item.primaryAccount.id)"
             >
               Reset Password
               <v-icon
@@ -198,7 +198,7 @@ export default {
       const salt = bcrypt.genSaltSync(10)
       const hashPassword = bcrypt.hashSync('kimphat2001', salt)
       await this.$store.dispatch('employeeStore/resetPassword', {
-        employeeId: id,
+        employeeAccountId: id,
         resetPassword: {
           username: '',
           password: hashPassword,

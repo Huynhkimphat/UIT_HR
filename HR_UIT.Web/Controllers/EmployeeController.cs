@@ -73,7 +73,7 @@ namespace HR_UIT.Web.Controllers
         /// Update Employee By Id ----- Both
         /// </summary>
         /// <returns></returns>
-        [HttpPut("/api/employee/update/{employeeId}")]
+        [HttpPatch("/api/employee/update/{employeeId}")]
         [Authorize(Policy = "Both")]
         public ActionResult UpdateEmployee([FromBody] EmployeeModel employee, int employeeId)
         {

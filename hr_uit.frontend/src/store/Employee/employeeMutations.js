@@ -23,4 +23,7 @@ export default {
     state.deleteResponse = {}
     state.recoverResponse = {}
   },
+  updateEmployee(state, payload) {
+    state.updateEmployee = payload
+  },
 }

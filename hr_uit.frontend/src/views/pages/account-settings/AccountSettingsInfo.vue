@@ -88,6 +88,7 @@
         <v-btn
           color="primary"
           class="me-3 mt-3"
+          @click="saveChanges()"
         >
           Save changes
         </v-btn>
@@ -134,6 +135,22 @@ export default {
     ...mapGetters('employeeStore', ['getEmployee']),
   },
   methods: {
+    async saveChanges() {
+      await this.$store.dispatch(
+        'employeeStore/updateEmployee',
+        {
+          token: this.$store.state.token,
+          data: this.getEmployee,
+        },
+      )
+      await this.$store.dispatch(
+        'employeeStore/updateEmployeeAddress',
+        {
+          tokens: this.$store.state.tokens,
+          data: this.getEmployee.primaryAddress,
+        },
+      )
+    },
   },
 }
 </script>

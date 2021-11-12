@@ -4,7 +4,7 @@
       v-for="(holiday,i) in getHolidays"
       :key="i"
     >
-      <v-expansion-panel-header>{{ holiday.nameOfHoliday }} ({{ holiday.dateOfHoliday | humanizeDate }})</v-expansion-panel-header>
+      <v-expansion-panel-header>{{ holiday.nameOfHoliday }} ({{ holiday.dateOfHoliday | humanizeDate }}) </v-expansion-panel-header>
       <v-expansion-panel-content>
         From Date: {{ holiday.primaryHolidayCreate.fromDate | humanizeDate }} - To Date: {{ holiday.primaryHolidayCreate.toDate | humanizeDate }}
       </v-expansion-panel-content>

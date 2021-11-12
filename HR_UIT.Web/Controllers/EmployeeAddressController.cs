@@ -74,7 +74,7 @@ namespace HR_UIT.Web.Controllers
         /// <param name="employeeAddress"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPut("/api/employee/address/update/{id}")]
+        [HttpPatch("/api/employee/address/update/{id}")]
         public ActionResult UpdateEmployeeAddress([FromBody] EmployeeAddressModel employeeAddress, int id)
         {
             _logger.LogInformation($"Updating new employeeAddress {id}");

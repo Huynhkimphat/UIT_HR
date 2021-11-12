@@ -12,6 +12,7 @@ export default {
     resetResponse: {},
     employee: {},
     error: {},
+    updateEmployee: {},
   }),
   getters: employeeGetters,
   mutations: employeeMutations,

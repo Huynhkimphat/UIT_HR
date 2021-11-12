@@ -34,11 +34,32 @@ export default {
       headers: { Authorization: `Bearer ${payload.token}` },
     }
     const result = await axios.patch(
-      `${API_URL}/employee/account/${payload.employeeId}/change`,
+      `${API_URL}/employee/account/${payload.employeeAccountId}/change`,
       payload.resetPassword,
       config,
     )
     context.commit('resetEmployeePassword', result.data)
-  }
-  ,
+  },
+  async updateEmployee(context, payload) {
+    const config = {
+      headers: { Authorization: `Bearer ${payload.token}` },
+    }
+    const result = await axios.patch(
+      `${API_URL}/employee/update/${payload.data.id}`,
+      payload.data,
+      config,
+    )
+    context.commit('updateEmployee', result.data)
+  },
+  async updateEmployeeAddress(context, payload) {
+    const config = {
+      headers: { Authorization: `Bearer ${payload.token}` },
+    }
+    const result = await axios.patch(
+      `${API_URL}/employee/address/update/${payload.data.id}`,
+      payload.data,
+      config,
+    )
+    context.commit('updateEmployee', result.data)
+  },
 }

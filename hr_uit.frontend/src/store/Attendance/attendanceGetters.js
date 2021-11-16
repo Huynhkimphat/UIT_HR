@@ -3,5 +3,11 @@ export default {
   createAttendance: state => state.createResponse,
   getAttendance: state => state.attendance,
   updateAttendance: state => state.updateResponse,
-  getNewAttendanceId: state => state.createResponse.id,
+  getNewAttendanceId(state) {
+    return state.createResponse.data.id
+  },
+  addAttendanceToEmployee: state => state.addResponse,
+  getTimeCounting(state) {
+    return state.timeCounting
+  },
 }

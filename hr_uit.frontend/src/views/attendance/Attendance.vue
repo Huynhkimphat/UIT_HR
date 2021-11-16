@@ -14,14 +14,12 @@
       >
         <attendance-status></attendance-status>
       </v-col>
-    </v-row>
-    <!--Sum Attendance-->
-    <v-row>
+      <!--Attendance Period-->
       <v-col
-        md="3"
+        md="4"
         cols="12"
       >
-        <attendance-sum></attendance-sum>
+        <attendance-period></attendance-period>
       </v-col>
     </v-row>
     <!--Attendance List-->
@@ -40,12 +38,14 @@
 import AttendanceInfo from '@/views/attendance/AttendanceInfo.vue'
 import AttendanceStatus from '@/views/attendance/AttendanceStatus.vue'
 import AttendanceTable from '@/views/attendance/AttendanceTable.vue'
+import AttendancePeriod from '@/views/attendance/AttendancePeriod.vue'
 
 export default {
   components: {
     AttendanceInfo,
     AttendanceStatus,
     AttendanceTable,
+    AttendancePeriod,
   },
 }
 </script>

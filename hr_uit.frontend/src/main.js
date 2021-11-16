@@ -11,7 +11,7 @@ Vue.config.productionTip = false
 
 Vue.filter('humanizeDate',
   date => moment(String(date)).format('MM/DD/YYYY'))
-
+Vue.filter('getFullDateTime', date => moment(String(date)).format('MMMM Do YYYY, h:mm:ss a'))
 new Vue({
   router,
   store,

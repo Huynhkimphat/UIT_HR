@@ -7,9 +7,6 @@
             ID
           </th>
           <th class="text-center text-uppercase text--primary">
-            Date
-          </th>
-          <th class="text-center text-uppercase text--primary">
             Check In Time
           </th>
           <th class="text-center text-uppercase text--primary">
@@ -23,26 +20,34 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody
+        v-for="item in getEmployee.employeeAttendances"
+        :key="item.id"
+      >
         <tr
-          v-for="item in getEmployees.employeeAttendances"
-          :key="item.id"
+          v-if="!item.isArchived"
         >
           <td>{{ item.id }}</td>
           <td class="text-center">
-            {{ item.createdOn }}
+            {{ item.fromDate | getFullDateTime }}
           </td>
-          <td class="text-center">
-            {{ item.fromDate }}
+          <td
+            v-if="!item.isProgressing"
+            class="text-center"
+          >
+            {{ item.toDate | getFullDateTime }}
           </td>
-          <td class="text-center">
-            {{ item.toDate }}
-          </td>
+          <td
+            v-else
+            class="text-center"
+          ></td>
           <td class="text-center">
             {{ item.period }}
           </td>
           <td class="text-center">
-            {{ item.isProgressing }}
+            <span :class="item.isProgressing ? 'progressingText' : 'doneText'">
+              {{ item.isProgressing ? 'Progressing' : 'Done' }}
+            </span>
           </td>
         </tr>
       </tbody>
@@ -55,11 +60,38 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('employeeStore', ['getEmployees']),
+    ...mapGetters('employeeStore', ['getEmployee']),
+    ...mapGetters('attendanceStore', ['createAttendance', 'updateAttendance', 'addAttendanceToEmployee']),
+  },
+  watch: {
+    addAttendanceToEmployee() {
+      this.initialize()
+    },
+    updateAttendance() {
+      this.initialize()
+    },
+  },
+  created() {
+    this.initialize()
+  },
+  methods: {
+    async initialize() {
+      await this.$store.dispatch('employeeStore/getEmployeeByCurrentId', {
+        token: this.$store.state.token,
+        userId: this.$store.state.userId,
+      })
+    },
   },
 }
 </script>
 
 <style scoped>
-
+.progressingText {
+  color: #00C853;
+  text-align: center;
+}
+.doneText {
+  color: #E53935;
+  text-align: center;
+}
 </style>

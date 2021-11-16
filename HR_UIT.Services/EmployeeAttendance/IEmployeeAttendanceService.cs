@@ -12,7 +12,7 @@ namespace HR_UIT.Services.EmployeeAttendance
 
         ServiceResponse<Data.Models.EmployeeAttendance>
             UpdateEmployeeAttendance(
-                Data.Models.EmployeeAttendance attendance
+                Data.Models.EmployeeAttendance attendance, int attendanceId
             );
 
         List<Data.Models.EmployeeAttendance> GetEmployeeAttendancesByMonths(DateTime month);

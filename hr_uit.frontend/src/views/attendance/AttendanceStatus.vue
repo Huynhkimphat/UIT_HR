@@ -98,4 +98,10 @@ export default {
 </script>
 
 <style scoped>
+.green-text {
+  color: #00C853;
+}
+.red-text {
+  color: #E53935;
+}
 </style>

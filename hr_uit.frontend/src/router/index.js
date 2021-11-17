@@ -105,8 +105,8 @@ const routes = [
     redirect: 'error-404',
   },
   {
-    path: '/Attendance',
-    name: 'Attendance',
+    path: '/attendance',
+    name: 'attendance',
     component: () => import('@/views/attendance/Attendance.vue'),
     meta: {
       requiresAuth: true,

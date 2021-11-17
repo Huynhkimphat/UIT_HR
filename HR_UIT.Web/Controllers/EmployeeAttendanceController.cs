@@ -97,13 +97,13 @@ namespace HR_UIT.Web.Controllers
         /// Update Attendance <CheckOut/> ----- Both
         /// </summary>
         /// <returns></returns>
-        [HttpPut("/api/employee/attendance/checkout")]
+        [HttpPatch("/api/employee/attendance/checkout/{attendanceId}")]
         [Authorize(Policy = "Both")]
-        public ActionResult UpdateEmployeeAttendance([FromBody] EmployeeAttendanceModel attendance)
+        public ActionResult UpdateEmployeeAttendance([FromBody] EmployeeAttendanceModel attendance, int attendanceId)
         {
-            _logger.LogInformation($"CheckOut Attendance {attendance.Id}");
+            _logger.LogInformation($"CheckOut Attendance {attendanceId}");
             var response = _attendanceService.UpdateEmployeeAttendance(
-                EmployeeAttendanceMapper.MapEmployeeAttendance(attendance));
+                EmployeeAttendanceMapper.MapEmployeeAttendance(attendance), attendanceId);
             return Ok(response);
         }
 

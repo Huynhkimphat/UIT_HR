@@ -10,6 +10,7 @@ import rootActions from './actions'
 // Import Modules Store
 import employeeStore from './Employee/employee'
 import holidayStore from './Holiday/holiday'
+import attendanceStore from './Attendance/attendance'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
   modules: {
     employeeStore,
     holidayStore,
+    attendanceStore,
   },
   state() {
     return {

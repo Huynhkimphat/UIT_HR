@@ -43,6 +43,12 @@
         :icon="icons.mdiHomeOutline"
       ></nav-menu-link>
       <nav-menu-link
+        title="Attendance"
+        :to="{ name: 'attendance' }"
+        :icon="icons.mdiAccountDetailsOutline"
+      >
+      </nav-menu-link>
+      <nav-menu-link
         v-if="role==='Admin'"
         title="Employee"
         :to="{ name: 'adminEmployee' }"
@@ -120,6 +126,7 @@ import {
   mdiFileOutline,
   mdiFormSelect,
   mdiAccountCogOutline,
+  mdiAccountDetailsOutline,
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -153,6 +160,7 @@ export default {
         mdiFileOutline,
         mdiFormSelect,
         mdiAccountCogOutline,
+        mdiAccountDetailsOutline,
       },
     }
   },

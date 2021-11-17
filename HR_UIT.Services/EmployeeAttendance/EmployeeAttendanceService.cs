@@ -56,10 +56,10 @@ namespace HR_UIT.Services.EmployeeAttendance
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public ServiceResponse<Data.Models.EmployeeAttendance>
-            UpdateEmployeeAttendance(Data.Models.EmployeeAttendance attendance)
+            UpdateEmployeeAttendance(Data.Models.EmployeeAttendance attendance, int attendanceId)
         {
             var now = DateTime.UtcNow;
-            var newEmployeeAttendance = _db.EmployeeAttendances.Find(attendance.Id);
+            var newEmployeeAttendance = _db.EmployeeAttendances.Find(attendanceId);
             if (newEmployeeAttendance == null)
                 return new ServiceResponse<Data.Models.EmployeeAttendance>
                 {
@@ -71,7 +71,6 @@ namespace HR_UIT.Services.EmployeeAttendance
             try
             {
                 newEmployeeAttendance.Period = attendance.Period;
-                newEmployeeAttendance.FromDate = attendance.FromDate;
                 newEmployeeAttendance.ToDate = attendance.ToDate;
                 newEmployeeAttendance.IsArchived = attendance.IsArchived;
                 newEmployeeAttendance.IsProgressing = attendance.IsProgressing;
@@ -82,7 +81,7 @@ namespace HR_UIT.Services.EmployeeAttendance
                 {
                     Data = newEmployeeAttendance,
                     Time = now,
-                    Message = $"EmployeeAttendance {newEmployeeAttendance.Id}  Updated!",
+                    Message = $"EmployeeAttendance {attendanceId}  Updated!",
                     IsSuccess = true
                 };
             }

@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   // eslint-disable-next-line vue/require-prop-types
@@ -55,11 +55,17 @@ export default {
   },
   mounted() {
     if (this.getEmployee.employeeAttendances.at(0).isProgressing) {
-      this.minutes = this.getTimeCounting.mins
+      const missingDate = new Date(this.getEmployee.employeeAttendances.at(0).fromDate)
+      const curDate = new Date()
+      const sum = (curDate.getHours() * 60 + curDate.getMinutes()) - (missingDate.getHours() * 60 + missingDate.getMinutes())
+      console.log(sum)
+      if (sum < 60) {
+        this.minutes = sum
+      } else {
+        this.minutes = sum % 60
+        this.hours = ((sum - (sum % 60)) / 60)
+      }
       this.interval = setInterval(this.incrementTime, 1000)
-    }
-    if (this.getTimeCounting.hrs) {
-      this.hours = this.getTimeCounting.hrs
     }
   },
   computed: {
@@ -68,10 +74,13 @@ export default {
   },
   watch: {
     createAttendance() {
-      this.interval = setInterval(this.incrementTime, 1000)
+      if (this.interval == null) {
+        this.interval = setInterval(this.incrementTime, 1000)
+      }
     },
     updateAttendance() {
       clearInterval(this.interval)
+      this.interval = null
       this.seconds = 0
       this.minutes = 0
       this.hours = 0
@@ -86,13 +95,10 @@ export default {
       if (value === 59 && this.seconds === 59) {
         this.minutes = 0
         this.hours += 1
-        this.updateHrs(this.hours)
       }
-      this.updateMins(this.minutes)
     },
   },
   methods: {
-    ...mapMutations('attendanceStore', ['updateMins']),
     incrementTime() {
       // eslint-disable-next-line radix
       this.seconds = parseInt(this.seconds) + 1

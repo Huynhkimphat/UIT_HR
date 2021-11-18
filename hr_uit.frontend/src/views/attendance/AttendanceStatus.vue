@@ -74,16 +74,16 @@ export default {
       this.newAttendance.fromDate = new Date().toLocaleString()
       this.newAttendance.toDate = new Date().toLocaleString()
       this.newAttendance.isProgressing = true
-      await Promise.all([
-        this.$store.dispatch('attendanceStore/createNewAttendance',
-          { attendance: this.newAttendance, token: this.$store.state.token }),
-        this.$store.dispatch('attendanceStore/AddAttendanceToEmployee',
-          {
-            token: this.$store.state.token,
-            attendanceId: this.$store.state.attendanceStore.createResponse.data.id,
-            employeeId: this.getEmployee.id,
-          }),
-      ])
+
+      await this.$store.dispatch('attendanceStore/createNewAttendance', {
+        attendance: this.newAttendance,
+        token: this.$store.state.token,
+      })
+      await this.$store.dispatch('attendanceStore/AddAttendanceToEmployee', {
+        token: this.$store.state.token,
+        attendanceId: this.$store.state.attendanceStore.createResponse.data.id,
+        employeeId: this.getEmployee.id,
+      })
     },
     async updateAttendance() {
       this.isCheckIn = false

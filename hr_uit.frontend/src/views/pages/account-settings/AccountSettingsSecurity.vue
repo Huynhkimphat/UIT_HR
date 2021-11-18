@@ -167,11 +167,7 @@ export default {
               username: '',
               password: hashPassword,
             },
-          }).then(() => {
-          alert('Change Password Completed!!!')
-        })
-      } else {
-        alert('Wrong Information')
+          })
       }
     },
   },

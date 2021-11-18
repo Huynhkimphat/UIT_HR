@@ -53,21 +53,6 @@ export default {
       interval: null,
     }
   },
-  mounted() {
-    if (this.getEmployee.employeeAttendances.at(0).isProgressing) {
-      const missingDate = new Date(this.getEmployee.employeeAttendances.at(0).fromDate)
-      const curDate = new Date()
-      const sum = (curDate.getHours() * 60 + curDate.getMinutes()) - (missingDate.getHours() * 60 + missingDate.getMinutes())
-      console.log(sum)
-      if (sum < 60) {
-        this.minutes = sum
-      } else {
-        this.minutes = sum % 60
-        this.hours = ((sum - (sum % 60)) / 60)
-      }
-      this.interval = setInterval(this.incrementTime, 1000)
-    }
-  },
   computed: {
     ...mapGetters('employeeStore', ['getEmployee']),
     ...mapGetters('attendanceStore', ['createAttendance', 'updateAttendance', 'getTimeCounting']),
@@ -97,6 +82,21 @@ export default {
         this.hours += 1
       }
     },
+  },
+  mounted() {
+    if (this.getEmployee.employeeAttendances.at(0).isProgressing) {
+      const missingDate = new Date(this.getEmployee.employeeAttendances.at(0).fromDate)
+      const curDate = new Date()
+      const sum = (curDate.getHours() * 60 + curDate.getMinutes()) - (missingDate.getHours() * 60 + missingDate.getMinutes())
+      console.log(sum)
+      if (sum < 60) {
+        this.minutes = sum
+      } else {
+        this.minutes = sum % 60
+        this.hours = ((sum - (sum % 60)) / 60)
+      }
+      this.interval = setInterval(this.incrementTime, 1000)
+    }
   },
   methods: {
     incrementTime() {

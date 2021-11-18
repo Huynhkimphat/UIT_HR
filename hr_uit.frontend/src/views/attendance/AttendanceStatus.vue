@@ -56,15 +56,15 @@ export default {
       },
     }
   },
-  mounted() {
-    if (this.getEmployee.employeeAttendances.at(0).isProgressing === true) {
-      this.isCheckIn = true
-    }
-  },
   computed: {
     ...mapGetters(['getToken']),
     ...mapGetters('employeeStore', ['getEmployee']),
     ...mapGetters('attendanceStore', ['createAttendance', 'getNewAttendanceId', 'getTimeCounting']),
+  },
+  mounted() {
+    if (this.getEmployee.employeeAttendances.at(0).isProgressing === true) {
+      this.isCheckIn = true
+    }
   },
   methods: {
     ...mapMutations('attendanceStore', ['resetState']),

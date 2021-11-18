@@ -65,6 +65,7 @@ export default {
     if (this.getEmployee.employeeAttendances.at(0).isProgressing === true) {
       this.isCheckIn = true
     }
+    console.log(this.getEmployee.employeeAttendances.at(0).id)
   },
   methods: {
     ...mapMutations('attendanceStore', ['resetState']),
@@ -96,7 +97,7 @@ export default {
         {
           attendance: this.newAttendance,
           token: this.$store.state.token,
-          attendanceId: this.$store.state.attendanceStore.createResponse.data.id,
+          attendanceId: this.getEmployee.employeeAttendances.at(0).id,
         }).then(
         this.resetState(),
         this.resetNewAttendance(),

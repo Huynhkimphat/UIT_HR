@@ -95,6 +95,7 @@ export default {
         this.minutes = sum % 60
         this.hours = ((sum - (sum % 60)) / 60)
       }
+      this.seconds = curDate.getSeconds()
       this.interval = setInterval(this.incrementTime, 1000)
     }
   },

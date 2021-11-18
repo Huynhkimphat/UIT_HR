@@ -74,15 +74,16 @@ export default {
       this.newAttendance.fromDate = new Date().toLocaleString()
       this.newAttendance.toDate = new Date().toLocaleString()
       this.newAttendance.isProgressing = true
-      await this.$store.dispatch('attendanceStore/createNewAttendance',
-        { attendance: this.newAttendance, token: this.$store.state.token })
-
-      await this.$store.dispatch('attendanceStore/AddAttendanceToEmployee',
-        {
-          token: this.$store.state.token,
-          attendanceId: this.$store.state.attendanceStore.createResponse.data.id,
-          employeeId: this.getEmployee.id,
-        })
+      await Promise.all([
+        this.$store.dispatch('attendanceStore/createNewAttendance',
+          { attendance: this.newAttendance, token: this.$store.state.token }),
+        this.$store.dispatch('attendanceStore/AddAttendanceToEmployee',
+          {
+            token: this.$store.state.token,
+            attendanceId: this.$store.state.attendanceStore.createResponse.data.id,
+            employeeId: this.getEmployee.id,
+          }),
+      ])
     },
     async updateAttendance() {
       this.isCheckIn = false
@@ -91,7 +92,6 @@ export default {
       this.newAttendance.period = ((this.newAttendance.toDate.getHours() * 60 + this.newAttendance.toDate.getMinutes()) - (this.fDate.getHours() * 60 + this.fDate.getMinutes()))
       this.newAttendance.toDate = this.newAttendance.toDate.toLocaleString()
       this.newAttendance.isProgressing = false
-      console.log(this.newAttendance.period)
       await this.$store.dispatch('attendanceStore/updateAttendance',
         {
           attendance: this.newAttendance,

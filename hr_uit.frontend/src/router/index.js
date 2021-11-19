@@ -112,6 +112,14 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+    path: '/admin/dayoff',
+    name: 'adminDayoff',
+    component: () => import('@/views/admin/dayoff/Dayoff.vue'),
+    meta: {
+      adminAuth: true,
+    },
+  },
 ]
 
 const router = new VueRouter({

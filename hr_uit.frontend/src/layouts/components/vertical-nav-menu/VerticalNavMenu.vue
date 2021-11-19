@@ -61,6 +61,12 @@
         :icon="icons.mdiHomeOutline"
       ></nav-menu-link>
       <nav-menu-link
+        v-if="role==='Admin'"
+        title="DayOff"
+        :to="{ name: 'adminDayoff' }"
+        :icon="icons.mdiHomeOutline"
+      ></nav-menu-link>
+      <nav-menu-link
         title="Account Settings"
         :to="{ name: 'pages-account-settings'}"
         :icon="icons.mdiAccountCogOutline"

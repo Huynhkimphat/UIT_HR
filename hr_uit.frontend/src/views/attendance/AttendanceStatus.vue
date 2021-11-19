@@ -36,7 +36,7 @@
   </v-card>
 </template>
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   // eslint-disable-next-line vue/require-prop-types
@@ -67,7 +67,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('attendanceStore', ['resetState']),
     async createNewAttendance() {
       this.isCheckIn = true
       this.fDate = this.newAttendance.fromDate
@@ -98,7 +97,6 @@ export default {
           token: this.$store.state.token,
           attendanceId: this.getEmployee.employeeAttendances.at(0).id,
         }).then(
-        this.resetState(),
         this.resetNewAttendance(),
       )
     },

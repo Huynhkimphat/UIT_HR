@@ -15,7 +15,6 @@
     </v-card-actions>
     <div
       class="clock-inner"
-      :class="color"
     >
       <div class="hour">
         {{ hours }}

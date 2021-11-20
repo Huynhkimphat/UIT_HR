@@ -13,6 +13,9 @@
             Email
           </th>
           <th class="text-center text-uppercase">
+            DayOff
+          </th>
+          <th class="text-center text-uppercase">
             PhoneNumber
           </th>
           <th class="text-center text-uppercase">
@@ -32,6 +35,9 @@
           </td>
           <td class="text-center">
             {{ item.primaryAccount.email }}
+          </td>
+          <td class="text-center">
+            {{ item.primaryDayOff.dayOffAmount }}
           </td>
           <td class="text-center">
             {{ item.phoneNumber }}

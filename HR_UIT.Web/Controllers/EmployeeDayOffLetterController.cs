@@ -130,7 +130,7 @@ namespace HR_UIT.Web.Controllers
         /// </summary>
         /// <param name="dayOffLetterId"></param>
         /// <returns></returns>
-        [HttpPatch("/api/employee/day-off-letter/{dayOffLetterId}/Approved")]
+        [HttpPatch("/api/employee/day-off-letter/{dayOffLetterId}/approved")]
         [Authorize(Policy = "Admin")]
         public ActionResult ApproveEmployeeDayOffLetter(int dayOffLetterId)
         {

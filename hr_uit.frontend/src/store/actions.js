@@ -16,6 +16,7 @@ export default {
     context.commit('employeeStore/resetState')
     context.commit('holidayStore/resetState')
     context.commit('attendanceStore/resetState')
+    context.commit('dayOffLetterStore/resetState')
   },
 
 }

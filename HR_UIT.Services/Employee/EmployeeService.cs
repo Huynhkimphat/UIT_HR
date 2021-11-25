@@ -30,6 +30,7 @@ namespace HR_UIT.Services.Employee
                 .Include(employee => employee.PrimarySalaries)
                 .Include(employee => employee.EmployeeAttendances)
                 .Include(employee => employee.PrimaryDayOff)
+                .Include(employee => employee.PrimaryDayOffLetters)
                 .OrderBy(employee => employee.Id)
                 .ToList();
         }

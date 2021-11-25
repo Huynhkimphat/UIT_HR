@@ -10,6 +10,9 @@
             Employee Id
           </th>
           <th class="text-center text-uppercase text--primary">
+            Employee Name
+          </th>
+          <th class="text-center text-uppercase text--primary">
             From Date
           </th>
           <th class="text-center text-uppercase text--primary">
@@ -36,6 +39,9 @@
           </td>
           <td class="text-center">
             {{ item.id }}
+          </td>
+          <td class="text-center">
+            {{ item.firstName + item.lastName }}
           </td>
           <td class="text-center">
             {{ i.fromDateTime | humanizeDate }}

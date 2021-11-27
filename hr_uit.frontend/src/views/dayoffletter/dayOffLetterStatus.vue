@@ -18,7 +18,9 @@
       <div
         class="clock-inner"
       >
-        <div class="day">
+        <div
+          class="day"
+        >
           {{ days }}
         </div>
         <div class="day-text">
@@ -32,7 +34,7 @@
 
 <script>
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -48,13 +50,22 @@ export default {
   },
   computed: {
     ...mapGetters('employeeStore', ['getEmployee']),
+    ...mapMutations('dayOffLetterStore', ['unableCreate']),
   },
   mounted() {
-    console.log()
+    let i
+    const arr = this.getEmployee.primaryDayOffLetters
+    // eslint-disable-next-line no-restricted-syntax,guard-for-in
+    for (i = 0; i < arr.length; i += 1) {
+      this.days += arr.at(i).dayOffCounting
+    }
+    this.days = 15 - this.days
+    if (this.days < 0) {
+      this.days = 0
+      this.unableCreate()
+    }
   },
   method: {
-    countDay() {
-    },
   },
 }
 </script>

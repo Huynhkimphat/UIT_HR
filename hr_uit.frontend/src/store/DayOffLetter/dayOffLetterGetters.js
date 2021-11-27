@@ -14,4 +14,7 @@ export default {
   declineDayOffLetter(state) {
     return state.recoverResponse
   },
+  getCreateEnable(state) {
+    return state.createEnable
+  },
 }

@@ -19,4 +19,7 @@ export default {
   approveDayOffLetter(state, payload) {
     state.updateDayOffLetter = payload
   },
+  unableCreate(state) {
+    state.createEnable = false
+  },
 }

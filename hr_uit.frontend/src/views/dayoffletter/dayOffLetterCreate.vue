@@ -6,6 +6,7 @@
     >
       <v-btn
         color="primary"
+        :disabled="!getCreateEnable"
         @click="toggleCreateDayOffLetterForm()"
       >
         <v-icon
@@ -247,6 +248,7 @@ export default {
   },
   computed: {
     ...mapGetters('employeeStore', ['getEmployee']),
+    ...mapGetters('dayOffLetterStore', ['getCreateEnable']),
   },
   watch: {
     currentTab(val) {

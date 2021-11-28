@@ -321,6 +321,7 @@ namespace HR_UIT.Services.EmployeeDayOff_Letter
             {
                 currentEmployee.PrimaryDayOffLetters ??= new List<Data.Models.EmployeeDayOffLetter>();
                 currentDayOffLetter.IsArchived = true;
+                currentDayOffLetter.IsExisted = true;
                 currentEmployee.PrimaryDayOffLetters.Add(currentDayOffLetter);
                 _db.Update(currentEmployee);
                 _db.SaveChanges();

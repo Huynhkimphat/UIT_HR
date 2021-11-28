@@ -49,10 +49,21 @@
       >
       </nav-menu-link>
       <nav-menu-link
+        title="My Day-Off letter"
+        :to="{ name: 'dayoffletter' }"
+        :icon="icons.mdiEmailOpenOutline"
+      ></nav-menu-link>
+      <nav-menu-link
         v-if="role==='Admin'"
         title="Employee"
         :to="{ name: 'adminEmployee' }"
         :icon="icons.mdiHomeOutline"
+      ></nav-menu-link>
+      <nav-menu-link
+        v-if="role==='Admin'"
+        title="Day-Off Letters"
+        :to="{ name: 'empDayOffLetters' }"
+        :icon="icons.mdiEmailOpenOutline"
       ></nav-menu-link>
       <nav-menu-link
         v-if="role==='Admin'"
@@ -133,6 +144,7 @@ import {
   mdiFormSelect,
   mdiAccountCogOutline,
   mdiAccountDetailsOutline,
+  mdiEmailOpenOutline,
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -167,6 +179,7 @@ export default {
         mdiFormSelect,
         mdiAccountCogOutline,
         mdiAccountDetailsOutline,
+        mdiEmailOpenOutline,
       },
     }
   },

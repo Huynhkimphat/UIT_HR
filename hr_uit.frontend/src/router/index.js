@@ -113,6 +113,22 @@ const routes = [
     },
   },
   {
+    path: '/dayoffletter',
+    name: 'dayoffletter',
+    component: () => import('@/views/dayoffletter/dayOffLetter.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/admin/empDayOffLetters',
+    name: 'empDayOffLetters',
+    component: () => import('@/views/admin/empDayOffLetters/empDayOffLetters.vue'),
+    meta: {
+      adminAuth: true,
+    },
+  },
+  {
     path: '/admin/dayoff',
     name: 'adminDayoff',
     component: () => import('@/views/admin/dayoff/Dayoff.vue'),

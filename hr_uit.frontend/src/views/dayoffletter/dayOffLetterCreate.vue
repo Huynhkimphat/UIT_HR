@@ -6,7 +6,7 @@
     >
       <v-btn
         color="primary"
-        :disabled="!getCreateEnable"
+        :disabled="!createEnable"
         @click="toggleCreateDayOffLetterForm()"
       >
         <v-icon
@@ -209,7 +209,7 @@
 
 <script>
 import { mdiPlusCircleOutline } from '@mdi/js'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   data() {
@@ -223,6 +223,10 @@ export default {
       valid: false,
       fromDateMenu: false,
       toDateMenu: false,
+      createEnable: true,
+      newDayOff: {
+        dayOffAmount: '',
+      },
       newDayOffLetter: {
         fromDateTime: '',
         toDateTime: '',
@@ -249,6 +253,7 @@ export default {
   computed: {
     ...mapGetters('employeeStore', ['getEmployee']),
     ...mapGetters('dayOffLetterStore', ['getCreateEnable']),
+    ...mapMutations('dayOffLetterStore', ['unableCreate']),
   },
   watch: {
     currentTab(val) {
@@ -260,6 +265,12 @@ export default {
         this.tab = 'reason'
       }
     },
+  },
+  mounted() {
+    this.newDayOff.dayOffAmount = this.getEmployee.primaryDayOff.dayOffAmount
+    if (this.newDayOff.dayOffAmount === 0) {
+      this.createEnable = false
+    }
   },
   methods: {
     fromDateChanged() {
@@ -288,7 +299,6 @@ export default {
       this.tab = null
     },
     goToNextTab() {
-      console.log(this.getEmployee.id)
       if (this.currentTab === 1) {
         if (this.$refs.form.validate()) {
           this.currentTab += 1
@@ -296,22 +306,28 @@ export default {
       } else if (this.currentTab === 2) {
         if (this.$refs.form2.validate()) {
           this.currentTab += 1
-          console.log(this.currentTab)
         }
       }
     },
-    countDay(fArr, tArr) {
-      if (fArr.at(1) === tArr.at(1)) {
-        this.newDayOffLetter.dayOffCounting = tArr.at(2) - fArr.at(2)
-      } else {
-        this.newDayOffLetter.dayOffCounting = tArr.at(2) - fArr.at(2) + 30
+    countDay(fDate, tDate) {
+      console.log(fDate + tDate)
+      const oneDay = 24 * 60 * 60 * 1000
+      this.newDayOffLetter.dayOffCounting = Math.round((tDate.getTime() - fDate.getTime()) / oneDay)
+      this.newDayOffLetter.dayOffCounting += 1
+      let i = this.newDayOffLetter.dayOffCounting
+      while (i !== 0) {
+        if (fDate.getDay() === 0 || fDate.getDay() === 6) {
+          this.newDayOffLetter.dayOffCounting -= 1
+        }
+        fDate.setDate(fDate.getDate() + 1)
+        i -= 1
       }
     },
     async submitInfo() {
       if (this.$refs.form3.validate()) {
-        const fromDateArr = this.newDayOffLetter.fromDateTime.split('-')
-        const toDateArr = this.newDayOffLetter.toDateTime.split('-')
-        this.countDay(fromDateArr, toDateArr)
+        const fDate = new Date(this.newDayOffLetter.fromDateTime)
+        const tDate = new Date(this.newDayOffLetter.toDateTime)
+        this.countDay(fDate, tDate)
         this.newDayOffLetter.createdOn = new Date().toISOString()
         this.newDayOffLetter.updatedOn = new Date().toISOString()
 

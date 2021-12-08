@@ -4,7 +4,6 @@
 
 <script>
 export default {
-  name: 'SalaryCreate.vue'
 }
 </script>
 

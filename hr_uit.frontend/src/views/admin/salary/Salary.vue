@@ -4,11 +4,11 @@
       <v-col
         cols="12"
       >
-        <!--        <HolidayNew></HolidayNew>-->
+        <CreateSalary/>
       </v-col>
       <v-card>
-        <v-card-title>Holiday</v-card-title>
-        <!--        <HolidayList></HolidayList>-->
+        <v-card-title>Salary</v-card-title>
+        <EmployeeSalaryList/>
       </v-card>
     </v-col>
   </v-row>

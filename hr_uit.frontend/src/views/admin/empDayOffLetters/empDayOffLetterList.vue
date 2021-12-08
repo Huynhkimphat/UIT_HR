@@ -94,7 +94,7 @@
                   <v-btn
                     dark
                     color="success"
-                    @click="approveLetter(i.id)"
+                    @click="approveLetter(i, item.primaryDayOff)"
                   >
                     Yes
                   </v-btn>
@@ -121,6 +121,13 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  data() {
+    return {
+      newDayOff: {
+        dayOffAmount: 0,
+      },
+    }
+  },
   computed: {
     ...mapGetters('dayOffLetterStore', ['approveDayOffLetter', 'declineDayOffLetter']),
     ...mapGetters('employeeStore', ['getEmployees']),
@@ -128,11 +135,9 @@ export default {
   watch: {
     approveDayOffLetter() {
       this.initialize()
-      console.log('success')
     },
     declineDayOffLetter() {
       this.initialize()
-      console.log('success')
     },
   },
   mounted() {
@@ -152,10 +157,20 @@ export default {
         dayOffLetterId: id,
       })
     },
-    async approveLetter(id) {
+    async approveLetter(dayOffLetter, dayOff) {
       await this.$store.dispatch('dayOffLetterStore/approveLetter', {
         token: this.$store.state.token,
-        dayOffLetterId: id,
+        dayOffLetterId: dayOffLetter.id,
+      })
+      this.newDayOff.dayOffAmount = dayOff.dayOffAmount
+      this.newDayOff.dayOffAmount -= dayOffLetter.dayOffCounting
+      if (this.newDayOff.dayOffAmount < 0) {
+        this.newDayOff.dayOffAmount = 0
+      }
+      await this.$store.dispatch('dayOffStore/updateDayOff', {
+        token: this.$store.state.token,
+        dayOffId: dayOff.id,
+        newDayOff: this.newDayOff,
       })
     },
   },

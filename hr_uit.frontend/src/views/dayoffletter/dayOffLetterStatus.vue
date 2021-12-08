@@ -53,17 +53,7 @@ export default {
     ...mapMutations('dayOffLetterStore', ['unableCreate']),
   },
   mounted() {
-    let i
-    const arr = this.getEmployee.primaryDayOffLetters
-    // eslint-disable-next-line no-restricted-syntax,guard-for-in
-    for (i = 0; i < arr.length; i += 1) {
-      this.days += arr.at(i).dayOffCounting
-    }
-    this.days = 15 - this.days
-    if (this.days < 0) {
-      this.days = 0
-      this.unableCreate()
-    }
+    this.days = this.getEmployee.primaryDayOff.dayOffAmount
   },
   method: {
   },

@@ -12,6 +12,7 @@ import employeeStore from './Employee/employee'
 import holidayStore from './Holiday/holiday'
 import attendanceStore from './Attendance/attendance'
 import dayOffLetterStore from './DayOffLetter/dayOffLetter'
+import dayOffStore from './DayOff/dayOff'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     holidayStore,
     attendanceStore,
     dayOffLetterStore,
+    dayOffStore,
   },
   state() {
     return {

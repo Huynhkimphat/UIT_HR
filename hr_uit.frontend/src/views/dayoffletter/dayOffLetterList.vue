@@ -142,8 +142,11 @@ export default {
     },
   },
   mounted() {
-    console.log(this.getEmployee.primaryDayOffLetters)
     this.initialize()
+    // eslint-disable-next-line func-names
+    window.setInterval(function () {
+      this.initialize()
+    }, 10000)
   },
   methods: {
     async initialize() {

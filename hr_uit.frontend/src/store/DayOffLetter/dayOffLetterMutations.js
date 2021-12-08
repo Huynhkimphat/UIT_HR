@@ -6,6 +6,7 @@ export default {
     state.deleteResponse = {}
     state.recoverResponse = {}
     state.updateDayOffLetter = {}
+    state.createEnable = true
   },
   createDayOffLetter(state, payload) {
     state.createResponse = payload

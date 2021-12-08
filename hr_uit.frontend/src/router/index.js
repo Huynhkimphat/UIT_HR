@@ -136,6 +136,14 @@ const routes = [
       adminAuth: true,
     },
   },
+  {
+    path: '/admin/salary',
+    name: 'salary',
+    component: () => import('@/views/admin/salary/Salary.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ]
 
 const router = new VueRouter({

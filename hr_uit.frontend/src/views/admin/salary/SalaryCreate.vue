@@ -1,5 +1,5 @@
 <template>
-
+  <h1>SalaryCreate</h1>
 </template>
 
 <script>

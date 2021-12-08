@@ -4,11 +4,11 @@
       <v-col
         cols="12"
       >
-        <CreateSalary/>
+        <CreateSalary />
       </v-col>
       <v-card>
         <v-card-title>Salary</v-card-title>
-        <EmployeeSalaryList/>
+        <EmployeeSalaryList />
       </v-card>
     </v-col>
   </v-row>
@@ -22,7 +22,7 @@ import CreateSalary from './SalaryCreate.vue'
 export default {
   components: {
     EmployeeSalaryList,
-    CreateSalary
+    CreateSalary,
   },
 }
 </script>

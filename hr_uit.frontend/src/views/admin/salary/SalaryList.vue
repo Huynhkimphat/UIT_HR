@@ -1,5 +1,5 @@
 <template>
-
+  <h1>Salary List</h1>
 </template>
 
 <script>

@@ -76,8 +76,12 @@ namespace HR_UIT.Web.Controllers
         public ActionResult GetEmployeeSalaryByYearMonth(int year, int month)
         {
             _logger.LogInformation("Getting Employee Salary by Year and Month");
-            var response = _salaryService.GetEmployeeSalaryByYearMonth(year, month);
-            return Ok(EmployeeSalaryMapper.MapEmployeeSalary(response));
+            var salaries = _salaryService.GetEmployeeSalaryByYearMonth(year, month);
+            var salaryModels = salaries
+                .Select(EmployeeSalaryMapper.MapEmployeeSalary)
+                .OrderByDescending(salary => salary.Id)
+                .ToList();
+            return Ok(salaryModels);
         }
 
         /// <summary>

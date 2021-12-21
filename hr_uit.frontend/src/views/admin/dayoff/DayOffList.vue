@@ -72,7 +72,10 @@ export default {
       await this.$store.dispatch('employeeStore/getEmployees', this.$store.state.token)
     },
     async resetDayOff(id) {
-      console.log(id)
+      const dayOffId = this.getEmployees.filter(e => e.id === id)[0].primaryDayOff
+      dayOffId.dayOffAmount = 15
+      await this.$store.dispatch('dayOffStore/resetDayOff', { token: this.$store.state.token, dayOffId })
+      await this.initialize()
     },
   },
 }

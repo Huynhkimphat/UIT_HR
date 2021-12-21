@@ -47,7 +47,7 @@
           <span class="text--primary font-weight-semibold mb-n1">
             {{ getUsername.split('@')[0] }}
           </span>
-          <small class="text--disabled text-capitalize">Admin</small>
+          <small class="text--disabled text-capitalize">{{ role==='Admin'?'Admin' : "Staff" }}</small>
         </div>
       </div>
 
@@ -172,6 +172,9 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters(['getUsername']),
+    role() {
+      return this.$store.getters.getRole
+    },
   },
   methods: {
     async logout() {

@@ -84,9 +84,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { jsPDF } from 'jspdf'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import autoTable from 'jspdf-autotable'
 
 export default {

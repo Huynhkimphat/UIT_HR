@@ -61,6 +61,12 @@
       ></nav-menu-link>
       <nav-menu-link
         v-if="role==='Admin'"
+        title="Employee Salary"
+        :to="{ name: 'salary' }"
+        :icon="icons.mdiCreditCardOutline"
+      ></nav-menu-link>
+      <nav-menu-link
+        v-if="role==='Admin'"
         title="Day-Off Letters"
         :to="{ name: 'empDayOffLetters' }"
         :icon="icons.mdiEmailOpenOutline"

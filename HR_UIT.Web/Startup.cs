@@ -16,6 +16,8 @@ using HR_UIT.Services.EmployeeDayOffService;
 using HR_UIT.Services.EmployeeType;
 using HR_UIT.Services.Holiday;
 using HR_UIT.Services.HolidayCreate;
+using HR_UIT.Services.Salary;
+using HR_UIT.Services.SalaryDetail;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -93,6 +95,8 @@ namespace HR_UIT.Web
             services.AddTransient<IEmployeeDayOffLetterService, EmployeeDayOffLetterService>();
             services.AddTransient<IHolidayService, HolidayService>();
             services.AddTransient<IHolidayCreateService, HolidayCreateService>();
+            services.AddTransient<ISalaryService, SalaryService>();
+            services.AddTransient<ISalaryDetailService, SalaryDetailService>();
 
             services.AddSwaggerGen(c =>
             {

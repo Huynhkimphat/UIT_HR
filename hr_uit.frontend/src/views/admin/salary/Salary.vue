@@ -1,13 +1,15 @@
 <template>
   <v-row>
-    <v-col cols="12">
-      <v-col
-        cols="12"
-      >
-        <CreateSalary />
-      </v-col>
-      <v-card>
-        <v-card-title>Salary</v-card-title>
+    <v-col
+      cols="12"
+    >
+      <CreateSalary />
+    </v-col>
+    <v-col
+      cols="12"
+    >
+      <v-card class="justify-center">
+        <h1>Employee Salary List</h1>
         <EmployeeSalaryList />
       </v-card>
     </v-col>

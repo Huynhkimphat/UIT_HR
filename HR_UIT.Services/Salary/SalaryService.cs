@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using HR_UIT.Data;
 using HR_UIT.Data.Models;
+using HR_UIT.Services.Salary;
 using Microsoft.EntityFrameworkCore;
 
 namespace HR_UIT.Services.Salary
@@ -372,12 +373,14 @@ namespace HR_UIT.Services.Salary
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <returns></returns>
-        public Data.Models.EmployeeSalary GetEmployeeSalaryByYearMonth(int year, int month)
+        public List<Data.Models.EmployeeSalary> GetEmployeeSalaryByYearMonth(int year, int month)
         {
             return _db
                 .EmployeeSalaries
                 .Include(salary => salary.PrimarySalaryDetail)
-                .FirstOrDefault(e => e.Year == year && e.Month == month);
+                .Where(e => e.Year == year && e.Month == month)
+                .OrderBy(salary => salary.Id)
+                .ToList();
         }
 
         public ServiceResponse<bool> AddSalaryToEmployee(int salId, int empId)

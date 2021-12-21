@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace HR_UIT.Services.Salary
 {
     public interface ISalaryService
@@ -39,7 +41,7 @@ namespace HR_UIT.Services.Salary
             RecoverSalary(int id);
 
         Data.Models.EmployeeSalary GetEmployeeSalaryById(int id);
-        Data.Models.EmployeeSalary GetEmployeeSalaryByYearMonth(int year, int month);
+        List<Data.Models.EmployeeSalary> GetEmployeeSalaryByYearMonth(int year, int month);
 
         ServiceResponse<bool>
             AddSalaryToEmployee(int salId, int empId);

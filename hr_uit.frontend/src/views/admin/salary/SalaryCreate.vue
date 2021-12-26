@@ -39,8 +39,15 @@
         class="mb-2"
         @click="searchForSalary"
       >
-        <span>
+        <span v-if="!getIsFetchingData">
           Search
+        </span>
+        <span v-else>
+          <v-progress-circular
+            :width="3"
+            color="red"
+            indeterminate
+          ></v-progress-circular>
         </span>
       </v-btn>
     </v-row>
@@ -73,20 +80,40 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('salaryStore', ['getSalaries']),
+    ...mapGetters('salaryStore', ['getSalaries', 'getIsFetchingData']),
+    ...mapGetters('employeeStore', ['getEmployees']),
   },
   mounted() {
+    this.initialize()
     this.searchForSalary()
   },
   methods: {
+    async initialize() {
+      await this.$store.dispatch('employeeStore/getEmployees', this.$store.state.token)
+    },
     async searchForSalary() {
+      this.$store.state.salaryStore.isFetchingData = true
+      this.$store.state.salaryStore.year = this.yearInput
+      this.$store.state.salaryStore.month = this.monthInput
       await this.$store.dispatch('salaryStore/getSalaryByYearMonth', {
         token: this.$store.state.token,
         year: this.yearInput,
         month: this.monthInput,
       })
-      this.$store.state.salaryStore.year = this.yearInput
-      this.$store.state.salaryStore.month = this.monthInput
+      const employeeList = this.getEmployees
+      let check = false
+      for (let i = 0; i < employeeList.length; i += 1) {
+        for (let j = 0; j < employeeList[i].primarySalaries.length; j += 1) {
+          if (employeeList[i].primarySalaries[j].month === this.monthInput && employeeList[i].primarySalaries[j].year === this.yearInput) {
+            check = true
+          }
+        }
+        if (check === false) {
+          this.$store.state.salaryStore.salaries.splice(i, 0, null)
+        }
+      }
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      this.$store.state.salaryStore.isFetchingData = false
     },
   },
 }

@@ -22,7 +22,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(item, index) in getEmployees"
+          v-for="(item) in getEmployees"
           :key="item.id"
         >
           <td class="text-center">
@@ -35,7 +35,7 @@
             {{ item.primaryAccount.email }}
           </td>
           <td
-            v-if="getSalaries[index] == null"
+            v-if="!item.primarySalaries.some(e => e.month === $store.state.salaryStore.month && e.year === $store.state.salaryStore.year)"
             class="text-center"
           >
             <span
@@ -55,7 +55,7 @@
             </span>
           </td>
           <td
-            v-if="getSalaries[index] == null"
+            v-if="!item.primarySalaries.some(e => e.month === $store.state.salaryStore.month && e.year === $store.state.salaryStore.year)"
             class="text-center"
           >
             <v-btn
@@ -132,6 +132,16 @@ export default {
     document.head.appendChild(smtpjs)
   },
   methods: {
+    // isHaveSalary(element) {
+    //   console.log(element.id)
+    //   console.log(element.primarySalaries.some(e => e.month === this.$store.state.salaryStore.month && e.year === this.$store.state.salaryStore.year))
+    //
+    //   // console.log((element.year === this.$store.state.salaryStore.year && element.month === this.$store.state.salaryStore.month) ? 'True' : '')
+    //
+    //   // return element.year === this.$store.state.salaryStore.year && element.month === this.$store.state.salaryStore.month
+    //
+    //   return true
+    // },
     createPDF(fullName) {
       // eslint-disable-next-line new-cap
       const doc = new jsPDF('landscape')
@@ -195,6 +205,7 @@ export default {
       })
       this.loading += 1
       this.createPDF(name)
+      await this.initialize()
     },
     async initialize() {
       await this.$store.dispatch('employeeStore/getEmployees', this.$store.state.token)

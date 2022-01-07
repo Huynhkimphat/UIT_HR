@@ -1,5 +1,5 @@
 <template>
-  <v-simple-table>
+  <v-simple-table v-if="!getIsFetchingData">
     <template v-slot:default>
       <thead>
         <tr>
@@ -60,7 +60,7 @@
           >
             <v-btn
               class="sendBtn"
-              @click="sendSalary(item.firstName + item.lastName)"
+              @click="sendSalary(item.firstName + item.lastName, item.id)"
             >
               SEND
             </v-btn>
@@ -80,6 +80,14 @@
       </tbody>
     </template>
   </v-simple-table>
+  <div v-else>
+    <v-progress-circular
+      :size="70"
+      :width="7"
+      color="purple"
+      indeterminate
+    ></v-progress-circular>
+  </div>
 </template>
 
 <script>
@@ -90,6 +98,7 @@ import autoTable from 'jspdf-autotable'
 export default {
   data() {
     return {
+      loading: 1,
       salary: {
         primarySalaryDetail: {
           estimatedSalary: 10000000,
@@ -110,16 +119,14 @@ export default {
   },
   computed: {
     ...mapGetters('employeeStore', ['getEmployees']),
-    ...mapGetters('salaryStore', ['getSalaries', 'getNewSalary']),
+    ...mapGetters('salaryStore', ['getSalaries', 'getNewSalary', 'getIsFetchingData', 'addSalaryToEmployee']),
   },
   watch: {
-    getNewSalary() {
-      this.initialize()
+    loading() {
       this.reloadState()
     },
   },
   mounted() {
-    this.initialize()
     const smtpjs = document.createElement('script')
     smtpjs.setAttribute('src', 'https://smtpjs.com/v3/smtp.js')
     document.head.appendChild(smtpjs)
@@ -170,10 +177,11 @@ export default {
           name: 'SALARY.pdf',
           data: salaryPDF,
         }],
-      }).then(message => alert(message))
+      })
     },
 
-    async sendSalary(name) {
+    async sendSalary(name, empId) {
+      this.$store.state.salaryStore.isFetchingData = true
       this.salary.month = this.$store.state.salaryStore.month
       this.salary.year = this.$store.state.salaryStore.year
       await this.$store.dispatch('salaryStore/createSalary', {
@@ -183,19 +191,36 @@ export default {
       await this.$store.dispatch('salaryStore/addSalaryToEmployee', {
         token: this.$store.state.token,
         salaryId: this.getNewSalary.data.id,
-        employeeId: this.$store.state.userId,
+        employeeId: empId,
       })
+      this.loading += 1
       this.createPDF(name)
     },
     async initialize() {
       await this.$store.dispatch('employeeStore/getEmployees', this.$store.state.token)
     },
     async reloadState() {
+      const Month = this.$store.state.salaryStore.month
+      const Year = this.$store.state.salaryStore.year
       await this.$store.dispatch('salaryStore/getSalaryByYearMonth', {
         token: this.$store.state.token,
-        year: this.$store.state.salaryStore.year,
-        month: this.$store.state.salaryStore.month,
+        year: Year,
+        month: Month,
       })
+      const employeeList = this.getEmployees
+      let check = false
+      for (let i = 0; i < employeeList.length; i += 1) {
+        for (let j = 0; j < employeeList[i].primarySalaries.length; j += 1) {
+          if (employeeList[i].primarySalaries[j].month === Month && employeeList[i].primarySalaries[j].year === Year) {
+            check = true
+          }
+        }
+        if (check === false) {
+          this.$store.state.salaryStore.salaries.splice(i, 0, null)
+        }
+      }
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      this.$store.state.salaryStore.isFetchingData = false
     },
   },
 }

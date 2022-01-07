@@ -16,6 +16,7 @@ export default {
     year: '',
     error: {},
     updateSalary: {},
+    isFetchingData: true,
   }),
   mutations: salaryMutations,
   getters: salaryGetters,

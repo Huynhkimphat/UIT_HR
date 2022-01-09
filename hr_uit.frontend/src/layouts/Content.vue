@@ -60,7 +60,7 @@
         <div class="mx-6 d-flex justify-space-between">
           <span>
             &copy; 2021 <a
-              href="https://themeselection.com"
+              href="https://github.com/Huynhkimphat"
               class="text-decoration-none"
               target="_blank"
             >DEV UIT</a></span>

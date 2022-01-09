@@ -9,7 +9,9 @@
       cols="12"
     >
       <v-card class="justify-center">
-        <h1>Employee Salary List</h1>
+        <h2 class="ml-4">
+          Employee Salary List
+        </h2>
         <EmployeeSalaryList />
       </v-card>
     </v-col>

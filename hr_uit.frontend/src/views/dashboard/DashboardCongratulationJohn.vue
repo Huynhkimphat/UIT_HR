@@ -3,25 +3,14 @@
     <v-row class="ma-0 pa-0">
       <v-col cols="8">
         <v-card-title class="text-no-wrap pt-1 ps-2">
-          Congratulations John! 🥳
+          Hi {{ this.$store.getters.getUsername.split('@')[0] }}! 🥳
         </v-card-title>
         <v-card-subtitle class="text-no-wrap ps-2">
-          You have won Trophy
+          Today is {{ new Intl.DateTimeFormat('en-US').format(Xmas95) }}
         </v-card-subtitle>
-        <v-card-text class="d-flex align-center mt-2 pb-2 ps-2">
-          <div>
-            <p class="text-xl font-weight-semibold primary--text mb-2">
-              $42.8k
-            </p>
-
-            <v-btn
-              small
-              color="primary"
-            >
-              View Sales
-            </v-btn>
-          </div>
-        </v-card-text>
+        <v-card-subtitle class="text-no-wrap ps-2">
+          Have a nice {{ new Intl.DateTimeFormat('en-US', { weekday: 'long'}).format(Xmas95) }}
+        </v-card-subtitle>
       </v-col>
 
       <v-col cols="4">

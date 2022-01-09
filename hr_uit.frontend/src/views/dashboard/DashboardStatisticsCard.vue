@@ -1,57 +1,85 @@
 <template>
   <v-card>
     <v-card-title class="align-start">
-      <span class="font-weight-semibold">Statistics Card</span>
+      <span class="font-weight-semibold">What do you want to do ? </span>
       <v-spacer></v-spacer>
-      <v-btn
-        icon
-        small
-        class="me-n3 mt-n2"
-      >
-        <v-icon>
-          {{ icons.mdiDotsVertical }}
-        </v-icon>
-      </v-btn>
     </v-card-title>
-
     <v-card-subtitle class="mb-8 mt-n5">
       <span class="font-weight-semibold text--primary me-1">Total 48.5% Growth</span>
       <span>😎 this month</span>
     </v-card-subtitle>
 
     <v-card-text>
-      <v-row>
-        <v-col
-          v-for="data in statisticsData"
-          :key="data.title"
-          cols="6"
-          md="3"
-          class="d-flex align-center"
+      <v-btn
+        color="primary"
+        class="mr-2"
+        @click="$router.push('attendance')"
+      >
+        <span
+          class="mr-2"
         >
-          <v-avatar
-            size="44"
-            :color="resolveStatisticsIconVariation (data.title).color"
-            rounded
-            class="elevation-1"
-          >
-            <v-icon
-              dark
-              color="white"
-              size="30"
-            >
-              {{ resolveStatisticsIconVariation (data.title).icon }}
-            </v-icon>
-          </v-avatar>
-          <div class="ms-3">
-            <p class="text-xs mb-0">
-              {{ data.title }}
-            </p>
-            <h3 class="text-xl font-weight-semibold">
-              {{ data.total }}
-            </h3>
-          </div>
-        </v-col>
-      </v-row>
+          CheckIn / CheckOut
+        </span>
+      </v-btn>
+      <v-btn
+        color="primary"
+        class="mr-2"
+        @click="$router.push('dayoffletter')"
+      >
+        <span
+          class="mr-2"
+        >
+          Create DayOff Letter
+        </span>
+      </v-btn>
+      <v-btn
+        v-if="$store.getters.getRole==='Admin'"
+        color="primary"
+        class="mr-2"
+        @click="$router.push('admin/employee')"
+      >
+        <span
+          class="mr-2"
+        >
+          Manage Employee
+        </span>
+      </v-btn>
+      <v-btn
+        v-if="$store.getters.getRole==='Admin'"
+        color="primary"
+        class="mr-2"
+        @click="$router.push('admin/salary')"
+      >
+        <span
+          class="mr-2"
+        >
+          Send Salary
+        </span>
+      </v-btn>
+      <v-btn
+        v-if="$store.getters.getRole==='Admin'"
+        color="primary"
+        class="mr-2"
+        @click="$router.push('admin/empDayOffLetters')"
+      >
+        <span
+          class="mr-2"
+        >
+          Check Employee's Day Off Letter
+        </span>
+      </v-btn>
+      <v-btn
+        v-if="$store.getters.getRole==='Admin'"
+        color="primary"
+        class="mr-2"
+        @click="$router.push('admin/holiday')"
+      >
+        <span
+          class="mr-2"
+        >
+          Create Holiday
+        </span>
+      </v-btn>
     </v-card-text>
   </v-card>
 </template>
